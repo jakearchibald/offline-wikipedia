@@ -4,6 +4,7 @@ class Controller {
   constructor() {
     this.toolbarView = new (require('./views/toolbar'));
     this.searchResultsView = new (require('./views/search-results'));
+    this.articleView = new (require('./views/article'));
 
     this.wikipedia = new (require('./wikipedia'));
 
@@ -16,8 +17,13 @@ class Controller {
         this.onSearchInput(event);
         return;
       }
-      debouncedSearch(event)
+      debouncedSearch(event);
     });
+
+    var articleName = location.search.slice(1);
+    if (articleName) {
+      this.showArticle(articleName);
+    }
   }
 
   onSearchInput({value}) {
@@ -34,6 +40,18 @@ class Controller {
         this.searchResultsView.update(results);
       });
     });
+  }
+
+  showArticle(name) {
+    this.wikipedia.articleHtml(name).then(html => {
+      this.articleView.updateContent({
+        content: html
+      });
+    });
+
+    this.wikipedia.articleMeta(name).then(data => {
+      this.articleView.updateMeta(data);
+    })
   }
 }
 

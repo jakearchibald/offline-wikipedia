@@ -9,6 +9,7 @@
   opacity: 0;
   will-change: opacity;
   pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 
   @include transition(opacity 0.1s ease-in-out);
 

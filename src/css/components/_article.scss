@@ -1,0 +1,43 @@
+.article-content {
+  overflow: hidden;
+  background: #fff;
+  margin: 0 auto;
+  max-width: 720px;
+
+  @media (min-width: 720px) {
+    border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  & .article {
+    margin: 16px;
+    padding: 0;
+
+    @media (min-width: 720px) {
+      margin: 32px;
+    }
+  }
+}
+
+.article-header {
+  @include display-flex;
+  @include align-items(center);
+  margin: 0 auto;
+  max-width: 720px;
+  height: 51px;
+
+
+  & h1 {
+    font-weight: bold;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    padding: 0 16px;
+
+    @media (min-width: 720px) {
+      padding: 0 32px;
+    }
+  }
+}
