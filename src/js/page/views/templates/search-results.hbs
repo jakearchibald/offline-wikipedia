@@ -1,10 +1,15 @@
-<ol>
-  {{#each results}}
-    <li class="search-result">
-      <a href="?{{id}}">
-        <div class="title">{{title}}</div>
-        <div class="description">{{description}}</div>
-      </a>
-    </li>
-  {{/each}}
-</ol>
+{{#if results}}
+  <ol>
+    {{#each results}}
+      <li class="search-result">
+        <a href="?{{id}}">
+          <div class="title">{{title}}</div>
+          <div class="description">{{description}}</div>
+        </a>
+      </li>
+    {{/each}}
+  </ol>
+{{/if}}
+{{#if err}}
+  <div class="search-error">{{err}}</div>
+{{/if}}

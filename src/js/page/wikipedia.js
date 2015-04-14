@@ -30,12 +30,14 @@ class Wikipedia {
       action: 'query',
       titles: name,
       format: 'json',
-      redirects: 'resolve'
+      redirects: 'resolve',
+      prop: 'extracts'
     })).then(r => r.json()).then(data => {
       var page = data.query.pages[Object.keys(data.query.pages)[0]];
-      
+
       return {
-        title: page.title
+        title: page.title,
+        extract: page.extract
       };
     });
   }

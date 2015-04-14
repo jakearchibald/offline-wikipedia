@@ -35,6 +35,10 @@ class Controller {
     }
 
     this.wikipedia.search(value).then(results => {
+      return {results};
+    }).catch(err => {
+      return {err: "Search failed"};
+    }).then(results => {
       requestAnimationFrame(_ => {
         if (id != this.lastSearchId) return;
         this.searchResultsView.update(results);

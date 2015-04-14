@@ -6,6 +6,10 @@ html, body {
   background: #ececec;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 pre,
 code,
 kbd,

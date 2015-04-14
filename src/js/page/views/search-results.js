@@ -30,7 +30,7 @@ class SearchResults {
   update(results) {
     this.activeIndex = -1;
     this.container.classList.add('active');
-    this.container.innerHTML = template({results});
+    this.container.innerHTML = template(results);
     this.items = utils.toArray(this.container.querySelectorAll('.search-result'));
   }
 
@@ -67,8 +67,10 @@ class SearchResults {
   }
 
   activate() {
-    if (this.items[this.activeIndex]) {
-      this.items[this.activeIndex].querySelector('a').click();
+    var itemToActivate = this.items[this.activeIndex] || this.items[0];
+    
+    if (itemToActivate) {
+      itemToActivate.querySelector('a').click();
     }
   }
 }
