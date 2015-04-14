@@ -1,15 +1,18 @@
 var debounce = require('debounce');
+var wikipedia = require('./wikipedia');
 
 class Controller {
   constructor() {
+    // ui
     this.toolbarView = new (require('./views/toolbar'));
     this.searchResultsView = new (require('./views/search-results'));
     this.articleView = new (require('./views/article'));
+    this.toastsView = new (require('./views/toasts'));
 
-    this.wikipedia = new (require('./wikipedia'));
-
+    // state
     this.lastSearchId = 0;
 
+    // setup
     var debouncedSearch = debounce(e => this.onSearchInput(e), 150);
     
     this.toolbarView.on('searchInput', event => {
@@ -20,10 +23,18 @@ class Controller {
       debouncedSearch(event);
     });
 
+    document.body.appendChild(this.toastsView.container);
+
     var articleName = location.search.slice(1);
     if (articleName) {
       this.showArticle(articleName);
     }
+  }
+
+  showError(err) {
+    this.toastsView.show(err.message, {
+      duration: 3000
+    });
   }
 
   onSearchInput({value}) {
@@ -34,7 +45,7 @@ class Controller {
       return;
     }
 
-    this.wikipedia.search(value).then(results => {
+    wikipedia.search(value).then(results => {
       return {results};
     }).catch(err => {
       return {err: "Search failed"};
@@ -47,15 +58,17 @@ class Controller {
   }
 
   showArticle(name) {
-    this.wikipedia.articleHtml(name).then(html => {
+    wikipedia.articleHtml(name).then(html => {
       this.articleView.updateContent({
         content: html
       });
+    }).catch(err => {
+      this.showError("Article loading failed");
     });
 
-    this.wikipedia.articleMeta(name).then(data => {
+    wikipedia.articleMeta(name).then(data => {
       this.articleView.updateMeta(data);
-    })
+    });
   }
 }
 

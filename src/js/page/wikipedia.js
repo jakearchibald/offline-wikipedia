@@ -4,7 +4,7 @@ var base = 'https://wikipedia-cors.appspot.com/';
 var apiBase = base + 'en.wikipedia.org/w/api.php?';
 var viewBase = base + 'en.m.wikipedia.org/wiki/';
 
-class Wikipedia {
+module.exports = {
   search(term) {
     return fetch(apiBase + utils.toQueryString({
       action: 'opensearch',
@@ -17,13 +17,13 @@ class Wikipedia {
         return {title, description: descriptions[i], id: /[^\/]+$/.exec(urls[i])[0]}
       });
     });
-  }
+  },
 
   articleHtml(name) {
     return fetch(viewBase + name + '?action=render').then(r => r.text()).then(text => {
       return text.replace(/\/\/en\.wikipedia\.org\/wiki\//g, '?');
     });
-  }
+  },
 
   articleMeta(name) {
     return fetch(apiBase + utils.toQueryString({
@@ -41,6 +41,4 @@ class Wikipedia {
       };
     });
   }
-}
-
-module.exports = Wikipedia;
+};
