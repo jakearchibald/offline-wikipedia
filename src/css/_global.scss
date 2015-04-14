@@ -1,0 +1,27 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  background: #ececec;
+}
+
+pre,
+code,
+kbd,
+samp,
+tt{
+  font-family:monospace,monospace;
+  font-size:1em;
+}
+
+button, textarea {
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
+button {
+  cursor: pointer;
+}

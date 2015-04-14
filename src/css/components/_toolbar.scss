@@ -1,0 +1,82 @@
+.toolbar {
+  color: #fff;
+  background: #ff9800;
+  padding: 0 16px;
+  height: 47px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+  position: relative;
+
+  @include display-flex;
+  @include align-items(center);
+
+
+  & a:link,
+  & a:visited,
+  & a:hover,
+  & a:active {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  button {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & .search-btn {
+    margin-left: auto;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    fill: #fff;
+
+    & svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.search-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 16px;
+  background: #fff;
+  @include display-flex;
+  @include align-items(center);
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+  @include transition(opacity 0.1s ease-in-out);
+
+
+  &.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  & .back-btn {
+    width: 24px;
+    height: 24px;
+    position: relative;
+
+    & svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  & .search {
+    margin-left: 16px;
+  }
+}

@@ -1,0 +1,1 @@
+var c = new (require('./controller'));

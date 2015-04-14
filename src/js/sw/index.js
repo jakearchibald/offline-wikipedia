@@ -1,0 +1,1 @@
+require('serviceworker-cache-polyfill');
