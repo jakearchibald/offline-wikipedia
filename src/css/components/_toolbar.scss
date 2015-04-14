@@ -10,12 +10,14 @@
   @include align-items(center);
 
 
-  & a:link,
-  & a:visited,
-  & a:hover,
-  & a:active {
-    color: #fff;
-    text-decoration: none;
+  & > a {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: #fff;
+      text-decoration: none;
+    }
   }
 
   button {

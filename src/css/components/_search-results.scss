@@ -1,0 +1,52 @@
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+
+  @include transition(opacity 0.1s ease-in-out);
+
+  &.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+.search-result {
+  padding: 0 55px;
+
+  &.active {
+    background: #ccc;
+  }
+
+  & > a {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: #000;
+      text-decoration: none;
+      overflow: hidden;
+      display: block;
+    }
+  }
+
+  .title {
+    margin-top: 13px;
+  }
+
+  .description {
+    margin: 2px 0 13px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+}
