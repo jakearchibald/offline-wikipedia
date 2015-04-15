@@ -3,6 +3,48 @@ var utils = require('./utils');
 var base = 'https://wikipedia-cors.appspot.com/';
 var apiBase = base + 'en.wikipedia.org/w/api.php?';
 var viewBase = base + 'en.m.wikipedia.org/wiki/';
+var cachePrefix = "wikioffline-article-";
+
+class Article {
+  constructor(htmlRequest, htmlResponse, metaRequest, metaResponse) {
+    this._htmlRequest = htmlRequest;
+    this._htmlResponse = htmlResponse;
+    this._metaRequest = metaRequest;
+    this._metaResponse = metaResponse;
+    
+    this.html = htmlResponse.clone().text().then(text => {
+      return text.replace(/\/\/en\.wikipedia\.org\/wiki\//g, '?');
+    });
+
+    this.meta = metaResponse.clone().json().then(data => {
+      var page = data.query.pages[Object.keys(data.query.pages)[0]];
+
+      return {
+        title: page.title,
+        extract: page.extract,
+        urlId: page.title.replace(/\s/g, '_')
+      };
+    });
+
+    this._cacheName = this.meta.then(data => cachePrefix + data.urlId);
+  }
+
+  async cache() {
+    var cache = await caches.open(await this._cacheName);
+    return Promise.all([
+      cache.put(this._htmlRequest, this._htmlResponse.clone()),
+      cache.put(this._metaRequest, this._metaResponse.clone())
+    ]);
+  }
+
+  async uncache() {
+    return caches.delete(await this._cacheName);
+  }
+
+  async isCached() {
+    return caches.has(await this._cacheName);
+  }
+}
 
 module.exports = {
   search(term) {
@@ -19,26 +61,26 @@ module.exports = {
     });
   },
 
-  articleHtml(name) {
-    return fetch(viewBase + name + '?action=render').then(r => r.text()).then(text => {
-      return text.replace(/\/\/en\.wikipedia\.org\/wiki\//g, '?');
-    });
-  },
-
-  articleMeta(name) {
-    return fetch(apiBase + utils.toQueryString({
+  article(name, {
+    fromCache = false
+  }={}) {
+    var htmlRequest = new Request(viewBase + name + '?action=render');
+    var metaRequest = new Request(apiBase + utils.toQueryString({
       action: 'query',
       titles: name,
       format: 'json',
       redirects: 'resolve',
-      prop: 'extracts'
-    })).then(r => r.json()).then(data => {
-      var page = data.query.pages[Object.keys(data.query.pages)[0]];
+      prop: 'extracts',
+      explaintext: 1,
+      exsentences: 1
+    }));
 
-      return {
-        title: page.title,
-        extract: page.extract
-      };
+    return Promise.all([
+      fromCache ? caches.match(htmlRequest) : fetch(htmlRequest),
+      fromCache ? caches.match(metaRequest) : fetch(metaRequest)
+    ]).then(([htmlResponse, metaResponse]) => {
+      if (!(htmlResponse && metaResponse)) throw Error('No response');
+      return new Article(htmlRequest, htmlResponse, metaRequest, metaResponse);
     });
   }
 };

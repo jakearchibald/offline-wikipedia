@@ -1,1 +1,17 @@
-<h1>{{title}}</h1>
+<div class="page-title">
+  <h1>{{title}}</h1>
+  {{#if cacheCapable}}
+    <div class="updated-meta">- updated 2015/04/15 12:20</div>
+  {{/if}}
+</div>
+
+{{#if cacheCapable}}
+  <label class="cache-toggle">
+    <input type="checkbox" name="cache"{{#if cached}} checked{{/if}}>
+    <span class="material-switch">
+      <span class="track"></span>
+      <span class="handle"></span>
+    </span>
+    <span class="read-offline-txt">Read offline</span>
+  </label>
+{{/if}}

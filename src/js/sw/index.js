@@ -29,6 +29,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         keys.map(key => {
           if (key.indexOf(prefix + '-') === 0
+            && key.indexOf(`${prefix}-article-`) !== 0
             && expectedCaches.indexOf(key) === -1) {
             return caches.delete(key);
           }
@@ -41,11 +42,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   var requestURL = new URL(event.request.url);
 
-  if (requestURL.origin == location.origin && requestURL.pathname == '/') {
-    event.respondWith(caches.match('/'));
+  // catch the root request
+  if (requestURL.origin == location.origin && requestURL.pathname == new URL('./', location).pathname) {
+    event.respondWith(caches.match(requestURL.pathname));
     return;
   }
-  
+
   // default fetch behaviour
   event.respondWith(
     caches.match(event.request).then(response => {

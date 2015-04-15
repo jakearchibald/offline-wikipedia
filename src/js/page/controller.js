@@ -11,8 +11,20 @@ class Controller {
     this._articleView = new (require('./views/article'));
     this._toastsView = new (require('./views/toasts'));
 
+    // view events
+    this._toolbarView.on('searchInput', event => {
+      if (!event.value) {
+        this._onSearchInput(event);
+        return;
+      }
+      debouncedSearch(event);
+    });
+
+    this._articleView.on('cacheChange', e => this._onCacheChange(e));
+
     // state
     this._lastSearchId = 0;
+    this._article = null;
 
     // setup
     if ('serviceWorker' in navigator) {
@@ -24,13 +36,6 @@ class Controller {
 
     var debouncedSearch = debounce(e => this._onSearchInput(e), 150);
     
-    this._toolbarView.on('searchInput', event => {
-      if (!event.value) {
-        this._onSearchInput(event);
-        return;
-      }
-      debouncedSearch(event);
-    });
 
     document.body.appendChild(this._toastsView.container);
 
@@ -42,6 +47,13 @@ class Controller {
 
   _onControllerChange() {
     location.reload();
+  }
+
+  _onCacheChange({value}) {
+    if (value) {
+      return this._article.cache();
+    }
+    this._article.uncache();
   }
 
   _onUpdateFound(registration) {
@@ -101,15 +113,28 @@ class Controller {
     });
   }
 
-  _showArticle(name) {
-    var html;
+  async _showArticle(name) {
+    try {
+      var article = await wikipedia.article(name);
+      this._article = article;
 
-    wikipedia.articleMeta(name)
-      .then(data => this._articleView.updateMeta(data));
+      article.meta.then(async data => {
+        document.title = data.title + ' - Offline Wikipedia';
+        history.replaceState({}, document.title, '?' + data.urlId);
 
-    wikipedia.articleHtml(name)
-      .then(content => this._articleView.updateContent({content}))
-      .catch(err => this._showError(Error("Article loading failed")));
+        if ('caches' in window) {
+          data.cacheCapable = true;
+          data.cached = await article.isCached();
+        }
+
+        this._articleView.updateMeta(data);
+      });
+
+      article.html.then(content => this._articleView.updateContent({content}));
+    }
+    catch (err) {
+      this._showError(Error("Article loading failed"));
+    }
   }
 }
 

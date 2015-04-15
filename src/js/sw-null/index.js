@@ -7,8 +7,7 @@ self.addEventListener('install', function(event) {
       self.skipWaiting();
     }
 
-    // remove caches beginning "svgomg-" that aren't in
-    // expectedCaches
+    // remove caches beginning "wikioffline-"
     var cacheNames = await caches.keys();
     for (var cacheName of cacheNames) {
       if (!/^wikioffline-/.test(cacheName)) continue;
