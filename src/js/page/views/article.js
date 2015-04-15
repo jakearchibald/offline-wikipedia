@@ -4,15 +4,15 @@ var headerTemplate = require('./templates/article-header.hbs');
 class Article {
   constructor() {
     this.container = document.querySelector('.article-container');
-    this.content = this.container.querySelector('.article-content');
-    this.header = this.container.querySelector('.article-header');
+    this._content = this.container.querySelector('.article-content');
+    this._header = this.container.querySelector('.article-header');
   }
 
   updateContent(article) {
-    this.content.innerHTML = contentTemplate(article);
+    this._content.innerHTML = contentTemplate(article);
   }
   updateMeta(data) {
-    this.header.innerHTML = headerTemplate(data);
+    this._header.innerHTML = headerTemplate(data);
   }
 }
 

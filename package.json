@@ -3,7 +3,8 @@
   "scripts": {
     "test": "gulp build --production",
     "build": "gulp build --production",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "serve-no-sw": "gulp serve --disable-sw"
   },
   "private": true,
   "devDependencies": {

@@ -1,74 +1,115 @@
+require('regenerator/runtime');
+
 var debounce = require('debounce');
 var wikipedia = require('./wikipedia');
 
 class Controller {
   constructor() {
     // ui
-    this.toolbarView = new (require('./views/toolbar'));
-    this.searchResultsView = new (require('./views/search-results'));
-    this.articleView = new (require('./views/article'));
-    this.toastsView = new (require('./views/toasts'));
+    this._toolbarView = new (require('./views/toolbar'));
+    this._searchResultsView = new (require('./views/search-results'));
+    this._articleView = new (require('./views/article'));
+    this._toastsView = new (require('./views/toasts'));
 
     // state
-    this.lastSearchId = 0;
+    this._lastSearchId = 0;
 
     // setup
-    var debouncedSearch = debounce(e => this.onSearchInput(e), 150);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(reg => {
+        reg.addEventListener('updatefound', _ => this._onUpdateFound(reg));
+        navigator.serviceWorker.addEventListener('controllerchange', _ => this._onControllerChange());
+      });
+    }
+
+    var debouncedSearch = debounce(e => this._onSearchInput(e), 150);
     
-    this.toolbarView.on('searchInput', event => {
+    this._toolbarView.on('searchInput', event => {
       if (!event.value) {
-        this.onSearchInput(event);
+        this._onSearchInput(event);
         return;
       }
       debouncedSearch(event);
     });
 
-    document.body.appendChild(this.toastsView.container);
+    document.body.appendChild(this._toastsView.container);
 
     var articleName = location.search.slice(1);
     if (articleName) {
-      this.showArticle(articleName);
+      this._showArticle(articleName);
     }
   }
 
-  showError(err) {
-    this.toastsView.show(err.message, {
+  _onControllerChange() {
+    location.reload();
+  }
+
+  _onUpdateFound(registration) {
+    var newWorker = registration.installing;
+
+    registration.installing.addEventListener('statechange', async _ => {
+      // the very first activation!
+      // tell the user stuff works offline
+      if (newWorker.state == 'activated' && !navigator.serviceWorker.controller) {
+        this._toastsView.show("Ready to work offline", {
+          duration: 5000
+        });
+        return;
+      }
+
+      if (newWorker.state == 'installed' && navigator.serviceWorker.controller) {
+        // otherwise, show the user an alert
+        var toast = this._toastsView.show("Update available", {
+          buttons: ['reload', 'dismiss']
+        });
+
+        var answer = await toast.answer;
+
+        if (answer == 'reload') {
+          newWorker.postMessage('skipWaiting');
+        }
+      }
+    });
+  }
+
+  _showError(err) {
+    this._toastsView.show(err.message, {
       duration: 3000
     });
   }
 
-  onSearchInput({value}) {
-    var id = ++this.lastSearchId;
+  async _onSearchInput({value}) {
+    var id = ++this._lastSearchId;
 
     if (!value) {
-      this.searchResultsView.hide();
+      this._searchResultsView.hide();
       return;
     }
 
-    wikipedia.search(value).then(results => {
-      return {results};
-    }).catch(err => {
-      return {err: "Search failed"};
-    }).then(results => {
-      requestAnimationFrame(_ => {
-        if (id != this.lastSearchId) return;
-        this.searchResultsView.update(results);
-      });
+    var results;
+    
+    try {
+      results = {results: await wikipedia.search(value)};
+    }
+    catch (e) {
+      results = {err: "Search failed"};
+    }
+
+    requestAnimationFrame(_ => {
+      if (id != this._lastSearchId) return;
+      this._searchResultsView.update(results);
     });
   }
 
-  showArticle(name) {
-    wikipedia.articleHtml(name).then(html => {
-      this.articleView.updateContent({
-        content: html
-      });
-    }).catch(err => {
-      this.showError("Article loading failed");
-    });
+  _showArticle(name) {
+    var html;
 
-    wikipedia.articleMeta(name).then(data => {
-      this.articleView.updateMeta(data);
-    });
+    wikipedia.articleMeta(name)
+      .then(data => this._articleView.updateMeta(data));
+
+    wikipedia.articleHtml(name)
+      .then(content => this._articleView.updateContent({content}))
+      .catch(err => this._showError(Error("Article loading failed")));
   }
 }
 

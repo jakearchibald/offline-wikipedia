@@ -100,7 +100,7 @@ function createBundler(src) {
 
 var bundlers = {
   'js/page.js': createBundler('./src/js/page/index.js'),
-  'sw.js': createBundler('./src/js/sw/index.js')
+  'sw.js': plugins.util.env['disable-sw'] ? createBundler('./src/js/sw-null/index.js') : createBundler('./src/js/sw/index.js')
 };
 
 function bundle(bundler, outputPath) {
