@@ -22,7 +22,8 @@ class Article {
       return {
         title: page.title,
         extract: page.extract,
-        urlId: page.title.replace(/\s/g, '_')
+        urlId: page.title.replace(/\s/g, '_'),
+        updated: new Date(htmlResponse.headers.get('last-modified'))
       };
     });
 
