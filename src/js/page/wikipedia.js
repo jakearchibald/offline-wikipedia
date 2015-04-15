@@ -75,10 +75,29 @@ class Article {
 
   async cache() {
     var cache = await caches.open(await this._cacheName);
-    return Promise.all([
-      cache.put(this._htmlRequest, await this._createCacheHtmlResponse()),
+    var imgRe = /<img[^>]*src=(['"])(.*?)\1[^>]*>/ig;
+    var regexResult;
+    var htmlResponse = await this._createCacheHtmlResponse()
+    var htmlText = await htmlResponse.clone().text();
+    var imgSrcs = new Set();
+
+    while (regexResult = imgRe.exec(htmlText)) {
+      imgSrcs.add(regexResult[2]);
+    }
+
+    var cacheOpeations = [
+      cache.put(this._htmlRequest, htmlResponse),
       cache.put(this._metaRequest, this._metaResponse.clone())
-    ]);
+    ];
+
+    imgSrcs.forEach(url => {
+      var request = new Request(url, {mode: 'no-cors'});
+      cacheOpeations.push(
+        fetch(request).then(response => cache.put(request, response))
+      );
+    });
+
+    return Promise.all(cacheOpeations);
   }
 
   async uncache() {
