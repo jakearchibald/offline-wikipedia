@@ -1,3 +1,4 @@
+var srcset = require('srcset');
 var utils = require('./utils');
 
 var base = 'https://wikipedia-cors.appspot.com/';
@@ -12,7 +13,7 @@ class Article {
     this._metaRequest = metaRequest;
     this._metaResponse = metaResponse;
     
-    this.html = htmlResponse.clone().text().then(text => {
+    this.html = this._htmlResponse.text().then(text => {
       return text.replace(/\/\/en\.wikipedia\.org\/wiki\//g, '?');
     });
 
@@ -30,10 +31,52 @@ class Article {
     this._cacheName = this.meta.then(data => cachePrefix + data.urlId);
   }
 
+  async _createCacheHtmlResponse() {
+    var text = await this.html;
+
+    // yes I'm parsing HTML with regex muahahaha
+    // I'm flattening srcset to make it deterministic
+    text = text.replace(/<img[^>]*>/ig, match => {
+      var newSrc;
+
+      match = match.replace(/srcset=(['"])(.*?)\1/ig, (srcsetAll, _, srcsetInner) => {
+        try {
+          var parsedSrcset = srcset.parse(srcsetInner).sort((a, b) => {
+            return a.density < b.density ? -1 : 1;
+          });
+          var lastDensity = 0;
+
+          for (var srcSetItem of parsedSrcset) {
+            if (devicePixelRatio > lastDensity) {
+              newSrc = srcSetItem.url;
+            }
+            if (devicePixelRatio <= srcSetItem.density) {
+              break;
+            }
+            lastDensity = srcSetItem.density;
+          }
+        }
+        catch (e) {}
+
+        return '';
+      });
+
+      if (newSrc) {
+        match = match.replace(/src=(['"]).*?\1/ig, `src="${newSrc}"`);
+      }
+
+      return match;
+    })
+    
+    return new Response(text, {
+      headers: this._htmlResponse.headers
+    });
+  }
+
   async cache() {
     var cache = await caches.open(await this._cacheName);
     return Promise.all([
-      cache.put(this._htmlRequest, this._htmlResponse.clone()),
+      cache.put(this._htmlRequest, await this._createCacheHtmlResponse()),
       cache.put(this._metaRequest, this._metaResponse.clone())
     ]);
   }

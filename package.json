@@ -29,6 +29,7 @@
     "regenerator": "^0.8.21",
     "run-sequence": "^1.0.2",
     "serviceworker-cache-polyfill": "^3.0.0",
+    "srcset": "^0.1.1",
     "through2": "^0.6.5",
     "uglifyify": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
