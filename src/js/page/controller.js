@@ -33,6 +33,7 @@ class Controller {
       navigator.serviceWorker.register('sw.js').then(reg => {
         reg.addEventListener('updatefound', _ => this._onUpdateFound(reg));
         navigator.serviceWorker.addEventListener('controllerchange', _ => this._onControllerChange());
+        if (reg.waiting) this._onUpdateReady();
       });
     }
 
@@ -65,6 +66,18 @@ class Controller {
     this._article.uncache();
   }
 
+  async _onUpdateReady() {
+    var toast = this._toastsView.show("Update available", {
+      buttons: ['reload', 'dismiss']
+    });
+
+    var answer = await toast.answer;
+
+    if (answer == 'reload') {
+      newWorker.postMessage('skipWaiting');
+    }
+  }
+
   _onUpdateFound(registration) {
     var newWorker = registration.installing;
 
@@ -79,16 +92,7 @@ class Controller {
       }
 
       if (newWorker.state == 'installed' && navigator.serviceWorker.controller) {
-        // otherwise, show the user an alert
-        var toast = this._toastsView.show("Update available", {
-          buttons: ['reload', 'dismiss']
-        });
-
-        var answer = await toast.answer;
-
-        if (answer == 'reload') {
-          newWorker.postMessage('skipWaiting');
-        }
+        this._onUpdateReady();
       }
     });
   }

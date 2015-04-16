@@ -185,8 +185,8 @@ module.exports = {
           extract: page.extract,
           urlId: page.title.replace(/\s/g, '_')
         };
-      }).filter(p => p)
-    );
+      })
+    ).then(vals => vals.filter(val => val));
   },
 
   uncache(name) {
