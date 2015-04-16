@@ -48,6 +48,11 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // just the network for these requests
+  if (requestURL.origin == 'https://wikipedia-cors.appspot.com') {
+    return;
+  }
+
   // default fetch behaviour
   event.respondWith(
     caches.match(event.request).then(response => {
