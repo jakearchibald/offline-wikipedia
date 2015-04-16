@@ -1,0 +1,25 @@
+.subheading {
+  @include display-flex;
+  @include align-items(center);
+  margin: 0 auto;
+  max-width: 720px;
+  height: 51px;
+  color: #888;
+  font-size: 0.9rem;
+
+  & .heading-text {
+    padding: 0 0 0 16px;
+    white-space: nowrap;
+
+    @media (min-width: 720px) {
+      padding: 0 0 0 32px;
+    }
+  }
+
+  & h1 {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

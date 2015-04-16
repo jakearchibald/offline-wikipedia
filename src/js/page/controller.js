@@ -9,6 +9,7 @@ class Controller {
     this._toolbarView = new (require('./views/toolbar'));
     this._searchResultsView = new (require('./views/search-results'));
     this._articleView = new (require('./views/article'));
+    this._cachedArticlesView = new (require('./views/cached-articles'));
     this._toastsView = new (require('./views/toasts'));
 
     // view events
@@ -21,6 +22,7 @@ class Controller {
     });
 
     this._articleView.on('cacheChange', e => this._onCacheChange(e));
+    this._cachedArticlesView.on('delete', e => this._onDeleteCachedArticle(e));
 
     // state
     this._lastSearchId = 0;
@@ -42,6 +44,14 @@ class Controller {
     if (articleName) {
       this._loadArticle(articleName);
     }
+    else {
+      this._showCachedArticles();
+    }
+  }
+
+  async _onDeleteCachedArticle({id}) {
+    await wikipedia.uncache(id);
+    this._showCachedArticles();
   }
 
   _onControllerChange() {
@@ -50,7 +60,7 @@ class Controller {
 
   _onCacheChange({value}) {
     if (value) {
-      return this._article.cache();
+      return this._article.cache().catch(err => this._showError(Error("Caching failed")));
     }
     this._article.uncache();
   }
@@ -80,6 +90,13 @@ class Controller {
           newWorker.postMessage('skipWaiting');
         }
       }
+    });
+  }
+
+  async _showCachedArticles() {
+    this._cachedArticlesView.update({
+      items: await wikipedia.getCachedArticleData(),
+      cacheCapable: 'caches' in window
     });
   }
 
@@ -154,7 +171,7 @@ class Controller {
     }
     catch (err) {
       if (!showedCachedContent) {
-        this._toastsView.show("Failed to load article");
+        this._showError(Error("Failed to load article"));
       }
     }
   }

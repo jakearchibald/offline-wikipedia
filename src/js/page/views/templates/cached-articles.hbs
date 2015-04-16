@@ -1,0 +1,35 @@
+<div class="subheading">
+  <div class="heading-text">
+    <h1>Cached articles</h1>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content cached-articles">
+    {{#if cacheCapable}}
+      {{#if items.length}}
+        <ul> 
+          {{#each items}}
+            <li class="item-list-item">
+              <a href="?{{urlId}}">
+                <div class="title">{{title}}</div>
+                <div class="description">{{extract}}</div>
+              </a>
+              <button class="delete-btn" value="{{urlId}}">
+                <svg viewBox="0 0 24 24"><title>Delete</title><path d="M6 19c0 1 1 2 2 2h8c1 0 2-1 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+              </button>
+            </li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <p>You don't have anything cached yet. Maybe read about <a href="?Hulk_Hogan">Hulk Hogan</a> or something?</p>
+      {{/if}}
+    {{else}}
+      <p>
+        Unfortunately your browser doesn't support in-page caching. Try
+        <a href="https://www.google.co.uk/chrome/browser/canary.html">Chrome Canary</a>.
+        Everything else works fine though!
+      </p>
+    {{/if}}
+  </div>
+</div>

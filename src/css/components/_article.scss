@@ -1,55 +1,15 @@
-.article-content {
-  overflow: hidden;
-  background: #fff;
-  margin: 0 auto;
-  max-width: 720px;
-
-  @media (min-width: 720px) {
-    border-radius: 2px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
-
-  & .article {
-    margin: 16px;
-    padding: 0;
-
-    @media (min-width: 720px) {
-      margin: 24px 32px;
-    }
-  }
-}
-
 .article-header {
-  @include display-flex;
-  @include align-items(center);
-  margin: 0 auto;
-  max-width: 720px;
-  height: 51px;
-  color: #888;
-  font-size: 0.9rem;
-
-  & .page-title {
+  & .heading-text {
     @include display-flex;
     @include flex-flow(row wrap);
     @include align-items(center);
-    padding: 0 0 0 16px;
-    white-space: nowrap;
-
-    @media (min-width: 720px) {
-      padding: 0 0 0 32px;
-    }
   }
-
   & .updated-meta {
     font-size: 0.8rem;
   }
 
   & h1 {
     margin-right: 0.3em;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   & input[type=checkbox] {

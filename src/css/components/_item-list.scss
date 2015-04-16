@@ -1,0 +1,26 @@
+.item-list-item {
+  & > a {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: #000;
+      text-decoration: none;
+      overflow: hidden;
+      display: block;
+    }
+  }
+
+  .title {
+    margin-top: 13px;
+  }
+
+  .description {
+    margin: 2px 0 13px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+}

@@ -124,11 +124,8 @@ module.exports = {
     });
   },
 
-  article(name, {
-    fromCache = false
-  }={}) {
-    var htmlRequest = new Request(viewBase + name + '?action=render');
-    var metaRequest = new Request(apiBase + utils.toQueryString({
+  _getMetaRequest(name) {
+    return new Request(apiBase + utils.toQueryString({
       action: 'query',
       titles: name,
       format: 'json',
@@ -137,6 +134,15 @@ module.exports = {
       explaintext: 1,
       exsentences: 1
     }));
+  },
+
+  article(name, {
+    fromCache = false
+  }={}) {
+    if (fromCache && !('caches' in window)) return Promise.reject(Error("Caching not supported"));
+
+    var htmlRequest = new Request(viewBase + name + '?action=render');
+    var metaRequest = this._getMetaRequest(name);
 
     return Promise.all([
       fromCache ? caches.match(htmlRequest) : fetch(htmlRequest),
@@ -145,5 +151,31 @@ module.exports = {
       if (!(htmlResponse && metaResponse)) throw Error('No response');
       return new Article(htmlRequest, htmlResponse, metaRequest, metaResponse);
     });
+  },
+
+  async getCachedArticleData() {
+    if (!('caches' in window)) return [];
+
+    var articleNames = (await caches.keys())
+      .filter(cacheName => cacheName.indexOf(cachePrefix) === 0)
+      .map(cacheName => cacheName.slice(cachePrefix.length));
+
+    return Promise.all(
+      articleNames.map(async name => {
+        return caches.match(this._getMetaRequest(name)).then(r => r.json()).then(data => {
+          var page = data.query.pages[Object.keys(data.query.pages)[0]];
+
+          return {
+            title: page.title,
+            extract: page.extract,
+            urlId: page.title.replace(/\s/g, '_')
+          };
+        });
+      })
+    );
+  },
+
+  uncache(name) {
+    return caches.delete(cachePrefix + name);
   }
 };

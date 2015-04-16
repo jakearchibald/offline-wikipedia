@@ -100,6 +100,9 @@ function createBundler(src) {
 
 var bundlers = {
   'js/page.js': createBundler('./src/js/page/index.js'),
+  'js/fetch.js': createBundler('./src/js/fetch/index.js'),
+  'js/promise-polyfill.js': createBundler('./src/js/promise-polyfill/index.js'),
+  'js/fastclick.js': createBundler('./src/js/fastclick/index.js'),
   'sw.js': plugins.util.env['disable-sw'] ? createBundler('./src/js/sw-null/index.js') : createBundler('./src/js/sw/index.js')
 };
 
