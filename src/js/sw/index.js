@@ -1,6 +1,6 @@
 require('serviceworker-cache-polyfill');
 
-var version = '5';
+var version = '6';
 var prefix = 'wikioffline';
 var staticCacheName = `${prefix}-static-v${version}`;
 

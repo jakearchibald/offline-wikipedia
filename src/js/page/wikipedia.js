@@ -74,6 +74,7 @@ class Article {
   }
 
   async cache() {
+    var previouslyCached = await this.isCached();
     var cache = await caches.open(await this._cacheName);
     var imgRe = /<img[^>]*src=(['"])(.*?)\1[^>]*>/ig;
     var regexResult;
@@ -97,7 +98,12 @@ class Article {
       );
     });
 
-    return Promise.all(cacheOpeations);
+    return Promise.all(cacheOpeations).catch(err => {
+      if (!previouslyCached) {
+        this.uncache();
+      }
+      throw err;
+    });
   }
 
   async uncache() {
