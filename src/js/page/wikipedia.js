@@ -168,16 +168,24 @@ module.exports = {
 
     return Promise.all(
       articleNames.map(async name => {
-        return caches.match(this._getMetaRequest(name)).then(r => r.json()).then(data => {
-          var page = data.query.pages[Object.keys(data.query.pages)[0]];
+        var response = await caches.match(this._getMetaRequest(name));
 
-          return {
-            title: page.title,
-            extract: page.extract,
-            urlId: page.title.replace(/\s/g, '_')
-          };
-        });
-      })
+        // seeing a bug where the response here is gone - not sure why
+        // but I'll guard against it
+        if (!response) {
+          module.exports.uncache(name);
+          return false;
+        };
+
+        var data = await response.json();
+        var page = data.query.pages[Object.keys(data.query.pages)[0]];
+
+        return {
+          title: page.title,
+          extract: page.extract,
+          urlId: page.title.replace(/\s/g, '_')
+        };
+      }).filter(p => p)
     );
   },
 
