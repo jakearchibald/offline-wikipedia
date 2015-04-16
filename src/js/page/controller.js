@@ -140,6 +140,7 @@ class Controller {
   }
 
   async _loadArticle(name) {
+    this._articleView.startLoading();
     var [articleCachedPromise, articleLivePromise] = [true, false].map(useCache => wikipedia.article(name, {
       fromCache: useCache
     }));

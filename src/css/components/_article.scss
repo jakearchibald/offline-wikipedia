@@ -29,3 +29,14 @@
     }
   }
 }
+
+.article-container {
+  position: relative;
+
+  & .spinner {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    @include transform(translateX(-50%));
+  }
+}
