@@ -173,6 +173,7 @@ class Controller {
     catch (err) {
       if (!showedCachedContent) {
         this._showError(Error("Failed to load article"));
+        this._articleView.stopLoading();
       }
     }
   }

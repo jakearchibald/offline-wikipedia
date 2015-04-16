@@ -21,12 +21,16 @@ class Article extends (require('events').EventEmitter) {
   }
 
   updateMeta(data) {
-    this._spinner.hide();
+    this.stopLoading();
     this._header.innerHTML = headerTemplate(data);
   }
 
   startLoading() {
     this._spinner.show(800);
+  }
+
+  stopLoading() {
+    this._spinner.hide();
   }
 }
 
