@@ -71,6 +71,7 @@ class Controller {
       buttons: ['reload', 'dismiss']
     });
 
+    var newWorker = (await navigator.serviceWorker.getRegistration()).waiting;
     var answer = await toast.answer;
 
     if (answer == 'reload') {

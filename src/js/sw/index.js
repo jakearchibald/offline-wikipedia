@@ -14,7 +14,7 @@ self.addEventListener('install', event => {
         new Request('//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.switcher%7Cext.gather.menu.icon%7Cmediawiki.sectionAnchor%7Cmediawiki.ui.button%7Cmobile.pagelist.styles%7Cskins.minerva.chrome.styles%7Cskins.minerva.content.styles%7Cskins.minerva.drawers.styles%7Cskins.minerva.tablet.styles&only=styles&skin=minerva&target=mobile&*', {
           mode: 'no-cors'
         })
-      ])
+      ]);
     })
   );
 });
@@ -34,7 +34,7 @@ self.addEventListener('activate', event => {
             return caches.delete(key);
           }
         })
-      )
+      );
     })
   );
 });
@@ -48,7 +48,8 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // just the network for these requests
+  // just the network for these requests - pulling these out of the
+  // cache is handled entirely by the page
   if (requestURL.origin == 'https://wikipedia-cors.appspot.com') {
     return;
   }
