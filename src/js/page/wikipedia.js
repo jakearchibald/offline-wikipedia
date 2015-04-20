@@ -94,7 +94,10 @@ class Article {
     imgSrcs.forEach(url => {
       var request = new Request(url, {mode: 'no-cors'});
       cacheOpeations.push(
-        fetch(request).then(response => cache.put(request, response))
+        // This is a workaround to https://code.google.com/p/chromium/issues/detail?id=477658
+        // Once the bug is fixed, we can just do this:
+        // fetch(request).then(response => cache.put(request, response))
+        caches.match(request).then(response => response || fetch(request)).then(response => cache.put(request, response))
       );
     });
 
