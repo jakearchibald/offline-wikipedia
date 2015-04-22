@@ -11,10 +11,11 @@ handlers:
 - url: /(.*\.(css|js|json|ico|png|map))
   static_files: src/\1
   upload: src/(.*\.(css|js|json|ico|png|map))
-
+  secure: always
 #- url: /
 #  static_files: static/index.html
 #  upload: static/index.html
 
 - url: /.*
   script: app.js
+  secure: always

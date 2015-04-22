@@ -5,7 +5,7 @@
     "build": "gulp build --production",
     "serve": "gulp serve",
     "serve-no-sw": "gulp serve --disable-sw",
-    "deploy": "gulp build --production && gcloud preview app deploy dist/app.yaml"
+    "deploy": "gulp build --production && gcloud config set project wiki-offline && gcloud preview app deploy dist/app.yaml"
   },
   "private": true,
   "devDependencies": {
