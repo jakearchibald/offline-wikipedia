@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
 var through = require('through2');
-var browserSync = require('browser-sync');
 var watchify = require('watchify');
 var browserify = require('browserify');
 var uglifyify = require('uglifyify');
@@ -12,19 +11,8 @@ var buffer = require('vinyl-buffer');
 var babelify = require('babelify');
 var hbsfy = require("hbsfy");
 
-var reload = browserSync.reload;
-
 gulp.task('clean', function (done) {
   require('del')(['dist'], done);
-});
-
-gulp.task('browser-sync', function() {
-  browserSync({
-    notify: false,
-    port: 8000,
-    server: "dist",
-    open: false
-  });
 });
 
 gulp.task('html', function () {
@@ -43,8 +31,7 @@ gulp.task('html', function () {
     removeEmptyAttributes: true,
     removeOptionalTags: true,
     removeRedundantAttributes: true,
-  })).pipe(gulp.dest('dist'))
-    .pipe(reload({stream: true}));
+  })).pipe(gulp.dest('dist/src'));
 });
 
 gulp.task('css', function () {
@@ -52,9 +39,8 @@ gulp.task('css', function () {
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass({ outputStyle: 'compressed' }))
     .pipe(plugins.sourcemaps.write('./'))
-    .pipe(gulp.dest('dist/css'))
-    .pipe(plugins.filter('**/*.css'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest('dist/src/css'))
+    .pipe(plugins.filter('**/*.css'));
 });
 
 gulp.task('misc', function () {
@@ -66,7 +52,7 @@ gulp.task('misc', function () {
     '!src/*.html',
     '!src/{css,css/**}',
     '!src/{js,js/**}'
-  ]).pipe(gulp.dest('dist'));
+  ]).pipe(gulp.dest('dist/src'));
 });
 
 function createBundler(src) {
@@ -119,8 +105,7 @@ function bundle(bundler, outputPath) {
     .pipe(plugins.sourcemaps.init({ loadMaps: true })) // loads map from browserify file
     .pipe(plugins.sourcemaps.write('./')) // writes .map file
     .pipe(plugins.size({ gzip: true, title: outputFile }))
-    .pipe(gulp.dest('dist/' + outputDir))
-    .pipe(reload({ stream: true }));
+    .pipe(gulp.dest('dist/src/' + outputDir));
 }
 
 gulp.task('js', function () {
@@ -131,9 +116,30 @@ gulp.task('js', function () {
   );
 });
 
-gulp.task('watch', ['build'], function () {
+gulp.task('server:misc', function () {
+  return gulp.src([
+    // Copy all files
+    'server/**',
+    // Exclude the following files
+    // (other tasks will handle the copying of these files)
+    '!server/{node_modules,node_modules/**}',
+    '!server/**/*.js'
+  ]).pipe(gulp.dest('dist'));
+});
+
+gulp.task('server:js', function () {
+  return gulp.src('server/**/*.js')
+    .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.babel())
+    .pipe(plugins.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('watch', function () {
   gulp.watch(['src/*.html'], ['html']);
   gulp.watch(['src/**/*.scss'], ['css']);
+  gulp.watch(['server/**/*', '!server/*.js'], ['server:misc']);
+  gulp.watch(['server/**/*.js'], ['server:js']);
 
   Object.keys(bundlers).forEach(function(key) {
     var watchifyBundler = watchify(bundlers[key]);
@@ -145,8 +151,21 @@ gulp.task('watch', ['build'], function () {
 });
 
 gulp.task('build', function() {
-  return runSequence('clean', ['css', 'misc', 'html', 'js']);
+  return runSequence('clean', ['css', 'misc', 'html', 'js', 'server:misc', 'server:js']);
 });
 
-gulp.task('serve', ['browser-sync', 'watch']);
+gulp.task('server:serve', plugins.shell.task([
+  'boot2docker init',
+  'boot2docker up',
+  '$(boot2docker shellinit)',
+  'docker pull google/nodejs-runtime',
+  'gcloud preview app run app.yaml'
+], {
+  cwd: __dirname + '/dist'
+}));
+
+gulp.task('serve', function() {
+  return runSequence('build', ['server:serve', 'watch']);
+});
+
 gulp.task('default', ['build']);
