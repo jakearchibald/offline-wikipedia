@@ -1,24 +1,27 @@
-var isoWiki = require('../../../server/isojs/wikipedia');
 var srcset = require('srcset');
 var utils = require('./utils');
 
 var cachePrefix = "wikioffline-article-";
 
 class Article {
-  constructor(htmlRequest, htmlResponse, metaRequest, metaResponse) {
-    this._htmlRequest = htmlRequest;
-    this._htmlResponse = htmlResponse;
-    this._metaRequest = metaRequest;
-    this._metaResponse = metaResponse;
+  constructor(articleRequest, articleResponse) {
+    this._articleRequest = articleRequest;
+    this._articleResponse = articleResponse;
+
+    var data = articleResponse.clone().json();
     
-    this.html = this._htmlResponse.text().then(isoWiki.processArticleHtml);
-    this.meta = metaResponse.clone().json().then(isoWiki.processMetaJson);
+    this.html = data.then(d => d.article);
+    this.meta = data.then(data => {
+      data.meta.updated = new Date(data.meta.updated);
+      return data.meta;
+    });
 
     this._cacheName = this.meta.then(data => cachePrefix + data.urlId);
   }
 
-  async _createCacheHtmlResponse() {
-    var text = await this.html;
+  async _createCacheResponse() {
+    var response = await this._articleResponse.json();
+    var text = response.article;
 
     // yes I'm parsing HTML with regex muahahaha
     // I'm flattening srcset to make it deterministic
@@ -53,9 +56,11 @@ class Article {
 
       return match;
     })
+
+    response.article = text;
     
-    return new Response(text, {
-      headers: this._htmlResponse.headers
+    return new Response(JSON.stringify(response), {
+      headers: this._articleResponse.headers
     });
   }
 
@@ -64,8 +69,8 @@ class Article {
     var cache = await caches.open(await this._cacheName);
     var imgRe = /<img[^>]*src=(['"])(.*?)\1[^>]*>/ig;
     var regexResult;
-    var htmlResponse = await this._createCacheHtmlResponse();
-    var htmlText = await htmlResponse.clone().text();
+    var articleResponse = await this._createCacheResponse();
+    var htmlText = (await articleResponse.clone().json()).article;
     var imgSrcs = new Set();
 
     while (regexResult = imgRe.exec(htmlText)) {
@@ -73,8 +78,7 @@ class Article {
     }
 
     var cacheOpeations = [
-      cache.put(this._htmlRequest, htmlResponse),
-      cache.put(this._metaRequest, this._metaResponse.clone())
+      cache.put(this._articleRequest, articleResponse)
     ];
 
     imgSrcs.forEach(url => {
@@ -104,18 +108,13 @@ class Article {
   }
 }
 
-module.exports = {
+var wikipedia = {
   search(term) {
-    return fetch(isoWiki.getSearchUrl(term))
-      .then(r => r.json()).then(([term, pageTitles, descriptions, urls]) => {
-        return pageTitles.map((title, i) => {
-          return {title, description: descriptions[i], id: /[^\/]+$/.exec(urls[i])[0]}
-        });
-      });
+    return fetch('/search?s=' + term).then(r => r.json());
   },
 
-  _getMetaRequest(name) {
-    return new Request(isoWiki.getMetaUrl(name));
+  _getArticleRequest(name) {
+    return new Request('/wiki/' + name + '.json');
   },
 
   article(name, {
@@ -123,16 +122,13 @@ module.exports = {
   }={}) {
     if (fromCache && !('caches' in window)) return Promise.reject(Error("Caching not supported"));
 
-    var htmlRequest = new Request(isoWiki.getArticleUrl(name));
-    var metaRequest = this._getMetaRequest(name);
+    var articleRequest = this._getArticleRequest(name);
 
-    return Promise.all([
-      fromCache ? caches.match(htmlRequest) : fetch(htmlRequest),
-      fromCache ? caches.match(metaRequest) : fetch(metaRequest)
-    ]).then(([htmlResponse, metaResponse]) => {
-      if (!(htmlResponse && metaResponse)) throw Error('No response');
-      return new Article(htmlRequest, htmlResponse, metaRequest, metaResponse);
-    });
+    return (fromCache ? caches.match(articleRequest) : fetch(articleRequest))
+      .then(articleResponse => {
+        if (!articleResponse) throw Error('No response');
+        return new Article(articleRequest, articleResponse);
+      });
   },
 
   async getCachedArticleData() {
@@ -144,23 +140,16 @@ module.exports = {
 
     return Promise.all(
       articleNames.map(async name => {
-        var response = await caches.match(this._getMetaRequest(name));
+        var response = await caches.match(this._getArticleRequest(name));
 
         // seeing a bug where the response here is gone - not sure why
         // but I'll guard against it
         if (!response) {
-          module.exports.uncache(name);
+          wikipedia.uncache(name);
           return false;
         };
 
-        var data = await response.json();
-        var page = data.query.pages[Object.keys(data.query.pages)[0]];
-
-        return {
-          title: page.title,
-          extract: page.extract,
-          urlId: page.title.replace(/\s/g, '_')
-        };
+        return (await response.json()).meta;
       })
     ).then(vals => vals.filter(val => val));
   },
@@ -169,3 +158,5 @@ module.exports = {
     return caches.delete(cachePrefix + name);
   }
 };
+
+module.exports = wikipedia;

@@ -1,6 +1,6 @@
 require('serviceworker-cache-polyfill');
 
-var version = '16';
+var version = '17';
 var prefix = 'wikioffline';
 var staticCacheName = `${prefix}-static-v${version}`;
 
@@ -45,15 +45,12 @@ self.addEventListener('fetch', event => {
   // catch the root request
   if (requestURL.origin == location.origin) {
     if (requestURL.pathname == '/' || requestURL.pathname.indexOf('/wiki/') === 0) {
+      // just the network for these requests - pulling these out of the
+      // cache is handled entirely by the page
+      if (/\.json$/.test(requestURL.pathname)) return;
       event.respondWith(caches.match('/'));
       return;
     }
-  }
-
-  // just the network for these requests - pulling these out of the
-  // cache is handled entirely by the page
-  if (requestURL.origin == 'https://wikipedia-cors.appspot.com') {
-    return;
   }
 
   // default fetch behaviour

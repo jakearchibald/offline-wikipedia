@@ -7,9 +7,19 @@ manual_scaling:
 
 handlers:
 
-- url: /(.*\.(css|js|json|ico|png|map))
-  static_files: src/\1
-  upload: src/(.*\.(css|js|json|ico|png|map))
+- url: /manifest.json
+  static_files: src/manifest.json
+  upload: src/manifest.json
+  secure: always
+
+- url: /sw.js
+  static_files: src/sw.js
+  upload: src/sw.js
+  secure: always
+
+- url: /(js|imgs|css|ico)(/.*)
+  static_files: src/\1\2
+  upload: src/(js|imgs|css|ico)(/.*)
   secure: always
 
 - url: /.*

@@ -10,6 +10,8 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var babelify = require('babelify');
 var hbsfy = require("hbsfy");
+var spawn = require('child_process').spawn;
+var Promise = require('rsvp').Promise;
 
 gulp.task('clean', function (done) {
   require('del')(['dist'], done);
@@ -140,7 +142,7 @@ gulp.task('server:js', function () {
 gulp.task('watch', function () {
   gulp.watch(['src/*.html'], ['html']);
   gulp.watch(['src/**/*.scss'], ['css']);
-  gulp.watch(['server/**/*', '!server/*.js'], ['server:misc']);
+  gulp.watch(['server/**/*', '!server/**/*.js'], ['server:misc']);
   gulp.watch(['server/**/*.js'], ['server:js']);
 
   Object.keys(bundlers).forEach(function(key) {
@@ -167,12 +169,46 @@ gulp.task('server:serve', plugins.shell.task([
   cwd: __dirname + '/dist'
 }));
 
-gulp.task('serve', function() {
-  return runSequence.apply(null, buildSequence.concat([['server:serve', 'watch']]));
+gulp.task('server:log', function(done) {
+  function findContainer() {
+    return new Promise(function(resolve, reject) {
+      var containerList = spawn('docker', ['ps', '-a']);
+      var results = '';
+      containerList.on('exit', function() {
+        results = results.split('\n');
+        for (var i = 0; i < results.length; i++) {
+          if (/\/nodejs\/bin\/npm.*Up /.test(results[i])) {
+            resolve(/^\S+/.exec(results[i])[0]);
+            return;
+          }
+        }
+        setTimeout(function() {
+          resolve(findContainer());
+        }, 1000);
+      });
+      containerList.stdout.on('data', function(chunk) {
+        results += chunk;
+      });
+    });
+  }
+
+  function showLog(containerId) {
+    var logProcess = spawn('docker', ['logs', '-f', '-t', containerId]);
+    logProcess.on('exit', start);
+    logProcess.stdout.on('data', function(chunk) {
+      console.log(chunk.toString().trim());
+    });
+  }
+
+  function start() {
+    findContainer().then(showLog);
+  }
+
+  start();
 });
 
-gulp.task('local-serve', function() {
-  return runSequence.apply(null, buildSequence.concat([['server:local', 'watch']]));
+gulp.task('serve', function() {
+  return runSequence.apply(null, buildSequence.concat([['server:serve', 'server:log', 'watch']]));
 });
 
 gulp.task('default', ['build']);
