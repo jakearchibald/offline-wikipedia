@@ -30,7 +30,7 @@ class Controller {
 
     // setup
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(reg => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
         reg.addEventListener('updatefound', _ => this._onUpdateFound(reg));
         navigator.serviceWorker.addEventListener('controllerchange', _ => this._onControllerChange());
         if (reg.waiting) this._onUpdateReady();
@@ -41,7 +41,9 @@ class Controller {
 
     document.body.appendChild(this._toastsView.container);
 
-    var articleName = location.search.slice(1);
+    var articleName = /^\/wiki\/([^\/]+)/.exec(location.pathname);
+    articleName = articleName && articleName[1];
+
     if (articleName) {
       this._loadArticle(articleName);
     }
@@ -136,9 +138,11 @@ class Controller {
 
   async _displayArticle(article) {
     var [data, content] = await Promise.all([article.meta, article.html]);
+    var url = new URL(location);
+    url.pathname = url.pathname.replace(/\/[^\/]+$/, '/' + data.urlId)
     data = await processData(article, data);
     document.title = data.title + ' - Offline Wikipedia';
-    history.replaceState({}, document.title, '?' + data.urlId);
+    history.replaceState({}, document.title, url);
     this._article = article;
     this._articleView.updateMeta(data);
     this._articleView.updateContent({content});

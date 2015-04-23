@@ -128,9 +128,11 @@ gulp.task('server:misc', function () {
 });
 
 gulp.task('server:js', function () {
-  return gulp.src('server/**/*.js')
-    .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.babel())
+  return gulp.src([
+    'server/**/*.js',
+    '!server/{node_modules,node_modules/**}'
+  ]).pipe(plugins.sourcemaps.init())
+    .pipe(plugins.babel({stage: 1}))
     .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 });
@@ -150,22 +152,27 @@ gulp.task('watch', function () {
   });
 });
 
+var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:misc', 'server:js']];
+
 gulp.task('build', function() {
-  return runSequence('clean', ['css', 'misc', 'html', 'js', 'server:misc', 'server:js']);
+  return runSequence.apply(null, buildSequence);
 });
 
 gulp.task('server:serve', plugins.shell.task([
   'boot2docker init',
   'boot2docker up',
   '$(boot2docker shellinit)',
-  'docker pull google/nodejs-runtime',
   'gcloud preview app run app.yaml'
 ], {
   cwd: __dirname + '/dist'
 }));
 
 gulp.task('serve', function() {
-  return runSequence('build', ['server:serve', 'watch']);
+  return runSequence.apply(null, buildSequence.concat([['server:serve', 'watch']]));
+});
+
+gulp.task('local-serve', function() {
+  return runSequence.apply(null, buildSequence.concat([['server:local', 'watch']]));
 });
 
 gulp.task('default', ['build']);

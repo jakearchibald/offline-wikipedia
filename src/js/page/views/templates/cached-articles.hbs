@@ -11,7 +11,7 @@
         <ul> 
           {{#each items}}
             <li class="item-list-item">
-              <a href="?{{urlId}}">
+              <a href="/wiki/{{urlId}}">
                 <div class="title">{{title}}</div>
                 <div class="description">{{extract}}</div>
               </a>
@@ -22,7 +22,7 @@
           {{/each}}
         </ul>
       {{else}}
-        <p>You don't have anything cached yet. Maybe read about <a href="?Hulk_Hogan">Hulk Hogan</a> or something?</p>
+        <p>You don't have anything cached yet. Maybe read about <a href="/wiki/Hulk_Hogan">Hulk Hogan</a> or something?</p>
       {{/if}}
     {{else}}
       <p>

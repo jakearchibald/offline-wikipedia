@@ -1,9 +1,7 @@
+var isoWiki = require('../../../server/isojs/wikipedia');
 var srcset = require('srcset');
 var utils = require('./utils');
 
-var base = 'https://wikipedia-cors.appspot.com/';
-var apiBase = base + 'en.wikipedia.org/w/api.php?';
-var viewBase = base + 'en.m.wikipedia.org/wiki/';
 var cachePrefix = "wikioffline-article-";
 
 class Article {
@@ -13,20 +11,8 @@ class Article {
     this._metaRequest = metaRequest;
     this._metaResponse = metaResponse;
     
-    this.html = this._htmlResponse.text().then(text => {
-      return text.replace(/\/\/en\.wikipedia\.org\/wiki\//g, '?');
-    });
-
-    this.meta = metaResponse.clone().json().then(data => {
-      var page = data.query.pages[Object.keys(data.query.pages)[0]];
-
-      return {
-        title: page.title,
-        extract: page.extract,
-        urlId: page.title.replace(/\s/g, '_'),
-        updated: new Date(htmlResponse.headers.get('last-modified'))
-      };
-    });
+    this.html = this._htmlResponse.text().then(isoWiki.processArticleHtml);
+    this.meta = metaResponse.clone().json().then(isoWiki.processMetaJson);
 
     this._cacheName = this.meta.then(data => cachePrefix + data.urlId);
   }
@@ -78,7 +64,7 @@ class Article {
     var cache = await caches.open(await this._cacheName);
     var imgRe = /<img[^>]*src=(['"])(.*?)\1[^>]*>/ig;
     var regexResult;
-    var htmlResponse = await this._createCacheHtmlResponse()
+    var htmlResponse = await this._createCacheHtmlResponse();
     var htmlText = await htmlResponse.clone().text();
     var imgSrcs = new Set();
 
@@ -120,29 +106,16 @@ class Article {
 
 module.exports = {
   search(term) {
-    return fetch(apiBase + utils.toQueryString({
-      action: 'opensearch',
-      search: term,
-      format: 'json',
-      redirects: 'resolve',
-      limit: 4
-    })).then(r => r.json()).then(([term, pageTitles, descriptions, urls]) => {
-      return pageTitles.map((title, i) => {
-        return {title, description: descriptions[i], id: /[^\/]+$/.exec(urls[i])[0]}
+    return fetch(isoWiki.getSearchUrl(term))
+      .then(r => r.json()).then(([term, pageTitles, descriptions, urls]) => {
+        return pageTitles.map((title, i) => {
+          return {title, description: descriptions[i], id: /[^\/]+$/.exec(urls[i])[0]}
+        });
       });
-    });
   },
 
   _getMetaRequest(name) {
-    return new Request(apiBase + utils.toQueryString({
-      action: 'query',
-      titles: name,
-      format: 'json',
-      redirects: 'resolve',
-      prop: 'extracts',
-      explaintext: 1,
-      exsentences: 1
-    }));
+    return new Request(isoWiki.getMetaUrl(name));
   },
 
   article(name, {
@@ -150,7 +123,7 @@ module.exports = {
   }={}) {
     if (fromCache && !('caches' in window)) return Promise.reject(Error("Caching not supported"));
 
-    var htmlRequest = new Request(viewBase + name + '?action=render');
+    var htmlRequest = new Request(isoWiki.getArticleUrl(name));
     var metaRequest = this._getMetaRequest(name);
 
     return Promise.all([

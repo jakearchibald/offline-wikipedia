@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/src/index.html');
 });
 
-app.get('/wiki/*', function(req, res) {
+app.get('/wiki/.*', function(req, res) {
   // api request title
   // api request body
 

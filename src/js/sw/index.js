@@ -1,6 +1,6 @@
 require('serviceworker-cache-polyfill');
 
-var version = '15';
+var version = '16';
 var prefix = 'wikioffline';
 var staticCacheName = `${prefix}-static-v${version}`;
 
@@ -43,9 +43,11 @@ self.addEventListener('fetch', event => {
   var requestURL = new URL(event.request.url);
 
   // catch the root request
-  if (requestURL.origin == location.origin && requestURL.pathname == new URL('./', location).pathname) {
-    event.respondWith(caches.match(requestURL.pathname));
-    return;
+  if (requestURL.origin == location.origin) {
+    if (requestURL.pathname == '/' || requestURL.pathname.indexOf('/wiki/') === 0) {
+      event.respondWith(caches.match('/'));
+      return;
+    }
   }
 
   // just the network for these requests - pulling these out of the

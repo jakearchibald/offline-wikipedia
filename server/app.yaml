@@ -1,4 +1,3 @@
-version: 1
 runtime: custom
 vm: true
 api_version: 1
@@ -12,9 +11,6 @@ handlers:
   static_files: src/\1
   upload: src/(.*\.(css|js|json|ico|png|map))
   secure: always
-#- url: /
-#  static_files: static/index.html
-#  upload: static/index.html
 
 - url: /.*
   script: app.js

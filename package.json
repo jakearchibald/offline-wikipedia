@@ -5,6 +5,7 @@
     "build": "gulp build --production",
     "serve": "gulp serve",
     "serve-no-sw": "gulp serve --disable-sw",
+    "update": "npm install && npm run build && cd dist && boot2docker init && boot2docker up && gcloud components update app && docker pull google/nodejs-runtime && cd -",
     "deploy": "gulp build --production && gcloud config set project wiki-offline && gcloud preview app deploy dist/app.yaml"
   },
   "private": true,
