@@ -19,6 +19,7 @@ var indexHomeIntro = readFile(__dirname + '/public/index-home-intro.html', {enco
 var indexArticleHeaderIntro = readFile(__dirname + '/public/index-article-header-intro.html', {encoding: 'utf8'});
 var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: 'utf8'});
 var indexBottom = readFile(__dirname + '/public/index-end.html', {encoding: 'utf8'});
+var inlineCss = readFile(__dirname + '/public/css/all.css', {encoding: 'utf8'});
 
 app.set('port', (process.env.PORT || 8000));
 
@@ -50,7 +51,7 @@ app.get('/', compression(), async (req, res) => {
   // push footer
   res.status(200);
   res.type('html');
-  res.write(indexTop());
+  res.write(indexTop({inlineCss: await inlineCss}));
   res.write(await indexHomeIntro);
   res.write(await indexArticleHeaderIntro);
   res.write(await indexMiddle);
@@ -64,7 +65,7 @@ app.get('/shell.html', compression(), async (req, res) => {
   // push footer
   res.status(200);
   res.type('html');
-  res.write(indexTop());
+  res.write(indexTop({inlineCss: await inlineCss}));
   res.write(await indexArticleHeaderIntro);
   res.write(await indexMiddle);
   res.write(await indexBottom);
@@ -134,7 +135,10 @@ app.get('/wiki/:name', compression(), async (req, res) => {
     res.status(200);
     res.type('html');
     
-    res.write(indexTop({title: name.replace(/_/g, ' ')}));
+    res.write(indexTop({
+      title: name.replace(/_/g, ' '),
+      inlineCss: await inlineCss
+    }));
     res.write(await indexArticleHeaderIntro);
     res.flush();
     res.write(articleHeader(await meta));
