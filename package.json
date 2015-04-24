@@ -25,7 +25,6 @@
     "gulp-shell": "^0.4.1",
     "gulp-size": "^1.2.1",
     "gulp-sourcemaps": "^1.5.1",
-    "gulp-swig": "^0.7.4",
     "gulp-util": "^3.0.4",
     "handlebars": "^3.0.1",
     "hbsfy": "^2.2.1",

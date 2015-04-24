@@ -2,14 +2,19 @@
 var RSVP = require('rsvp');
 global.Promise = RSVP.Promise;
 require('regenerator/runtime');
+var fs = require('fs');
 var express = require('express');
 var appengine = require('appengine');
 var memcacheGet = RSVP.denodeify(appengine.memcache.get);
 var memcacheSet = RSVP.denodeify(appengine.memcache.set);
+var readFile = RSVP.denodeify(fs.readFile);
 
 var wikipedia = require('./wikipedia');
 
 var app = express();
+var indexTop = readFile(__dirname + '/src/index-top.html', {encoding: 'utf8'});
+var indexMiddle = readFile(__dirname + '/src/index-middle.html', {encoding: 'utf8'});
+var indexBottom = readFile(__dirname + '/src/index-end.html', {encoding: 'utf8'});
 
 app.use(appengine.middleware.base);
 
@@ -29,11 +34,18 @@ app.get('/_ah/stop', function(req, res) {
   process.exit();
 });
 
-app.get('/', function(req, res) {
+app.get('/', async (req, res) => {
   // push header
   // push home body
   // push footer
-  res.sendFile(__dirname + '/src/index.html');
+  res.status(200);
+  res.type('html');
+  indexTop.then(val => console.log(val));
+  res.write(await indexTop);
+  res.write(await indexMiddle);
+  await new Promise(r => setTimeout(r, 4000));
+  res.write(await indexBottom);
+  res.end();
 });
 
 app.get('/wiki/:name.json', async (req, res) => {
@@ -84,7 +96,7 @@ app.get('/wiki/:name.json', async (req, res) => {
   }
 });
 
-app.get('/search', async (req, res) => {
+app.get('/search.json', async (req, res) => {
   var term = (req.query.s || '').trim();
 
   if (!term) {
@@ -103,9 +115,10 @@ app.get('/search', async (req, res) => {
   }
 });
 
-app.get('/wiki/*', function(req, res) {
-  // api request title
-  // api request body
+app.get('/wiki/:name', async (req, res) => {
+  var name = req.params.name;
+  //var meta = wikipedia.getMetaData(name);
+  //var article = wikipedia.getArticle(name);
 
   // push header
   // await title & push

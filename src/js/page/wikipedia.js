@@ -110,7 +110,7 @@ class Article {
 
 var wikipedia = {
   search(term) {
-    return fetch('/search?s=' + term).then(r => r.json());
+    return fetch('/search.json?s=' + term).then(r => r.json());
   },
 
   _getArticleRequest(name) {

@@ -19,11 +19,8 @@ gulp.task('clean', function (done) {
 
 gulp.task('html', function () {
   return gulp.src([
-    'src/index.html',
+    'src/*.html'
   ])
-  .pipe(plugins.swig({
-    defaults: { cache: false }
-  }))
   .pipe(plugins.htmlmin({
     collapseBooleanAttributes: true,
     collapseWhitespace: true,
