@@ -3,6 +3,8 @@ require('regenerator/runtime');
 var debounce = require('debounce');
 var wikipedia = require('./wikipedia');
 
+var cacheCapable = 'caches' in window;
+
 class Controller {
   constructor() {
     // ui
@@ -45,7 +47,12 @@ class Controller {
     articleName = articleName && articleName[1];
 
     if (articleName) {
-      this._loadArticle(articleName);
+      if (this._articleView.serverRendered) {
+        this._articleView.updateCachingAbility(cacheCapable);
+      }
+      else {
+        this._loadArticle(articleName);
+      }
     }
     else {
       this._showCachedArticles();
@@ -103,7 +110,7 @@ class Controller {
   async _showCachedArticles() {
     this._cachedArticlesView.update({
       items: await wikipedia.getCachedArticleData(),
-      cacheCapable: 'caches' in window
+      cacheCapable: cacheCapable
     });
   }
 
@@ -190,7 +197,7 @@ class Controller {
 async function processData(article, articleData) {
   var data = Object.create(articleData);
 
-  if ('caches' in window) {
+  if (cacheCapable) {
     data.cacheCapable = true;
     data.cached = await article.isCached();
   }

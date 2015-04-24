@@ -40,3 +40,39 @@
     @include transform(translateX(-50%));
   }
 }
+
+.content {
+  & > h2 {
+    margin-bottom: .5em;
+    padding-right: 45px;
+    cursor: pointer;
+    position: relative;
+    border-bottom: solid 1px #E2E3E4;
+    clear: both;
+    @include display-flex;
+    @include align-items(flex-start);
+
+    &::before {
+      content: '';
+      margin-right: 12px;
+      float: left;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAQCAYAAADnEwSWAAAAeUlEQVR4Ab3RwQmAMBAF0S3BUiwpBVqEJViKHawLLhM8DgQPEwiB/w6JzPyt94jYq7saS8drr7qqre9A2Y1VEJsNfjABGgisHy3oIf7Mgx4C86CHwDzoITAPegjMgx4C86CHJubBw0JgHvQQmAc9BOZBD03Mg6eA6AGRXLvASs+J3wAAAABJRU5ErkJggg==);
+      background-size: 15px auto;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      background-position: center center;
+      overflow: hidden;
+      min-height: 24px;
+      min-width: 24px;
+      width: 24px;
+    }
+
+    &.active::before {
+      @include transform(scaleY(-1));
+    }
+  }
+
+  & h2 ~ :not(h2) {
+    display: none;
+  }
+}

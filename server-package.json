@@ -8,6 +8,7 @@
     "regenerator": "^0.8.22",
     "request": "^2.55.0",
     "rsvp": "^3.0.18",
-    "replacestream": "^2.1.0"
+    "replacestream": "^2.1.0",
+    "compression": "^1.4.3"
   }
 }

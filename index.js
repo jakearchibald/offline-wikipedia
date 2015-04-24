@@ -3,6 +3,7 @@ global.Promise = RSVP.Promise;
 require('regenerator/runtime');
 var fs = require('fs');
 var express = require('express');
+var compression = require('compression');
 var readFile = RSVP.denodeify(fs.readFile);
 
 var wikipedia = require('./wikipedia');
@@ -19,6 +20,8 @@ app.set('port', (process.env.PORT || 8000));
 app.use('/js', express.static('public/js'));
 app.use('/css', express.static('public/css'));
 app.use('/imgs', express.static('public/imgs'));
+app.use('/sw.js', express.static('public/sw.js'));
+app.use('/manifest.json', express.static('public/manifest.json'));
 
 app.get('/_ah/health', function(req, res) {
   res.set('Content-Type', 'text/plain');
@@ -36,7 +39,7 @@ app.get('/_ah/stop', function(req, res) {
   process.exit();
 });
 
-app.get('/', async (req, res) => {
+app.get('/', compression(), async (req, res) => {
   // push header
   // push home body
   // push footer
@@ -48,7 +51,7 @@ app.get('/', async (req, res) => {
   res.end();
 });
 
-app.get('/wiki/:name.json', async (req, res) => {
+app.get('/wiki/:name.json', compression(), async (req, res) => {
   var name = req.params.name;
 
   var metaContent = wikipedia.getMetaData(name);
@@ -77,7 +80,7 @@ app.get('/wiki/:name.json', async (req, res) => {
   }
 });
 
-app.get('/search.json', async (req, res) => {
+app.get('/search.json', compression(), async (req, res) => {
   var term = (req.query.s || '').trim();
 
   if (!term) {
@@ -96,22 +99,31 @@ app.get('/search.json', async (req, res) => {
   }
 });
 
-app.get('/wiki/:name', async (req, res) => {
-  var name = req.params.name;
-  var meta = wikipedia.getMetaData(name);
-  var articleStream = wikipedia.getArticleStream(name);
+app.get('/wiki/:name', compression(), async (req, res) => {
+  try {
+    var name = req.params.name;
+    var meta = wikipedia.getMetaData(name);
+    var articleStream = wikipedia.getArticleStream(name);
 
-  res.status(200);
-  res.type('html');
-  res.write(await indexTop);
-  res.write(articleHeader(await meta));
-  res.write(await indexMiddle);
-  res.write('<div id="content_wrapper" class="content card-content">');
-  articleStream.pipe(res, {end: false});
-  await new Promise(r => articleStream.on('end', r));
-  res.write('</div>');
-  res.write(await indexBottom);
-  res.end();
+    res.status(200);
+    res.type('html');
+    res.write(await indexTop);
+    res.flush();
+    res.write(articleHeader(await meta));
+    res.write(await indexMiddle);
+    res.flush();
+    res.write('<div id="content_wrapper" class="content card-content server-rendered">');
+    articleStream.pipe(res, {end: false});
+    await new Promise(r => articleStream.on('end', r));
+    res.write('</div>');
+    res.write(await indexBottom);
+    res.end();
+  }
+  catch (err) {
+    console.log(err, err.stack);
+    res.write("ERRORD")
+    res.end();
+  }
 });
 
 app.listen(app.get('port'), function() {
