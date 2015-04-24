@@ -50,7 +50,7 @@ class Article extends (require('events').EventEmitter) {
   }
 
   updateCachingAbility(cacheCapable) {
-    this.container.querySelector('.cache-toggle').style.display = cacheCapable ? '' : 'none';
+    this.container.querySelector('.cache-toggle').style.visibility = cacheCapable ? '' : 'hidden';
   }
 
   startLoading() {

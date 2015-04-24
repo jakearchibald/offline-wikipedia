@@ -1,8 +1,16 @@
 <div class="cached-articles-container"></div>
-<script>
-  requestAnimationFrame(function() {
-    document.querySelector('.wiki-css').media = 'all';
-  });
-</script>
-<div class="article-container">
+<div class="article-container" style="display:none">
+  <script>
+    (function() {
+      var req = new XMLHttpRequest();
+      req.onload = function() {
+        var style = document.createElement('style');
+        style.textContent = req.responseText;
+        document.head.appendChild(style);
+        document.querySelector('.article-container').style.display = '';
+      }
+      req.open('GET', '//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.switcher%7Cext.gather.menu.icon%7Cmediawiki.sectionAnchor%7Cmediawiki.ui.button%7Cmobile.pagelist.styles%7Cskins.minerva.chrome.styles%7Cskins.minerva.content.styles%7Cskins.minerva.drawers.styles%7Cskins.minerva.tablet.styles&only=styles&skin=minerva&target=mobile&*');
+      req.send();
+    }());
+  </script>
   <div class="article-header subheading">
