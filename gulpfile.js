@@ -113,38 +113,44 @@ var rmOrig = function() {
     }
 
     this.push(file); // Pass file when you're done
-    return cb() // notify through2 you're done
+    return cb(); // notify through2 you're done
   });
 };
 
-gulp.task('rev', ['build'], function () {
+gulp.task('rev', function () {
   return gulp.src([
-    'dist/public/css/**',
-    'dist/public/js/**',
-    'dist/public/imgs/**'
-  ], {base: 'dist'})
+    'dist/public/{css,js,imgs}/**'
+  ])
     .pipe(plugins.rev())
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist/public'))
     .pipe(rmOrig())
     .pipe(plugins.rev.manifest())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('updaterefscompress', ['rev'], function () {
+gulp.task('updaterefs', function () {
   var manifest = gulp.src("dist/rev-manifest.json");
 
   return gulp.src([
     'dist/index.js',
-    'dist/public/*.html',
-    'dist/public/shared-templates/**',
-    'dist/public/css/**',
-    'dist/public/js/**',
-    'dist/public/imgs/**'
+    'dist/public/**',
+    'dist/shared-templates/**'
   ], {base: 'dist'})
-    .pipe(plugins.revReplace({manifest: manifest}))
+    .pipe(plugins.revReplace({
+      manifest: manifest,
+      replaceInExtensions: ['.js', '.css', '.html', '.hbs', '.json']
+    }))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('compress', function () {
+  return gulp.src([
+    'dist/public/**/*.{js,css}',
+    'dist/public/sw.js',
+    'dist/public/manifest.json'
+  ], {base: 'dist'})
     .pipe(plugins.gzip({append: true}))
-    .pipe(gulp.dest('dist'))
-    .pipe(rmOrig());
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('server:package', function () {
@@ -168,7 +174,7 @@ gulp.task('server:js', function () {
     'wikipedia/**',
     'isojs/**'
   ], {base: './'})
-     .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel({stage: 1}))
     .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
@@ -205,9 +211,14 @@ gulp.task('watch', function () {
 });
 
 var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:package', 'server:misc', 'server:js', 'server:templates']];
+var productionBuildSequence = buildSequence.concat(['rev', 'updaterefs', 'compress']);
 
 gulp.task('build', function() {
   return runSequence.apply(null, buildSequence);
+});
+
+gulp.task('productionbuild', function() {
+  return runSequence.apply(null, productionBuildSequence);
 });
 
 gulp.task('server:serve', plugins.shell.task([
@@ -219,8 +230,12 @@ gulp.task('serve', function() {
   return runSequence.apply(null, buildSequence.concat([['server:serve', 'watch']]));
 });
 
+gulp.task('productionserve', function() {
+  return runSequence.apply(null, productionBuildSequence.concat([['server:serve']]));
+});
+
 gulp.task('deploy', function() {
-  return runSequence.apply(null, buildSequence.concat([plugins.shell.task([
+  return runSequence.apply(null, productionBuildSequence.concat([plugins.shell.task([
     'git init',
     'heroku git:remote -a wiki-offline',
     'git add -A',

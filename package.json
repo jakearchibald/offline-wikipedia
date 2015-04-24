@@ -1,9 +1,10 @@
 {
   "name": "offline-wikipedia",
   "scripts": {
-    "test": "gulp build --production",
-    "build": "gulp build --production",
+    "test": "gulp productionbuild --production",
+    "build": "gulp productionbuild --production",
     "serve": "gulp serve",
+    "productionserve": "NODE_ENV=production gulp productionserve --production",
     "serve-no-sw": "gulp serve --disable-sw",
     "deploy": "gulp deploy --production"
   },

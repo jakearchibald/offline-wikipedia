@@ -5,6 +5,7 @@ var fs = require('fs');
 var express = require('express');
 var compression = require('compression');
 var readFile = RSVP.denodeify(fs.readFile);
+var gzipStatic = require('connect-gzip-static');
 
 var wikipedia = require('./wikipedia');
 var wikiDisplayDate = require('./isojs/wiki-display-date');
@@ -21,29 +22,18 @@ var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: '
 var indexBottom = readFile(__dirname + '/public/index-end.html', {encoding: 'utf8'});
 var inlineCss = readFile(__dirname + '/public/css/all.css', {encoding: 'utf8'});
 
+var env = process.env.NODE_ENV;
+var staticOptions = {
+  maxAge: env === 'production' ? '500 days' : 0
+};
+
 app.set('port', (process.env.PORT || 8000));
 
-app.use('/js', express.static('public/js'));
-app.use('/css', express.static('public/css'));
-app.use('/imgs', express.static('public/imgs'));
-app.use('/sw.js', express.static('public/sw.js'));
-app.use('/manifest.json', express.static('public/manifest.json'));
-
-app.get('/_ah/health', function(req, res) {
-  res.set('Content-Type', 'text/plain');
-  res.send(200, 'ok');
-});
-
-app.get('/_ah/start', function(req, res) {
-  res.set('Content-Type', 'text/plain');
-  res.send(200, 'ok');
-});
-
-app.get('/_ah/stop', function(req, res) {
-  res.set('Content-Type', 'text/plain');
-  res.send(200, 'ok');
-  process.exit();
-});
+app.use('/js', gzipStatic('public/js', staticOptions));
+app.use('/css', gzipStatic('public/css', staticOptions));
+app.use('/imgs', gzipStatic('public/imgs', staticOptions));
+app.use('/sw.js', gzipStatic('public/sw.js'));
+app.use('/manifest.json', gzipStatic('public/manifest.json'));
 
 app.get('/', compression(), async (req, res) => {
   // push header

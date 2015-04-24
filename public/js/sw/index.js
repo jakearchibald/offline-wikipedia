@@ -45,6 +45,10 @@ self.addEventListener('fetch', event => {
 
   // catch the root request
   if (requestURL.origin == location.origin) {
+    if (requestURL.pathname == '/') {
+      event.respondWith(caches.match('/'));
+      return;
+    }
     if (requestURL.pathname == '/' || requestURL.pathname.indexOf('/wiki/') === 0) {
       // just the network for these requests - pulling these out of the
       // cache is handled entirely by the page
