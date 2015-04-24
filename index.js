@@ -10,11 +10,11 @@ var wikipedia = require('./wikipedia');
 var wikiDisplayDate = require('./isojs/wiki-display-date');
 var articleContent = require('./shared-templates/article-content');
 var articleHeader = require('./shared-templates/article-header');
+var indexTop = require('./shared-templates/index-top');
 
 var app = express();
 
 // I really should be using a templating language that supports promises & streams
-var indexTop = readFile(__dirname + '/public/index-top.html', {encoding: 'utf8'});
 var indexHomeIntro = readFile(__dirname + '/public/index-home-intro.html', {encoding: 'utf8'});
 var indexArticleHeaderIntro = readFile(__dirname + '/public/index-article-header-intro.html', {encoding: 'utf8'});
 var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: 'utf8'});
@@ -50,7 +50,7 @@ app.get('/', compression(), async (req, res) => {
   // push footer
   res.status(200);
   res.type('html');
-  res.write(await indexTop);
+  res.write(indexTop());
   res.write(await indexHomeIntro);
   res.write(await indexArticleHeaderIntro);
   res.write(await indexMiddle);
@@ -64,7 +64,7 @@ app.get('/shell.html', compression(), async (req, res) => {
   // push footer
   res.status(200);
   res.type('html');
-  res.write(await indexTop);
+  res.write(indexTop());
   res.write(await indexArticleHeaderIntro);
   res.write(await indexMiddle);
   res.write(await indexBottom);
@@ -122,17 +122,21 @@ app.get('/search.json', compression(), async (req, res) => {
 app.get('/wiki/:name', compression(), async (req, res) => {
   try {
     var name = req.params.name;
-    var meta = wikipedia.getMetaData(name);
+    var meta = wikipedia.getMetaData(name).then(data => {
+      data.updated = wikiDisplayDate(new Date(data.updated));
+      data.server = true;
+      data.safeTitle = JSON.stringify(data.title);
+      data.safeUrlId = JSON.stringify(data.urlId);
+      return data;
+    });
     var articleStream = wikipedia.getArticleStream(name);
 
     res.status(200);
     res.type('html');
     
-    res.write(await indexTop);
+    res.write(indexTop({title: name.replace(/_/g, ' ')}));
     res.write(await indexArticleHeaderIntro);
     res.flush();
-    meta = await meta;
-    meta.updated = wikiDisplayDate(new Date(meta.updated));
     res.write(articleHeader(await meta));
     res.write(await indexMiddle);
     res.flush();
