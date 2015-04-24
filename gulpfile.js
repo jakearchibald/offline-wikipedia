@@ -123,7 +123,8 @@ gulp.task('server:misc', function () {
 gulp.task('server:js', function () {
   return gulp.src([
     'index.js',
-    'wikipedia/**'
+    'wikipedia/**',
+    'isojs/**'
   ], {base: './'})
      .pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel({stage: 1}))

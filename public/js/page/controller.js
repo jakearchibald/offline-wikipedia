@@ -2,6 +2,7 @@ require('regenerator/runtime');
 
 var debounce = require('debounce');
 var wikipedia = require('./wikipedia');
+var wikiDisplayDate = require('../../../isojs/wiki-display-date');
 
 var cacheCapable = 'caches' in window;
 
@@ -29,6 +30,8 @@ class Controller {
     // state
     this._lastSearchId = 0;
     this._article = null;
+    this._articleName = /^\/wiki\/([^\/]+)/.exec(location.pathname);
+    this._articleName = this._articleName && this._articleName[1];
 
     // setup
     if ('serviceWorker' in navigator) {
@@ -43,15 +46,13 @@ class Controller {
 
     document.body.appendChild(this._toastsView.container);
 
-    var articleName = /^\/wiki\/([^\/]+)/.exec(location.pathname);
-    articleName = articleName && articleName[1];
 
-    if (articleName) {
+    if (this._articleName) {
       if (this._articleView.serverRendered) {
         this._articleView.updateCachingAbility(cacheCapable);
       }
       else {
-        this._loadArticle(articleName);
+        this._loadArticle(this._articleName);
       }
     }
     else {
@@ -68,7 +69,10 @@ class Controller {
     location.reload();
   }
 
-  _onCacheChange({value}) {
+  async _onCacheChange({value}) {
+    if (!this._article) {
+      this._article = await wikipedia.article(this._articleName);
+    }
     if (value) {
       return this._article.cache().catch(err => this._showError(Error("Caching failed")));
     }
@@ -202,13 +206,7 @@ async function processData(article, articleData) {
     data.cached = await article.isCached();
   }
 
-  var date = data.updated;
-  var month = date.getMonth()+1 < 10 ? '0' + (date.getMonth()+1) : date.getMonth()+1;
-  var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-  var hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
-  var minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-  data.updated = `${date.getFullYear()}/${month}/${day} ${hours}:${minutes}`;
-
+  data.updated = wikiDisplayDate(data.updated);
   return data;
 }
 

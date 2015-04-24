@@ -8,9 +8,10 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(staticCacheName).then(cache => {
       return cache.addAll([
-        './',
-        'js/page.js',
-        'css/all.css',
+        '/',
+        '/shell.html',
+        '/js/page.js',
+        '/css/all.css',
         new Request('//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.switcher%7Cext.gather.menu.icon%7Cmediawiki.sectionAnchor%7Cmediawiki.ui.button%7Cmobile.pagelist.styles%7Cskins.minerva.chrome.styles%7Cskins.minerva.content.styles%7Cskins.minerva.drawers.styles%7Cskins.minerva.tablet.styles&only=styles&skin=minerva&target=mobile&*', {
           mode: 'no-cors'
         })
@@ -48,7 +49,7 @@ self.addEventListener('fetch', event => {
       // just the network for these requests - pulling these out of the
       // cache is handled entirely by the page
       if (/\.json$/.test(requestURL.pathname)) return;
-      event.respondWith(caches.match('/'));
+      event.respondWith(caches.match('/shell.html'));
       return;
     }
   }

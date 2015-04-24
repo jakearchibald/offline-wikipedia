@@ -7,11 +7,16 @@ var compression = require('compression');
 var readFile = RSVP.denodeify(fs.readFile);
 
 var wikipedia = require('./wikipedia');
+var wikiDisplayDate = require('./isojs/wiki-display-date');
 var articleContent = require('./shared-templates/article-content');
 var articleHeader = require('./shared-templates/article-header');
 
 var app = express();
+
+// I really should be using a templating language that supports promises & streams
 var indexTop = readFile(__dirname + '/public/index-top.html', {encoding: 'utf8'});
+var indexHomeIntro = readFile(__dirname + '/public/index-home-intro.html', {encoding: 'utf8'});
+var indexArticleHeaderIntro = readFile(__dirname + '/public/index-article-header-intro.html', {encoding: 'utf8'});
 var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: 'utf8'});
 var indexBottom = readFile(__dirname + '/public/index-end.html', {encoding: 'utf8'});
 
@@ -46,6 +51,21 @@ app.get('/', compression(), async (req, res) => {
   res.status(200);
   res.type('html');
   res.write(await indexTop);
+  res.write(await indexHomeIntro);
+  res.write(await indexArticleHeaderIntro);
+  res.write(await indexMiddle);
+  res.write(await indexBottom);
+  res.end();
+});
+
+app.get('/shell.html', compression(), async (req, res) => {
+  // push header
+  // push home body
+  // push footer
+  res.status(200);
+  res.type('html');
+  res.write(await indexTop);
+  res.write(await indexArticleHeaderIntro);
   res.write(await indexMiddle);
   res.write(await indexBottom);
   res.end();
@@ -107,8 +127,12 @@ app.get('/wiki/:name', compression(), async (req, res) => {
 
     res.status(200);
     res.type('html');
+    
     res.write(await indexTop);
+    res.write(await indexArticleHeaderIntro);
     res.flush();
+    meta = await meta;
+    meta.updated = wikiDisplayDate(new Date(meta.updated));
     res.write(articleHeader(await meta));
     res.write(await indexMiddle);
     res.flush();
