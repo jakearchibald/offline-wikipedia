@@ -14,7 +14,7 @@ var spawn = require('child_process').spawn;
 var Promise = require('rsvp').Promise;
 
 gulp.task('clean', function (done) {
-  require('del')(['dist'], done);
+  require('del')(['dist/*', '!dist/node_modules'], done);
 });
 
 gulp.task('html', function () {
@@ -115,8 +115,9 @@ gulp.task('server:package', function () {
 gulp.task('server:js', function () {
   return gulp.src([
     'index.js',
-    'server/wikipedia/*.js'
-  ]).pipe(plugins.sourcemaps.init())
+    'wikipedia/**'
+  ], {base: './'})
+     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel({stage: 1}))
     .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
@@ -143,9 +144,10 @@ gulp.task('build', function() {
   return runSequence.apply(null, buildSequence);
 });
 
-gulp.task('server:serve', function() {
-  require('./dist');
-});
+gulp.task('server:serve', plugins.shell.task([
+  'npm install',
+  'node index.js'
+], {cwd: __dirname + '/dist'}));
 
 gulp.task('serve', function() {
   return runSequence.apply(null, buildSequence.concat([['server:serve', 'watch']]));

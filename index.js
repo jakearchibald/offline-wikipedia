@@ -8,9 +8,13 @@ var readFile = RSVP.denodeify(fs.readFile);
 var wikipedia = require('./wikipedia');
 
 var app = express();
-var indexTop = readFile(__dirname + '/src/index-top.html', {encoding: 'utf8'});
-var indexMiddle = readFile(__dirname + '/src/index-middle.html', {encoding: 'utf8'});
-var indexBottom = readFile(__dirname + '/src/index-end.html', {encoding: 'utf8'});
+var indexTop = readFile(__dirname + '/public/index-top.html', {encoding: 'utf8'});
+var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: 'utf8'});
+var indexBottom = readFile(__dirname + '/public/index-end.html', {encoding: 'utf8'});
+
+app.use('/js', express.static('public/js'));
+app.use('/css', express.static('public/css'));
+app.use('/imgs', express.static('public/imgs'));
 
 app.get('/_ah/health', function(req, res) {
   res.set('Content-Type', 'text/plain');
@@ -34,10 +38,8 @@ app.get('/', async (req, res) => {
   // push footer
   res.status(200);
   res.type('html');
-  indexTop.then(val => console.log(val));
   res.write(await indexTop);
   res.write(await indexMiddle);
-  await new Promise(r => setTimeout(r, 4000));
   res.write(await indexBottom);
   res.end();
 });
@@ -95,11 +97,12 @@ app.get('/wiki/:name', async (req, res) => {
   //var meta = wikipedia.getMetaData(name);
   //var article = wikipedia.getArticle(name);
 
-  // push header
-  // await title & push
-  // await body & push
-  // push footer
-  res.sendFile(__dirname + '/src/index.html');
+  res.status(200);
+  res.type('html');
+  res.write(await indexTop);
+  res.write(await indexMiddle);
+  res.write(await indexBottom);
+  res.end();
 });
 
 app.listen(8080, '0.0.0.0');

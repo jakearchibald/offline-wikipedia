@@ -3,11 +3,13 @@
   <div class="updated-meta">- updated {{updated}}</div>
 </div>
 
-<label class="cache-toggle">
-  <input type="checkbox" name="cache"{{#if cached}} checked{{/if}}>
-  <span class="material-switch">
-    <span class="track"></span>
-    <span class="handle"></span>
-  </span>
-  <span class="read-offline-txt">Read offline</span>
-</label>
+{{#if cacheCapable}}
+  <label class="cache-toggle">
+    <input type="checkbox" name="cache"{{#if cached}} checked{{/if}}>
+    <span class="material-switch">
+      <span class="track"></span>
+      <span class="handle"></span>
+    </span>
+    <span class="read-offline-txt">Read offline</span>
+  </label>
+{{/if}}
