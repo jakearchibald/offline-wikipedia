@@ -13,6 +13,26 @@ html {
   overflow-y: scroll;
 }
 
+body {
+  font-family: "Helvetica Neue","Helvetica","Nimbus Sans L","Arial","Liberation Sans",sans-serif;
+  line-height: 1.4;
+  color: #252525;
+}
+
+h1 {
+  font-size: 100%;
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: #002BB8;
+
+  &:visited {
+    color: #5A3696;
+  }
+}
+
 pre,
 code,
 kbd,
