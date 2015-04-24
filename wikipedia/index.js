@@ -1,6 +1,8 @@
 var querystring = require('querystring');
 var RSVP = require('rsvp');
-var request = RSVP.denodeify(require('request'));
+var request = require('request');
+var requestPromise = RSVP.denodeify(request);
+var replaceStream = require('replacestream');
 
 var apiBase = 'https://en.wikipedia.org/w/api.php?';
 var viewBase = 'https://en.m.wikipedia.org/wiki/';
@@ -9,7 +11,7 @@ module.exports = {
   apiBase,
 
   getMetaData(name) {
-    return request(apiBase + querystring.stringify({
+    return requestPromise(apiBase + querystring.stringify({
       action: 'query',
       titles: name,
       format: 'json',
@@ -34,7 +36,7 @@ module.exports = {
   },
 
   search(term) {
-    return request(apiBase + querystring.stringify({
+    return requestPromise(apiBase + querystring.stringify({
       action: 'opensearch',
       search: term,
       format: 'json',
@@ -52,7 +54,11 @@ module.exports = {
   },
 
   getArticle(name) {
-    return request(viewBase + name + '?action=render')
+    return requestPromise(viewBase + name + '?action=render')
       .then(r => r.body.replace(/\/\/en\.wikipedia\.org\/wiki\//g, '/wiki/'));
+  },
+
+  getArticleStream(name) {
+    return request(viewBase + name + '?action=render').pipe(replaceStream('//en.wikipedia.org/wiki/', '/wiki/'));
   }
 };

@@ -14,7 +14,7 @@ var spawn = require('child_process').spawn;
 var Promise = require('rsvp').Promise;
 
 gulp.task('clean', function (done) {
-  require('del')(['dist/*', '!dist/node_modules'], done);
+  require('del')(['dist/*', '!dist/node_modules', '!dist/.git'], done);
 });
 
 gulp.task('html', function () {
@@ -112,6 +112,14 @@ gulp.task('server:package', function () {
   })).pipe(gulp.dest('dist'));
 });
 
+gulp.task('server:misc', function () {
+  return gulp.src([
+    '.gitignore',
+    'Procfile'
+  ])
+  .pipe(gulp.dest('dist'));
+});
+
 gulp.task('server:js', function () {
   return gulp.src([
     'index.js',
@@ -123,11 +131,26 @@ gulp.task('server:js', function () {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('server:templates', function () {
+  return gulp.src('shared-templates/*.hbs')
+    .pipe(plugins.handlebars())
+    .pipe(through.obj(function(file, enc, callback) {
+      // Don't want the whole lib
+      file.defineModuleOptions.require = {Handlebars: 'handlebars/runtime'};
+      callback(null, file);
+    }))
+    .pipe(plugins.defineModule('commonjs'))
+    .pipe(plugins.rename(function(path) {
+      path.extname = '.js';
+    }))
+    .pipe(gulp.dest('dist/shared-templates'));
+});
+
 gulp.task('watch', function () {
   gulp.watch(['public/*.html'], ['html']);
   gulp.watch(['public/**/*.scss'], ['css']);
-  gulp.watch(['server/**/*', '!server/**/*.js'], ['server:package']);
-  gulp.watch(['server/**/*.js'], ['server:js']);
+  gulp.watch(['index.js', 'wikipedia/**'], ['server:js']);
+  gulp.watch(['shared-templates/*.hbs'], ['server:templates']);
 
   Object.keys(bundlers).forEach(function(key) {
     var watchifyBundler = watchify(bundlers[key]);
@@ -138,7 +161,7 @@ gulp.task('watch', function () {
   });
 });
 
-var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:package', 'server:js']];
+var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:package', 'server:misc', 'server:js', 'server:templates']];
 
 gulp.task('build', function() {
   return runSequence.apply(null, buildSequence);
@@ -151,6 +174,16 @@ gulp.task('server:serve', plugins.shell.task([
 
 gulp.task('serve', function() {
   return runSequence.apply(null, buildSequence.concat([['server:serve', 'watch']]));
+});
+
+gulp.task('deploy', function() {
+  return runSequence.apply(null, buildSequence.concat([plugins.shell.task([
+    'git init',
+    'heroku git:remote -a wiki-offline',
+    'git add -A',
+    'git commit --message "Build"',
+    'git push heroku'
+  ], {cwd: __dirname + '/dist'})]));
 });
 
 gulp.task('default', ['build']);

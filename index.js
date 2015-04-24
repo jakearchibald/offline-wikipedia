@@ -6,11 +6,15 @@ var express = require('express');
 var readFile = RSVP.denodeify(fs.readFile);
 
 var wikipedia = require('./wikipedia');
+var articleContent = require('./shared-templates/article-content');
+var articleHeader = require('./shared-templates/article-header');
 
 var app = express();
 var indexTop = readFile(__dirname + '/public/index-top.html', {encoding: 'utf8'});
 var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: 'utf8'});
 var indexBottom = readFile(__dirname + '/public/index-end.html', {encoding: 'utf8'});
+
+app.set('port', (process.env.PORT || 8000));
 
 app.use('/js', express.static('public/js'));
 app.use('/css', express.static('public/css'));
@@ -94,16 +98,22 @@ app.get('/search.json', async (req, res) => {
 
 app.get('/wiki/:name', async (req, res) => {
   var name = req.params.name;
-  //var meta = wikipedia.getMetaData(name);
-  //var article = wikipedia.getArticle(name);
+  var meta = wikipedia.getMetaData(name);
+  var articleStream = wikipedia.getArticleStream(name);
 
   res.status(200);
   res.type('html');
   res.write(await indexTop);
+  res.write(articleHeader(await meta));
   res.write(await indexMiddle);
+  res.write('<div id="content_wrapper" class="content card-content">');
+  articleStream.pipe(res, {end: false});
+  await new Promise(r => articleStream.on('end', r));
+  res.write('</div>');
   res.write(await indexBottom);
   res.end();
 });
 
-app.listen(8080, '0.0.0.0');
-console.log('Listening on port 8080');
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'));
+});

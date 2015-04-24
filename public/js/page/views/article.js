@@ -1,5 +1,5 @@
-var contentTemplate = require('./templates/article-content.hbs');
-var headerTemplate = require('./templates/article-header.hbs');
+var contentTemplate = require('../../../../shared-templates/article-content.hbs');
+var headerTemplate = require('../../../../shared-templates/article-header.hbs');
 var Spinner = require('./spinner');
 
 class Article extends (require('events').EventEmitter) {

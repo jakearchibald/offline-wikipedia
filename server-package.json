@@ -1,9 +1,13 @@
 {
   "private": true,
+  "engines": {
+    "node": "0.12.2"
+  },
   "dependencies": {
     "express": "^4.12.3",
     "regenerator": "^0.8.22",
     "request": "^2.55.0",
-    "rsvp": "^3.0.18"
+    "rsvp": "^3.0.18",
+    "replacestream": "^2.1.0"
   }
 }

@@ -4,7 +4,8 @@
     "test": "gulp build --production",
     "build": "gulp build --production",
     "serve": "gulp serve",
-    "serve-no-sw": "gulp serve --disable-sw"
+    "serve-no-sw": "gulp serve --disable-sw",
+    "deploy": "gulp deploy --production"
   },
   "private": true,
   "devDependencies": {
@@ -16,7 +17,9 @@
     "fastclick": "^1.0.6",
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
+    "gulp-define-module": "^0.1.3",
     "gulp-filter": "^2.0.2",
+    "gulp-handlebars": "^4.0.0",
     "gulp-load-plugins": "^0.10.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^1.3.3",
