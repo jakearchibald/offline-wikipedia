@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "appengine": "git://github.com/GoogleCloudPlatform/appengine-nodejs.git",
     "express": "^4.12.3",
     "regenerator": "^0.8.22",
     "request": "^2.55.0",

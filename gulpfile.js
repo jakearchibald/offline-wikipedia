@@ -19,39 +19,29 @@ gulp.task('clean', function (done) {
 
 gulp.task('html', function () {
   return gulp.src([
-    'src/*.html'
-  ])
-  .pipe(plugins.htmlmin({
-    collapseBooleanAttributes: true,
-    collapseWhitespace: true,
-    minifyJS: true,
-    removeAttributeQuotes: true,
-    removeComments: true,
-    removeEmptyAttributes: true,
-    removeOptionalTags: true,
-    removeRedundantAttributes: true,
-  })).pipe(gulp.dest('dist/src'));
+    'public/*.html'
+  ]).pipe(gulp.dest('dist/public'));
 });
 
 gulp.task('css', function () {
-  return gulp.src('src/css/*.scss')
+  return gulp.src('public/css/*.scss')
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass({ outputStyle: 'compressed' }))
     .pipe(plugins.sourcemaps.write('./'))
-    .pipe(gulp.dest('dist/src/css'))
+    .pipe(gulp.dest('dist/public/css'))
     .pipe(plugins.filter('**/*.css'));
 });
 
 gulp.task('misc', function () {
   return gulp.src([
     // Copy all files
-    'src/**',
+    'public/**',
     // Exclude the following files
     // (other tasks will handle the copying of these files)
-    '!src/*.html',
-    '!src/{css,css/**}',
-    '!src/{js,js/**}'
-  ]).pipe(gulp.dest('dist/src'));
+    '!public/*.html',
+    '!public/{css,css/**}',
+    '!public/{js,js/**}'
+  ]).pipe(gulp.dest('dist/public'));
 });
 
 function createBundler(src) {
@@ -84,11 +74,11 @@ function createBundler(src) {
 }
 
 var bundlers = {
-  'js/page.js': createBundler('./src/js/page/index.js'),
-  'js/fetch.js': createBundler('./src/js/fetch/index.js'),
-  'js/promise-polyfill.js': createBundler('./src/js/promise-polyfill/index.js'),
-  'js/fastclick.js': createBundler('./src/js/fastclick/index.js'),
-  'sw.js': plugins.util.env['disable-sw'] ? createBundler('./src/js/sw-null/index.js') : createBundler('./src/js/sw/index.js')
+  'js/page.js': createBundler('./public/js/page/index.js'),
+  'js/fetch.js': createBundler('./public/js/fetch/index.js'),
+  'js/promise-polyfill.js': createBundler('./public/js/promise-polyfill/index.js'),
+  'js/fastclick.js': createBundler('./public/js/fastclick/index.js'),
+  'sw.js': plugins.util.env['disable-sw'] ? createBundler('./public/js/sw-null/index.js') : createBundler('./public/js/sw/index.js')
 };
 
 function bundle(bundler, outputPath) {
@@ -104,7 +94,7 @@ function bundle(bundler, outputPath) {
     .pipe(plugins.sourcemaps.init({ loadMaps: true })) // loads map from browserify file
     .pipe(plugins.sourcemaps.write('./')) // writes .map file
     .pipe(plugins.size({ gzip: true, title: outputFile }))
-    .pipe(gulp.dest('dist/src/' + outputDir));
+    .pipe(gulp.dest('dist/public/' + outputDir));
 }
 
 gulp.task('js', function () {
@@ -115,21 +105,17 @@ gulp.task('js', function () {
   );
 });
 
-gulp.task('server:misc', function () {
-  return gulp.src([
-    // Copy all files
-    'server/**',
-    // Exclude the following files
-    // (other tasks will handle the copying of these files)
-    '!server/{node_modules,node_modules/**}',
-    '!server/**/*.js'
-  ]).pipe(gulp.dest('dist'));
+gulp.task('server:package', function () {
+  return gulp.src('server-package.json')
+  .pipe(plugins.rename(function(path) {
+    path.basename = 'package';
+  })).pipe(gulp.dest('dist'));
 });
 
 gulp.task('server:js', function () {
   return gulp.src([
-    'server/**/*.js',
-    '!server/{node_modules,node_modules/**}'
+    'index.js',
+    'server/wikipedia/*.js'
   ]).pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel({stage: 1}))
     .pipe(plugins.sourcemaps.write('.'))
@@ -137,9 +123,9 @@ gulp.task('server:js', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(['src/*.html'], ['html']);
-  gulp.watch(['src/**/*.scss'], ['css']);
-  gulp.watch(['server/**/*', '!server/**/*.js'], ['server:misc']);
+  gulp.watch(['public/*.html'], ['html']);
+  gulp.watch(['public/**/*.scss'], ['css']);
+  gulp.watch(['server/**/*', '!server/**/*.js'], ['server:package']);
   gulp.watch(['server/**/*.js'], ['server:js']);
 
   Object.keys(bundlers).forEach(function(key) {
@@ -151,61 +137,18 @@ gulp.task('watch', function () {
   });
 });
 
-var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:misc', 'server:js']];
+var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:package', 'server:js']];
 
 gulp.task('build', function() {
   return runSequence.apply(null, buildSequence);
 });
 
-gulp.task('server:serve', plugins.shell.task([
-  'boot2docker init',
-  'boot2docker up',
-  '$(boot2docker shellinit)',
-  'gcloud preview app run app.yaml'
-], {
-  cwd: __dirname + '/dist'
-}));
-
-gulp.task('server:log', function(done) {
-  function findContainer() {
-    return new Promise(function(resolve, reject) {
-      var containerList = spawn('docker', ['ps', '-a']);
-      var results = '';
-      containerList.on('exit', function() {
-        results = results.split('\n');
-        for (var i = 0; i < results.length; i++) {
-          if (/\/nodejs\/bin\/npm.*Up /.test(results[i])) {
-            resolve(/^\S+/.exec(results[i])[0]);
-            return;
-          }
-        }
-        setTimeout(function() {
-          resolve(findContainer());
-        }, 1000);
-      });
-      containerList.stdout.on('data', function(chunk) {
-        results += chunk;
-      });
-    });
-  }
-
-  function showLog(containerId) {
-    var logProcess = spawn('docker', ['logs', '-f', '-t', containerId]);
-    logProcess.on('exit', start);
-    logProcess.stdout.on('data', function(chunk) {
-      console.log(chunk.toString().trim());
-    });
-  }
-
-  function start() {
-    findContainer().then(showLog);
-  }
-
-  start();
+gulp.task('server:serve', function() {
+  require('./dist');
 });
 
 gulp.task('serve', function() {
-  return runSequence.apply(null, buildSequence.concat([['server:serve', 'server:log', 'watch']]));
+  return runSequence.apply(null, buildSequence.concat([['server:serve', 'watch']]));
 });
 
 gulp.task('default', ['build']);

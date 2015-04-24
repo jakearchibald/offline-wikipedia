@@ -1,1 +1,0 @@
-FROM google/nodejs-runtime
