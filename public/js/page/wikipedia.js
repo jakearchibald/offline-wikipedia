@@ -55,7 +55,7 @@ class Article {
       }
 
       return match;
-    })
+    });
 
     response.article = text;
     
@@ -78,7 +78,8 @@ class Article {
     }
 
     var cacheOpeations = [
-      cache.put(this._articleRequest, articleResponse)
+      // get a fresh article request, as it may have originally been redirected
+      cache.put(wikipedia._getArticleRequest((await this.meta).urlId), articleResponse)
     ];
 
     imgSrcs.forEach(url => {

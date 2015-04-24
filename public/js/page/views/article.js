@@ -20,7 +20,7 @@ class Article extends (require('events').EventEmitter) {
     this._content.addEventListener('click', event => {
       var heading = utils.closest(event.target, 'h2');
       if (heading) this._onHeadingClick(heading);
-    })
+    });
   }
 
   _onHeadingClick(heading) {
