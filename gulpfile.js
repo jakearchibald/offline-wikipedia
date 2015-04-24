@@ -1,3 +1,4 @@
+var fs = require('fs');
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
@@ -24,12 +25,11 @@ gulp.task('html', function () {
 });
 
 gulp.task('css', function () {
-  return gulp.src('public/css/*.scss')
+  return gulp.src('public/css/*.scss', {base: './'})
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass({ outputStyle: 'compressed' }))
     .pipe(plugins.sourcemaps.write('./'))
-    .pipe(gulp.dest('dist/public/css'))
-    .pipe(plugins.filter('**/*.css'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('misc', function () {
@@ -103,6 +103,48 @@ gulp.task('js', function () {
       return bundle(bundlers[key], key);
     })
   );
+});
+
+var rmOrig = function() {
+  return through.obj(function(file, enc, cb) {
+
+    if (file.revOrigPath) {
+      fs.unlink(file.revOrigPath);
+    }
+
+    this.push(file); // Pass file when you're done
+    return cb() // notify through2 you're done
+  });
+};
+
+gulp.task('rev', ['build'], function () {
+  return gulp.src([
+    'dist/public/css/**',
+    'dist/public/js/**',
+    'dist/public/imgs/**'
+  ], {base: 'dist'})
+    .pipe(plugins.rev())
+    .pipe(gulp.dest('dist'))
+    .pipe(rmOrig())
+    .pipe(plugins.rev.manifest())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('updaterefscompress', ['rev'], function () {
+  var manifest = gulp.src("dist/rev-manifest.json");
+
+  return gulp.src([
+    'dist/index.js',
+    'dist/public/*.html',
+    'dist/public/shared-templates/**',
+    'dist/public/css/**',
+    'dist/public/js/**',
+    'dist/public/imgs/**'
+  ], {base: 'dist'})
+    .pipe(plugins.revReplace({manifest: manifest}))
+    .pipe(plugins.gzip({append: true}))
+    .pipe(gulp.dest('dist'))
+    .pipe(rmOrig());
 });
 
 gulp.task('server:package', function () {
