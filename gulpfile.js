@@ -221,10 +221,20 @@ gulp.task('productionbuild', function() {
   return runSequence.apply(null, productionBuildSequence);
 });
 
-gulp.task('server:serve', plugins.shell.task([
-  'npm install',
-  'node index.js'
-], {cwd: __dirname + '/dist'}));
+gulp.task('server:serve', function() {
+  plugins.developServer.listen({
+    path: './index.js',
+    cwd: './dist'
+  });
+  gulp.watch([
+    'dist/index.js',
+    'dist/shared-templates/**/*.js',
+    'dist/wikipedia/**',
+    'dist/isojs/**/*.js',
+    'dist/public/*.html',
+    'dist/public/css/all.css'
+  ], plugins.developServer.restart);
+});
 
 gulp.task('serve', function() {
   return runSequence.apply(null, buildSequence.concat([['server:serve', 'watch']]));

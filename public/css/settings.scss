@@ -1,0 +1,26 @@
+@import 'utils';
+
+.settings-form {
+  & label {
+    @include display-flex;
+  }
+
+  & input[type=checkbox] {
+    margin: 5px 0 0;
+    padding: 0;
+    vertical-align: top;
+  }
+
+  & .input-container {
+    padding-right: 10px;
+  }
+
+  & .main {
+    font-weight: bold;
+  }
+
+  & .sub {
+    margin-bottom: 20px;
+    color: #808080;
+  }
+}

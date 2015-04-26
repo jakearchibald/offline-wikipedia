@@ -38,6 +38,7 @@ class Toast {
 class Toasts {
   constructor() {
     this.container = utils.strToEl("<div class='toasts'></div>");
+    document.body.appendChild(this.container);
   }
 
   show(message, {
@@ -55,4 +56,4 @@ class Toasts {
   }
 }
 
-module.exports = Toasts;
+module.exports = new Toasts();

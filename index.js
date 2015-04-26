@@ -12,6 +12,7 @@ var wikiDisplayDate = require('./isojs/wiki-display-date');
 var articleContent = require('./shared-templates/article-content');
 var articleHeader = require('./shared-templates/article-header');
 var indexTop = require('./shared-templates/index-top');
+var settingsTemplate = require('./shared-templates/settings');
 
 var app = express();
 
@@ -36,9 +37,6 @@ app.use('/sw.js', gzipStatic('public/sw.js'));
 app.use('/manifest.json', gzipStatic('public/manifest.json'));
 
 app.get('/', compression(), async (req, res) => {
-  // push header
-  // push home body
-  // push footer
   res.status(200);
   res.type('html');
   res.write(indexTop({inlineCss: await inlineCss}));
@@ -46,6 +44,14 @@ app.get('/', compression(), async (req, res) => {
   res.write(await indexArticleHeaderIntro);
   res.write(await indexMiddle);
   res.write(await indexBottom);
+  res.end();
+});
+
+app.get('/settings', compression(), async (req, res) => {
+  res.status(200);
+  res.type('html');
+  res.write(indexTop({inlineCss: await inlineCss}));
+  res.write(settingsTemplate());
   res.end();
 });
 
@@ -149,5 +155,5 @@ app.get('/wiki/:name', compression(), async (req, res) => {
 });
 
 app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'));
+  console.log("Server listening at localhost:" + app.get('port'));
 });

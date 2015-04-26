@@ -15,7 +15,7 @@ if (/(iPhone|iPad);/.test(navigator.userAgent)) {
 }
 
 loadScripts(polyfillsNeeded, function() {
-  var c = new (require('./controller'));
+  var c = new (require('./global-controller'));
 }, function() {
   console.error("Failed to load polyfills");
 });

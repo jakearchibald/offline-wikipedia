@@ -19,6 +19,7 @@
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-define-module": "^0.1.3",
+    "gulp-develop-server": "^0.4.2",
     "gulp-filter": "^2.0.2",
     "gulp-gzip": "^1.1.0",
     "gulp-handlebars": "^4.0.0",

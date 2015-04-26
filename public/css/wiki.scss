@@ -1,0 +1,2147 @@
+.mw-ui-icon-collections-icon:before {
+  background-image: url('//bits.wikimedia.org/en.wikipedia.org/load.php?modules=ext.gather.menu.icon&image=collections-icon&format=rasterized&lang=en');
+  background-image: -webkit-linear-gradient(transparent, transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20800%22%20enable-background%3D%22new%200%200%201280%20800%22%20width%3D%221000%22%20height%3D%22800%22%3E%0A%20%20%20%20%3Cg%20id%3D%22g3%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M113.87%20494.2V301.6h301.6V0h192.7v301.6h301.6v192.7h-301.7V800h-192.6V494.2h-301.6z%22%20id%3D%22path5%22%20fill%3D%22%23fff%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A);
+  background-image: linear-gradient(transparent, transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20800%22%20enable-background%3D%22new%200%200%201280%20800%22%20width%3D%221000%22%20height%3D%22800%22%3E%0A%20%20%20%20%3Cg%20id%3D%22g3%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M113.87%20494.2V301.6h301.6V0h192.7v301.6h301.6v192.7h-301.7V800h-192.6V494.2h-301.6z%22%20id%3D%22path5%22%20fill%3D%22%23fff%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A);
+  background-image: -o-linear-gradient(transparent, transparent), url('//bits.wikimedia.org/en.wikipedia.org/load.php?modules=ext.gather.menu.icon&image=collections-icon&format=rasterized&lang=en');
+}.mw-headline-anchor {
+  display: none;
+}
+
+/* Hide section anchor link until it is decided how to display it */
+.mw-headline-anchor {
+  display: none;
+}.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.mw-ui-button {
+  font-family: inherit;
+  font-size: 1em;
+  display: inline-block;
+  padding: .5em 1em;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  *display: inline;
+  zoom: 1;
+  background: #FFF;
+  color: #555;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  min-width: 4em;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-transition: background .1s ease-in-out, color .1s ease-in-out, box-shadow .1s ease-in-out;
+  -moz-transition: background .1s ease-in-out, color .1s ease-in-out, box-shadow .1s ease-in-out;
+  -o-transition: background .1s ease-in-out, color .1s ease-in-out, box-shadow .1s ease-in-out;
+  transition: background .1s ease-in-out, color .1s ease-in-out, box-shadow .1s ease-in-out;
+}
+.mw-ui-button:hover {
+  box-shadow: 0 1px rgba(0,0,0,0.1), inset 0 -3px rgba(0,0,0,0.2);
+  border-bottom-color: #cccccc;
+}
+.mw-ui-button:focus {
+  border-color: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+  outline: none;
+}
+.mw-ui-button:focus::-moz-focus-inner {
+  border-color: transparent;
+}
+.mw-ui-button:active,
+.mw-ui-button.mw-ui-checked {
+  background: #cccccc;
+  box-shadow: none;
+}
+.mw-ui-button:hover,
+.mw-ui-button:active,
+.mw-ui-button:visited {
+  color: #555;
+}
+.mw-ui-button:disabled {
+  color: #CCC;
+}
+.mw-ui-button:disabled:hover,
+.mw-ui-button:disabled:active {
+  background: #FFF;
+  box-shadow: none;
+}
+.mw-ui-button:disabled {
+  text-shadow: none;
+  cursor: default;
+}
+.mw-ui-button.mw-ui-big {
+  font-size: 1.3em;
+}
+.mw-ui-button.mw-ui-block {
+  display: block;
+  width: 100%;
+}
+.mw-ui-button.mw-ui-progressive,
+.mw-ui-button.mw-ui-primary {
+  background: #347bff;
+  color: #fff;
+  border: 1px solid #347bff;
+  text-shadow: 0 1px rgba(0,0,0,0.1);
+}
+.mw-ui-button.mw-ui-progressive:hover,
+.mw-ui-button.mw-ui-primary:hover {
+  box-shadow: 0 1px rgba(0,0,0,0.1), inset 0 -3px rgba(0,0,0,0.2);
+  border-bottom-color: #2a62cc;
+}
+.mw-ui-button.mw-ui-progressive:focus,
+.mw-ui-button.mw-ui-primary:focus {
+  border-color: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+  outline: none;
+}
+.mw-ui-button.mw-ui-progressive:focus::-moz-focus-inner,
+.mw-ui-button.mw-ui-primary:focus::-moz-focus-inner {
+  border-color: transparent;
+}
+.mw-ui-button.mw-ui-progressive:active,
+.mw-ui-button.mw-ui-progressive.mw-ui-checked,
+.mw-ui-button.mw-ui-primary:active,
+.mw-ui-button.mw-ui-primary.mw-ui-checked {
+  background: #2a62cc;
+  box-shadow: none;
+}
+.mw-ui-button.mw-ui-progressive:disabled,
+.mw-ui-button.mw-ui-primary:disabled {
+  background: #DDD;
+  border-color: #DDD;
+}
+.mw-ui-button.mw-ui-progressive:disabled:hover,
+.mw-ui-button.mw-ui-progressive:disabled:active,
+.mw-ui-button.mw-ui-progressive:disabled.mw-ui-checked,
+.mw-ui-button.mw-ui-primary:disabled:hover,
+.mw-ui-button.mw-ui-primary:disabled:active,
+.mw-ui-button.mw-ui-primary:disabled.mw-ui-checked {
+  box-shadow: none;
+}
+.mw-ui-button.mw-ui-progressive.mw-ui-quiet,
+.mw-ui-button.mw-ui-primary.mw-ui-quiet {
+  color: #555;
+}
+.mw-ui-button.mw-ui-progressive.mw-ui-quiet:hover,
+.mw-ui-button.mw-ui-progressive.mw-ui-quiet:focus,
+.mw-ui-button.mw-ui-primary.mw-ui-quiet:hover,
+.mw-ui-button.mw-ui-primary.mw-ui-quiet:focus {
+  color: #347bff;
+}
+.mw-ui-button.mw-ui-progressive.mw-ui-quiet:active,
+.mw-ui-button.mw-ui-progressive.mw-ui-quiet.mw-ui-checked,
+.mw-ui-button.mw-ui-primary.mw-ui-quiet:active,
+.mw-ui-button.mw-ui-primary.mw-ui-quiet.mw-ui-checked {
+  color: #2a62cc;
+}
+.mw-ui-button.mw-ui-progressive.mw-ui-quiet:disabled,
+.mw-ui-button.mw-ui-primary.mw-ui-quiet:disabled {
+  color: #CCC;
+}
+.mw-ui-button.mw-ui-constructive {
+  background: #00af89;
+  color: #fff;
+  border: 1px solid #00af89;
+  text-shadow: 0 1px rgba(0,0,0,0.1);
+}
+.mw-ui-button.mw-ui-constructive:hover {
+  box-shadow: 0 1px rgba(0,0,0,0.1), inset 0 -3px rgba(0,0,0,0.2);
+  border-bottom-color: #008c6e;
+}
+.mw-ui-button.mw-ui-constructive:focus {
+  border-color: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+  outline: none;
+}
+.mw-ui-button.mw-ui-constructive:focus::-moz-focus-inner {
+  border-color: transparent;
+}
+.mw-ui-button.mw-ui-constructive:active,
+.mw-ui-button.mw-ui-constructive.mw-ui-checked {
+  background: #008c6e;
+  box-shadow: none;
+}
+.mw-ui-button.mw-ui-constructive:disabled {
+  background: #DDD;
+  border-color: #DDD;
+}
+.mw-ui-button.mw-ui-constructive:disabled:hover,
+.mw-ui-button.mw-ui-constructive:disabled:active,
+.mw-ui-button.mw-ui-constructive:disabled.mw-ui-checked {
+  box-shadow: none;
+}
+.mw-ui-button.mw-ui-constructive.mw-ui-quiet {
+  color: #555;
+}
+.mw-ui-button.mw-ui-constructive.mw-ui-quiet:hover,
+.mw-ui-button.mw-ui-constructive.mw-ui-quiet:focus {
+  color: #00af89;
+}
+.mw-ui-button.mw-ui-constructive.mw-ui-quiet:active,
+.mw-ui-button.mw-ui-constructive.mw-ui-quiet.mw-ui-checked {
+  color: #008c6e;
+}
+.mw-ui-button.mw-ui-constructive.mw-ui-quiet:disabled {
+  color: #CCC;
+}
+.mw-ui-button.mw-ui-destructive {
+  background: #d11d13;
+  color: #fff;
+  border: 1px solid #d11d13;
+  text-shadow: 0 1px rgba(0,0,0,0.1);
+}
+.mw-ui-button.mw-ui-destructive:hover {
+  box-shadow: 0 1px rgba(0,0,0,0.1), inset 0 -3px rgba(0,0,0,0.2);
+  border-bottom-color: #a7170f;
+}
+.mw-ui-button.mw-ui-destructive:focus {
+  border-color: rgba(0,0,0,0.2);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+  outline: none;
+}
+.mw-ui-button.mw-ui-destructive:focus::-moz-focus-inner {
+  border-color: transparent;
+}
+.mw-ui-button.mw-ui-destructive:active,
+.mw-ui-button.mw-ui-destructive.mw-ui-checked {
+  background: #a7170f;
+  box-shadow: none;
+}
+.mw-ui-button.mw-ui-destructive:disabled {
+  background: #DDD;
+  border-color: #DDD;
+}
+.mw-ui-button.mw-ui-destructive:disabled:hover,
+.mw-ui-button.mw-ui-destructive:disabled:active,
+.mw-ui-button.mw-ui-destructive:disabled.mw-ui-checked {
+  box-shadow: none;
+}
+.mw-ui-button.mw-ui-destructive.mw-ui-quiet {
+  color: #555;
+}
+.mw-ui-button.mw-ui-destructive.mw-ui-quiet:hover,
+.mw-ui-button.mw-ui-destructive.mw-ui-quiet:focus {
+  color: #d11d13;
+}
+.mw-ui-button.mw-ui-destructive.mw-ui-quiet:active,
+.mw-ui-button.mw-ui-destructive.mw-ui-quiet.mw-ui-checked {
+  color: #a7170f;
+}
+.mw-ui-button.mw-ui-destructive.mw-ui-quiet:disabled {
+  color: #CCC;
+}
+.mw-ui-button.mw-ui-quiet {
+  background: transparent;
+  border: none;
+  text-shadow: none;
+  color: #555;
+}
+.mw-ui-button.mw-ui-quiet:hover,
+.mw-ui-button.mw-ui-quiet:focus {
+  color: #555;
+}
+.mw-ui-button.mw-ui-quiet:active,
+.mw-ui-button.mw-ui-quiet.mw-ui-checked {
+  color: #444444;
+}
+.mw-ui-button.mw-ui-quiet:disabled {
+  color: #CCC;
+}
+.mw-ui-button.mw-ui-quiet:hover,
+.mw-ui-button.mw-ui-quiet:focus {
+  box-shadow: none;
+}
+.mw-ui-button.mw-ui-quiet:active,
+.mw-ui-button.mw-ui-quiet:disabled {
+  background: transparent;
+}
+a.mw-ui-button {
+  text-decoration: none;
+}
+a.mw-ui-button:hover,
+a.mw-ui-button:focus {
+  text-decoration: none;
+}
+.mw-ui-button-group > * {
+  min-width: 48px;
+  border-radius: 0;
+  float: left;
+}
+.mw-ui-button-group > *:first-child {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.mw-ui-button-group > *:not(:first-child) {
+  border-left: none;
+}
+.mw-ui-button-group > *:last-child {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.page-summary h2,
+.page-summary h3 {
+  font: inherit;
+  font-weight: bold;
+  color: #555;
+}
+.page-summary h2 a,
+.page-summary h3 a {
+  color: inherit;
+}
+.page-summary h2 strong,
+.page-summary h3 strong {
+  text-decoration: underline;
+}
+.list-header {
+  font-weight: bold;
+  font-size: .85em;
+  padding: .5em 16px .4em;
+  background-color: #EEE;
+  color: #777;
+}
+.list-thumb {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.list-thumb.list-thumb-none {
+  background-color: #EEE;
+  background-image: url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/noimage.png?2015-04-15T18:51:40Z');
+  background-image: -webkit-linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%20enable-background%3D%22new%200%200%2056%2056%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23eee%22%20d%3D%22M0%200h56v56h-56z%22%2F%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M36.4%2013.5h-18.6v24.9c0%201.4.9%202.3%202.3%202.3h18.7v-25c.1-1.4-1-2.2-2.4-2.2zm-6.2%203.5h5.1v6.4h-5.1v-6.4zm-8.8%200h6v1.8h-6v-1.8zm0%204.6h6v1.8h-6v-1.8zm0%2015.5v-1.8h13.8v1.8h-13.8zm13.8-4.5h-13.8v-1.8h13.8v1.8zm0-4.7h-13.8v-1.8h13.8v1.8z%22%2F%3E%0A%3C%2Fsvg%3E%0A);
+  
+  background-image: linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2056%2056%22%20enable-background%3D%22new%200%200%2056%2056%22%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23eee%22%20d%3D%22M0%200h56v56h-56z%22%2F%3E%0A%20%20%20%20%3Cpath%20fill%3D%22%23999%22%20d%3D%22M36.4%2013.5h-18.6v24.9c0%201.4.9%202.3%202.3%202.3h18.7v-25c.1-1.4-1-2.2-2.4-2.2zm-6.2%203.5h5.1v6.4h-5.1v-6.4zm-8.8%200h6v1.8h-6v-1.8zm0%204.6h6v1.8h-6v-1.8zm0%2015.5v-1.8h13.8v1.8h-13.8zm13.8-4.5h-13.8v-1.8h13.8v1.8zm0-4.7h-13.8v-1.8h13.8v1.8z%22%2F%3E%0A%3C%2Fsvg%3E%0A);
+  
+  background-image: -o-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/noimage.png?2015-04-15T18:51:40Z');
+}
+.list-thumb.list-thumb-x {
+  -o-background-size: 100% auto;
+  -webkit-background-size: 100% auto;
+  background-size: 100% auto;
+}
+.list-thumb.list-thumb-y {
+  -o-background-size: auto 100%;
+  -webkit-background-size: auto 100%;
+  background-size: auto 100%;
+}
+.page-list,
+.topic-title-list,
+.site-link-list {
+  overflow: hidden;
+}
+.page-list li,
+.topic-title-list li,
+.site-link-list li {
+  color: #666;
+  position: relative;
+  border-bottom: solid 1px #EEE;
+  padding: 12px 16px;
+  margin: -1px 0 0;
+  line-height: 1;
+}
+.page-list li > a,
+.topic-title-list li > a,
+.site-link-list li > a {
+  display: block;
+  color: #666;
+}
+.page-list li > a:active,
+.page-list li > a:hover,
+.page-list li > a:visited,
+.topic-title-list li > a:active,
+.topic-title-list li > a:hover,
+.topic-title-list li > a:visited,
+.site-link-list li > a:active,
+.site-link-list li > a:hover,
+.site-link-list li > a:visited {
+  text-decoration: none;
+  color: #666;
+}
+.page-list.thumbs li,
+.page-list.side-list li,
+.topic-title-list.thumbs li,
+.topic-title-list.side-list li,
+.site-link-list.thumbs li,
+.site-link-list.side-list li {
+  padding-left: 85px;
+}
+.page-list.thumbs .title,
+.topic-title-list.thumbs .title,
+.site-link-list.thumbs .title {
+  padding-right: 24px;
+}
+.page-list .title h3,
+.page-list .title .mw-mf-user,
+.page-list .title .component,
+.page-list .title .info,
+.topic-title-list .title h3,
+.topic-title-list .title .mw-mf-user,
+.topic-title-list .title .component,
+.topic-title-list .title .info,
+.site-link-list .title h3,
+.site-link-list .title .mw-mf-user,
+.site-link-list .title .component,
+.site-link-list .title .info {
+  margin: .5em 0;
+}
+.page-list .list-thumb,
+.topic-title-list .list-thumb,
+.site-link-list .list-thumb {
+  position: absolute;
+  width: 70px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.page-list.side-list .list-thumb,
+.topic-title-list.side-list .list-thumb,
+.site-link-list.side-list .list-thumb {
+  padding: 12px 16px;
+  color: #252525;
+}
+.page-list.side-list .list-thumb p,
+.topic-title-list.side-list .list-thumb p,
+.site-link-list.side-list .list-thumb p {
+  line-height: 1.2;
+  margin: .5em 0;
+}
+.page-list.side-list .list-thumb .timestamp,
+.topic-title-list.side-list .list-thumb .timestamp,
+.site-link-list.side-list .list-thumb .timestamp {
+  margin-bottom: .65em;
+}
+.page-list .title.new h3,
+.topic-title-list .title.new h3,
+.site-link-list .title.new h3 {
+  color: #CC0000;
+}
+.page-list p,
+.topic-title-list p,
+.site-link-list p {
+  font-size: .9em;
+  line-height: normal;
+}
+.page-list .info,
+.page-list .component,
+.topic-title-list .info,
+.topic-title-list .component,
+.site-link-list .info,
+.site-link-list .component {
+  color: #777;
+  line-height: 1.2;
+}
+.page-list .info,
+.topic-title-list .info,
+.site-link-list .info {
+  font-size: .7em;
+  text-transform: uppercase;
+}
+@media all and (min-width: 768px) {
+  .topic-title-list,
+  .site-link-list {
+    padding: 12px 3.35em;
+  }
+}/* Fork of http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+ins,
+em,
+img,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+input,
+textarea,
+button,
+select,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  background: none;
+}
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  font-size: 100%;
+}
+.beta *,
+.stable * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+div#centralNotice {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+button {
+  border: none;
+  background-color: transparent;
+}
+body {
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+input {
+  line-height: normal;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: collapse;
+}
+
+/* Left menu */
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+/* Search */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+#mw-mf-viewport {
+  position: relative;
+  height: 100%;
+}
+#mw-mf-page-center {
+  width: 100%;
+  position: relative;
+  z-index: 3;
+}
+#mw-mf-page-left {
+  float: left;
+}
+.transparent-shield,
+.navigation-drawer {
+  position: absolute;
+  z-index: 0;
+  visibility: hidden;
+}
+.notifications-overlay.navigation-drawer {
+  right: 0;
+  height: 100%;
+  width: auto;
+  box-shadow: -5px 0 0 0 rgba(0,0,0,0.3);
+}
+#mw-mf-page-left,
+nav {
+  font-size: 90%;
+  min-height: 100%;
+  background: #444;
+  border-left: solid 12px #252525;
+}
+.client-js #mw-mf-page-left .icon-secondary,
+.client-js #mw-mf-page-left .secondary-action,
+.client-js nav .icon-secondary,
+.client-js nav .secondary-action {
+  border: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding-right: 0;
+  border-left: 1px solid #777;
+}
+.client-js #mw-mf-page-left .icon-profile,
+.client-js #mw-mf-page-left .primary-action,
+.client-js nav .icon-profile,
+.client-js nav .primary-action {
+  margin-right: 45px;
+}
+#mw-mf-page-left ul:first-child,
+nav ul:first-child {
+  border-bottom: 12px solid #252525;
+}
+#mw-mf-page-left ul:first-child li:first-child,
+nav ul:first-child li:first-child {
+  border-top: none;
+}
+#mw-mf-page-left ul .icon-home,
+nav ul .icon-home {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAwklEQVR42u3RYQ2DMBDF8UmoBCQgAQlIQAISkICESqiESqgEJJyD/7IsZIxslNAjhOR+/djkveTdw5gVWtyZ8QMg1OeEOwKzTj++JrHktZcX1pLaNRj5TWg0lo9s6UuXn8jxh6eiQ9gjUaktn7lGwfJ5fenyeQG3b/njEnUu3lNGaLeWT2gY/i0vaAk4veXz18Dh0Sd07/iKxFnGV0Egzk+pKn7e+hINCpaJlxck4uJN+gXN1+9gBVZgBVZwowJj7uYJzjt74/BBFlgAAAAASUVORK5CYII=);
+  
+}
+#mw-mf-page-left ul .icon-random,
+nav ul .icon-random {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAABgUlEQVR42u3WUZHDIBSFYSQgIRIiAQlIiAQkREIkIAEJkRAJSMDBvzu7nTSdwlxuaR92Zr/nEpJz4UzNn4E1n8HEQqTA298Yz0bmzpv3wLFy8GwzY5gJJNqOsZQzMvtKygf9Fk3KO3pRDiOQKLwqN8OopCzJBPzT0Of6BhtaBVtdG+obLGitl6+/Sq3s9RucuCqmjgOdvfn1rm8K4ba40JKYsJVfrPUNfP08E9DaGwe1/plY6vSFwV678ng6ibXNyl3G3t7/QG9rlfFVYWMlI1DVNgVJwuFISCZTIy5M13npa1s+knP36KOiMDQbyIWRxyKSazuOD1mubb3MykbpqW2L3n6uzVzoa1sefVDVtr7acKra1v8XIvYVxqPC8tNT7egKy1mW6toGdxmhlpcLIw9NJ8q1XR4uoVbuqe1wblvQ2X/XyrUdcQTF4w+2+h0YL4yIxxoZExqFRGAyGuTOlFdm8wqimLI3I/DNlBesGYetpDybd+I4U3bmE3B4rPn37QtbAHEqV4OXXQAAAABJRU5ErkJggg==);
+  
+}
+#mw-mf-page-left ul .icon-watchlist,
+nav ul .icon-watchlist {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEX////////////////////////////////////////////////////////////////////lEOhHAAAAEHRSTlMAECAwQFBgcICQoLDA0ODwVOCoyAAAAPBJREFUeNrN1MuuwyAMRVHzTgjg8/9fW8kdpGlwiaU7uGuWCexYFvRXAu9kUgEyGUAyFQGoZLADYGORNBmKpMlSZGsaEMlQJKqhSLClSCRDkdgNRWJYikSgCR+vMk41XskBDINCRA3PsVyx4anuScRF1X3K7sAaR/pQsNIcXYS+Gs83V6EbgSYSQ1EdTfl5FmdSbcrwVU75XVWe3UA/HJjwhiJRDEWiWYqEMxSJ/KCoh/38OEhRL5sfednEeOP0LmyLpnTb/PLRpBdtdArjVxNPNt9VvUmKjttZmbWmqmy+70pTQw/q6+ynbyxpYqF/7AV+dDAWUUBTeAAAAABJRU5ErkJggg==);
+  
+}
+#mw-mf-page-left ul .icon-uploads,
+nav ul .icon-uploads {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEX////////////////////////////////////////////////////////////////////lEOhHAAAAEHRSTlMAECAwQFBgcICQoLDA0ODwVOCoyAAAANZJREFUeNrtk0kOwyAMRZlCIAz2/U/bllaCxEamu6rKW5L/FGNjdfNvaBeeOL0Ydwk/JKdkdMKBbKS8BTwBVs5/Y+iKBODuvqUK2SsVkSHR/IGNYpHF8vk5x/WiKAAXIZCEUFMShfPATRGFMOY9oEy1Uoem8/a4CJh3/cB9Y9uWmxD5v/tpqwAJxfRKybwNk9ez3pXXMvJ5fjGwCzTfDSrQfDfoE6T5uZH7u6PnDil7W01BoKudl4VdNTQsCgfdBirwa60DiELd1Ij2MXdi62geCJu6+SUejUg7X53rg78AAAAASUVORK5CYII=);
+  
+}
+#mw-mf-page-left ul .icon-nearby,
+nav ul .icon-nearby {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAABYElEQVR42s2XW5HDMAxFBcEQAiEQDCEQCsEQAiEQDMEQCsEQDCEMTmd29mNbbca5dTrT01/Z1uOqUuwsTETWn18iEuw6mMk0XqkkwhWX3zlmZx16hJU+jdnegUDhLDfT4Y6A/AQZlahcv+DJLITfwicqvuDhfPZ3nilM3glntb2rnXzkiItjsjPQ3PXHsTYXg5j/1rGOzroHm5OfIudZ0/8uR9zvhydtlFOa+8tqPZy54NKnHqjuhOSP6JJW5Lt1YXJFlvo4dO2T2MvMWsg012jSkZ1JiHcz03u5Ejp/FC5BWtmg/n+QGzs4SZyB4oZJIrw4UQbGJhHPTmYlcmOl4mmfHPn62Cei0b5nbdFj0P3XY1jsHZjo4PSvwja60+krmCfbCCQcwsIoD0RPslGYOaaahF7q2RT6G6i2TY9+L7RrP2WLpv7xjih2NSyC+ofTtJiAnqZsn4JFV4/edNG+iwdmrLsywuvssQAAAABJRU5ErkJggg==);
+  
+}
+#mw-mf-page-left ul .icon-settings,
+nav ul .icon-settings {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAABWUlEQVR42u2XW5GEMBBFkYAEJCABCUhAAhIiAQmRgIRIiAQkxMHZral9FDRJhx4+pnb29t9U7j0zk04HmncRE2FfdwMcB706gE4FSEe98CR6DSAd9fHAr4ERz8ZRkYVOOGrjvw1MbJQU6PcOPd4kibDH2xEs3KOU6Sh6EnfIi+gCwhqvI+zx1j6KOIZHTYVmGNQRkev2w7o20xJBAZzaXGbtQEKqLwOkxZV27OIuMFz9yczCsRVipfQhXJhVQQesjSrmZwBTBaB7BjA0FSLZAW0VINgBfRVgswPGKgB2wFIRP+qADvdVqzg0huH4kzbVtNwsI5VhEcuGeOUSpyVe/EpMUIugxRtam+0EMZ6e4GhqC9bMlTPu/nlvvdE8JUXCZ6X/B68/9OBV2FCxRsbrCP84TI6tED4eHEJ5hN99EuRIoMs7dMSivQQqDl0a4O1fxE9m57Cv5lX0Ac1pSK7vK+NJAAAAAElFTkSuQmCC);
+  
+}
+#mw-mf-page-left ul .icon-secondary-logout,
+nav ul .icon-secondary-logout {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEX////////////////////////////////////////////////////////////////////lEOhHAAAAEHRSTlMAECAwQFBgcICQoLDA0ODwVOCoyAAAAUBJREFUeNrVldtygCAMRAWCeOGS///atgwYypo6zrQP3SdH9kziEnD5LRGZN3aXmcv6Aoj8qfKiBletbwH6C8DQDDj7UziRufgRcIk5e82/lhaOAKk+7IqfWzgC2PbqUPwAONYJz112aClzE3RlixQYAHe99jgMVcV9j9XUBRwUuvywcUdb2qCA+AUY1wwUqBYETMESRw8PAQk8i7+nZwHA5SonBRCQEmHetFUD7Lx5m5REQHqKM7CoQHwC8pTKE1BHKPtnQGRCTUADwtOh56pznoxN83tY73uv6IAOotrTOH14ntM9sOO5xgnWZl+6VO5fOdb5/g5Y0Y8FZO+wK9/9Ef8hTYmGwifLpYHZdeW9/uAoJL5EyseB1DCAQD/KpHt7ceiVrFCnWXTZY7ZHmiyAjNnk3aEDZShsXyK7/At9ALbFLhjlKY4EAAAAAElFTkSuQmCC);
+  
+}
+#mw-mf-page-left ul .icon-profile,
+nav ul .icon-profile {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABwElEQVR42u3VPyiEYRzA8Z+TvAiLk41JTBb/BwOLGExKYdOFBaVY3SCbwXIWjAbFDQaL4aSUPxn9C4v/1EmuiPd8B+p68/Ye3nvPU8+vPuPver713vNIPB7/YiCACC5h4n+P5fDrUG4EmQhDyRF0QNkRLKkecK96QFwH6AAdoAN0QDoDrrCJ6A/3XrCNI5jpCIihF/IpCxNJ7obhT9itwanXAcOQbyw47B3AgFhU482rABOFNgHNDrtBiI09rwJi8NkcosphdwhiY83LT6jO5hD9DnuLNnu5ePAyYAf5lkOU4jaJz6/dspeBUDqu0TOMoROTeExy7x1z6MYgIvoh0wE6QAfoAB2Q6oAoulCMUTzBzTExhwYEcON2wAwkQTn24cZcoxWSYNztgBDEIhsDOMZv5g5BFEEs+twOiKER8g0f2jGNXbzDbs4xjx7k2PyeHwep+BO/YgTiwEAZatGGJlSiCOKgCRepvoVWUAFxUQGCePPqGjWxjHrIH5RgCo/pfAdOMItO+B0OnIcWBBHBy398yJ5xhi2sYgOHiOqXWAfoAB2QOPeqByypHtChckAYmaoGrMOAqBJg4hIRBGBAIB/Ncg60Su6S/AAAAABJRU5ErkJggg==);
+  
+}
+#mw-mf-page-left ul .icon.icon-anon,
+nav ul .icon.icon-anon {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABwUlEQVR42u3YPyiEcRzH8d95pOsWg38p3YYF+TOalIH8uUK5shMjgzIQEiWjwUIGdSSxGBTDrVKXnDqckn+DP8nk6O68rzz1dOmhw3me6/upV89yw/Mefr+nTsXjcZ0TvfDjBjFYfsaX34PtpqBhC/qiCGINPou6MAZ4oC8AN5TF+YwB69BXCWW3gHskFoKyY4A+nwRIgARIgARIQCYGlGMADigTGkaQZ/KbYgxDgzLhwABKfyNAwxPOMYlWVKHo49mGaVzhCOoLZ7jGLDyoRhEq0IJxhHEHx88DgA7EYLYI6r8R0IA3mC2K9t8+A15c4bOdoAnqm9oQxme7RPdfHWIXejCDFUygE9kpHMQcdGEMi5iAF065hSRAAiRAAiRAAjI9INvOAYNI7Bh9cEGlqAbz2EdzugKWYdwDZlCKLKgv5KIfBzBuM10BJVjCC5L3ilPsYAEjmPqI3kUIESQvjNp0H+JCjOIWqSyCVTTC8Z+3UA68mMMGAnhG8h5xiG0MocDq12g+6lAGl3wHJEACJCCjAkJI7N6OAZXQt263ADcC0OcxBlzAZ1FrCCIKfVvQCLDl9uCEsktADDfwo9f4/+k7B58r6oI7dCcAAAAASUVORK5CYII=);
+  
+}
+#mw-mf-page-left ul li,
+nav ul li {
+  position: relative;
+  font-size: 1.2em;
+  border-top: 1px solid #777;
+}
+#mw-mf-page-left ul li:hover,
+nav ul li:hover {
+  background-color: #555;
+  margin-left: -12px;
+}
+#mw-mf-page-left ul li:hover a,
+nav ul li:hover a {
+  border-left: solid 12px #3366BB;
+}
+#mw-mf-page-left ul li:last-child,
+nav ul li:last-child {
+  border-bottom: 1px solid #777;
+}
+#mw-mf-page-left ul li a,
+nav ul li a {
+  color: white;
+  display: block;
+  padding: 11px 10px 11px 0;
+}
+#mw-mf-page-left ul li a.mw-ui-icon,
+nav ul li a.mw-ui-icon {
+  padding-left: 9px;
+}
+#mw-mf-page-left ul li a.mw-ui-icon.mw-ui-icon-element,
+nav ul li a.mw-ui-icon.mw-ui-icon-element {
+  font-size: 0.8em;
+}
+#mw-mf-page-left ul li a.icon,
+nav ul li a.icon {
+  background-position: 9px center;
+  padding: 11px 10px 11px 44px;
+  line-height: 22px;
+}
+#mw-mf-page-left ul li a:hover,
+nav ul li a:hover {
+  text-decoration: none;
+}
+#mw-mf-page-left ul li a:visited,
+#mw-mf-page-left ul li a:active,
+nav ul li a:visited,
+nav ul li a:active {
+  color: white;
+}
+#mw-mf-page-left ul.hlist li,
+nav ul.hlist li {
+  font-size: 0.8em;
+  margin: 0;
+  border: none;
+}
+#mw-mf-page-left ul.hlist li a,
+nav ul.hlist li a {
+  color: #CCC;
+  border: none;
+  padding: .7em 12px;
+  margin-left: 0;
+}
+body.navigation-enabled #mw-mf-viewport {
+  overflow: hidden;
+  min-height: 100%;
+  height: auto !important;
+}
+body.navigation-enabled #mw-mf-page-center {
+  background: #fff;
+  position: absolute;
+  height: 100%;
+  left: 240px;
+  border-left: solid 1px #000;
+  box-shadow: -5px 0 0 0 rgba(0,0,0,0.1);
+}
+body.navigation-enabled .navigation-drawer,
+body.navigation-enabled .transparent-shield {
+  visibility: visible;
+}
+body.navigation-enabled .transparent-shield {
+  background: rgba(255,255,255,0.8);
+  opacity: 1;
+}
+.primary-navigation-enabled {
+  border-left: solid 12px #252525;
+  background: #444;
+}
+.primary-navigation-enabled #mw-mf-viewport {
+  margin-left: -12px;
+}
+.primary-navigation-enabled #mw-mf-page-left {
+  width: 240px;
+}
+.primary-navigation-enabled .position-fixed {
+  left: 240px !important;
+}
+@media all and (min-width: 768px) {
+  .secondary-navigation-enabled #mw-mf-page-center {
+    left: -60% !important;
+    right: 60% !important;
+    width: auto;
+  }
+  .secondary-navigation-enabled #mw-mf-page-center .main-header-button {
+    visibility: hidden;
+  }
+  .notifications-overlay.navigation-drawer {
+    left: 40%;
+  }
+}
+.animations #mw-mf-page-center {
+  min-height: 100%;
+  background-color: #fff;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: -webkit-transform .25s cubic-bezier(0.175,0.885,0.320,1.275), height 0s 0.5s;
+  transition: transform .25s cubic-bezier(0.175,0.885,0.320,1.275), height 0s 0.5s;
+}
+.animations #mw-mf-page-left {
+  width: 240px;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: visibility 0s .25s;
+  transition: visibility 0s .25s;
+  -moz-transition: visibility 0s .25s;
+  -o-transition: visibility 0s .25s;
+}
+.animations .notifications-overlay.navigation-drawer {
+  display: block;
+  -webkit-transform: translate3d(102%,0,0);
+  transform: translate3d(102%,0,0);
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: -webkit-transform .25s cubic-bezier(0.175,0.885,0.320,1.275), visibility 0s .25s;
+  transition: transform .25s cubic-bezier(0.175,0.885,0.320,1.275), visibility 0s .25s;
+}
+.animations .notifications-overlay.navigation-drawer.visible {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+.navigation-enabled .animations .position-fixed,
+.navigation-enabled .animations #mw-mf-page-center {
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: -webkit-transform .25s cubic-bezier(0.175,0.885,0.320,1.275);
+  transition: transform .25s cubic-bezier(0.175,0.885,0.320,1.275);
+}
+.primary-navigation-enabled .animations .position-fixed,
+.primary-navigation-enabled .animations #mw-mf-page-center {
+  left: 0 !important;
+  -webkit-transform: translate3d(240px,0,0);
+  transform: translate3d(240px,0,0);
+}
+.primary-navigation-enabled .animations #mw-mf-page-left {
+  position: static;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: none;
+  transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+}
+.secondary-navigation-enabled .animations #mw-mf-page-center {
+  left: 0 !important;
+  -webkit-transform: translate3d(-60%,0,0);
+  transform: translate3d(-60%,0,0);
+  width: 100%;
+}
+.rtl .animations .notifications-overlay.navigation-drawer {
+  -webkit-transform: translate3d(-102%,0,0);
+  transform: translate3d(-102%,0,0);
+}
+.rtl .animations .notifications-overlay.navigation-drawer.visible {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+.rtl.primary-navigation-enabled .animations .position-fixed,
+.rtl.primary-navigation-enabled .animations #mw-mf-page-center {
+  -webkit-transform: translate3d(-240px,0,0);
+  transform: translate3d(-240px,0,0);
+}
+.rtl.secondary-navigation-enabled .animations #mw-mf-page-center {
+  -webkit-transform: translate3d(60%,0,0);
+  transform: translate3d(60%,0,0);
+}
+html,
+body {
+  height: 100%;
+}
+#content_wrapper .last-modified-bar {
+  background-color: #EEE;
+  padding: 5px 16px;
+  display: block;
+  color: #666;
+}
+#content_wrapper .last-modified-bar a {
+  color: #666;
+}
+#content_wrapper .last-modified-bar a:nth-child(2) {
+  font-weight: bold;
+}
+#content_wrapper .last-modified-bar.active {
+  background-color: #00AF8B;
+  color: #fff;
+}
+#content_wrapper .last-modified-bar.active a {
+  color: #fff;
+}
+.header {
+  display: table;
+  width: 100%;
+  height: 3.35em;
+  white-space: nowrap;
+  border-bottom: 1px solid #CCC;
+}
+.header > a {
+  width: 3.35em;
+}
+.header > a,
+.header > form,
+.header > div {
+  vertical-align: middle;
+  display: table-cell;
+}
+.header > form {
+  padding: .15em .5em 0;
+  width: auto;
+  vertical-align: middle;
+}
+.header > .header-title {
+  vertical-align: middle;
+}
+.header .fulltext-search {
+  margin: 0 3px 0 9px;
+}
+@media all and (max-width: 280px) {
+  .header .search {
+    border: 1px solid #CCC;
+    padding: .3em .1em;
+  }
+}
+.mw-dismissable-notice {
+  border-bottom: 1px solid #CCC;
+}
+.warningbox,
+.alert.warning {
+  color: #850;
+  background: #feb;
+}
+.alert {
+  padding: 1em 16px;
+  margin: 0 0 1em;
+}
+.alert.successbox {
+  background: #e1fddf;
+}
+.alert h2 {
+  font: bold 100% "Helvetica Neue", "Helvetica", "Nimbus Sans L", "Arial", "Liberation Sans", sans-serif;
+  padding: 0;
+  margin: 0 0 .5em 0;
+}
+.alert a {
+  margin-bottom: 1em;
+}
+.client-use-basic-search .header .search,
+.client-use-basic-search .header .fulltext-search,
+.client-nojs .header .search,
+.client-nojs .header .fulltext-search {
+  display: block;
+  float: left;
+}
+.client-use-basic-search .header .search,
+.client-nojs .header .search {
+  width: 80px;
+  margin-right: 8px;
+}
+input.search {
+  outline: 0;
+  width: 100%;
+  background-color: #fff !important;
+  /* remove fennec default background also see bug 36490 */
+  -webkit-appearance: none;
+}
+input.search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+.search-box {
+  -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+.content h1 .mw-ui-icon.edit-page {
+  font-size: 0.58823529411765em;
+}
+.content h2 .mw-ui-icon.edit-page {
+  font-size: 0.66666666666667em;
+}
+.content h3 .mw-ui-icon.edit-page {
+  font-size: 0.83333333333333em;
+}
+.content .edit-page {
+  display: none;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+.content .collapsible-heading .edit-page {
+  position: absolute;
+}
+.content .in-block {
+  position: relative;
+}
+.content .in-block > .edit-page {
+  display: none;
+  position: relative;
+  float: right;
+}
+.content .open-block > .edit-page {
+  display: block;
+}
+.stub .edit-page {
+  margin: 0;
+  display: block;
+}
+.stable .languageSelector {
+  margin-top: 1em;
+}
+#page-secondary-actions a {
+  margin: 10px 2px 2px 0;
+}
+.truncated-text {
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.truncated-text.multi-line {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.truncated-text.two-line {
+  -webkit-line-clamp: 2;
+  max-height: 2.6em;
+}
+.overlay #secondary-button.user-button,
+.overlay .user-button,
+.header #secondary-button.user-button,
+.header .user-button {
+  position: relative;
+}
+.overlay #secondary-button.user-button .label,
+.overlay .user-button .label,
+.header #secondary-button.user-button .label,
+.header .user-button .label {
+  visibility: hidden;
+}
+.overlay #secondary-button.user-button.icon,
+.overlay .user-button.icon,
+.header #secondary-button.user-button.icon,
+.header .user-button.icon {
+  width: 3.35em;
+  text-align: right;
+  background-image: url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/bell.png?2015-04-15T18:51:40Z');
+  background-image: -webkit-linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2248px%22%20height%3D%2248px%22%20viewBox%3D%22-282.375%20419.5%2048%2048%22%20enable-background%3D%22new%20-282.375%20419.5%2048%2048%22%3E%3Cpath%20fill%3D%22%23555555%22%20d%3D%22M-252.692%2C457.249h7.582c0.697%2C0%2C1.395-0.463%2C1.625-1.084c0.309-0.618%2C0.154-1.392-0.388-1.935c-2.476-2.552-3.016-6.345-3.48-9.979c-0.774-5.416-1.625-11.528-9.362-12.303v-1.006c0-1.005-0.772-1.779-1.778-1.779c-1.007%2C0-1.78%2C0.774-1.78%2C1.779v1.006c-7.66%2C0.775-8.511%2C6.887-9.285%2C12.303c-0.541%2C3.635-1.005%2C7.428-3.481%2C9.979c-0.464%2C0.543-0.619%2C1.239-0.386%2C1.935c0.309%2C0.621%2C0.928%2C1.084%2C1.624%2C1.084h7.427%20M-258.494%2C459.416c-1.239%2C0-2.168-0.929-2.245-2.167h4.487C-256.328%2C458.409-257.336%2C459.416-258.494%2C459.416z%20M-258.494%2C453.689h-9.827c1.47-2.862%2C1.935-6.035%2C2.322-8.976c0.851-6.266%2C1.547-9.284%2C7.505-9.284c6.035%2C0%2C6.729%2C3.018%2C7.582%2C9.284c0.385%2C2.94%2C0.851%2C6.113%2C2.32%2C8.976H-258.494z%22%2F%3E%3C%2Fsvg%3E%0A);
+  
+  background-image: linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2248px%22%20height%3D%2248px%22%20viewBox%3D%22-282.375%20419.5%2048%2048%22%20enable-background%3D%22new%20-282.375%20419.5%2048%2048%22%3E%3Cpath%20fill%3D%22%23555555%22%20d%3D%22M-252.692%2C457.249h7.582c0.697%2C0%2C1.395-0.463%2C1.625-1.084c0.309-0.618%2C0.154-1.392-0.388-1.935c-2.476-2.552-3.016-6.345-3.48-9.979c-0.774-5.416-1.625-11.528-9.362-12.303v-1.006c0-1.005-0.772-1.779-1.778-1.779c-1.007%2C0-1.78%2C0.774-1.78%2C1.779v1.006c-7.66%2C0.775-8.511%2C6.887-9.285%2C12.303c-0.541%2C3.635-1.005%2C7.428-3.481%2C9.979c-0.464%2C0.543-0.619%2C1.239-0.386%2C1.935c0.309%2C0.621%2C0.928%2C1.084%2C1.624%2C1.084h7.427%20M-258.494%2C459.416c-1.239%2C0-2.168-0.929-2.245-2.167h4.487C-256.328%2C458.409-257.336%2C459.416-258.494%2C459.416z%20M-258.494%2C453.689h-9.827c1.47-2.862%2C1.935-6.035%2C2.322-8.976c0.851-6.266%2C1.547-9.284%2C7.505-9.284c6.035%2C0%2C6.729%2C3.018%2C7.582%2C9.284c0.385%2C2.94%2C0.851%2C6.113%2C2.32%2C8.976H-258.494z%22%2F%3E%3C%2Fsvg%3E%0A);
+  
+  background-image: -o-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/bell.png?2015-04-15T18:51:40Z');
+  display: inline-block;
+  float: right;
+  height: 3.35em;
+}
+.overlay #secondary-button.user-button.loading span,
+.overlay .user-button.loading span,
+.header #secondary-button.user-button.loading span,
+.header .user-button.loading span {
+  display: none;
+}
+.notification-count {
+  text-indent: 0;
+  display: inline-block;
+  font-weight: bold;
+  color: #fff;
+  background: #c91f2c;
+  border-radius: 2px;
+  height: 1.2em;
+  line-height: 1.2em;
+  min-width: 1em;
+  margin: .6em .6em 0 0;
+  padding: 0 0.1em;
+  text-align: center;
+}
+.notification-count.zero {
+  display: none;
+}
+.notification-count.max {
+  right: .2em;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  font-size: 0.7em;
+}
+.mw-ui-button-group {
+  text-align: center;
+}
+.mw-ui-button-group * {
+  float: none !important;
+}
+.mw-ui-button-group .mw-ui-block {
+  width: auto;
+}
+.beta .mw-ui-button.icon-talk {
+  background-position: left 10px center;
+  padding-left: 50px;
+}
+.alpha .notification-count {
+  position: absolute;
+  right: 0;
+  top: -0.1em;
+}
+.alpha .spinner {
+  margin: auto;
+}
+.alpha .header {
+  background-color: #fff;
+  position: relative;
+}
+.alpha .header > .header-title {
+  bottom: 0;
+  left: 3.35em;
+  position: absolute;
+  right: 3.35em;
+  text-align: center;
+  top: 0;
+}
+.alpha .header > .header-title a {
+  display: block;
+  line-height: 3.35em;
+  text-decoration: none;
+}
+.alpha #page-secondary-actions:before,
+.beta #page-secondary-actions:before {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.client-nojs #ca-watch,
+.client-nojs #ca-edit,
+.client-nojs #ca-upload,
+#ca-talk.selected {
+  display: none;
+}
+.pre-content {
+  padding: 12px 16px 7px;
+}
+#section_0 {
+  border-bottom: dotted 1px #CCC;
+}
+#page-actions {
+  border-bottom: solid 1px #CCC;
+  padding: 8px 16px 8px 8px;
+}
+#page-actions li {
+  position: relative;
+  cursor: pointer;
+  margin-right: 0;
+}
+#page-actions li input {
+  opacity: 0;
+}
+#page-actions li input,
+#page-actions li a,
+#page-actions li span {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0 0 8px;
+}
+#page-actions li.icon {
+  vertical-align: top;
+  height: 30px;
+  width: 40px;
+  background-position: 50% 0;
+  margin: 0 16px 0 0;
+}
+@media all and (max-width: 280px) {
+  .client-nojs #page-actions {
+    display: none;
+  }
+  .client-nojs #section_0 {
+    border: none;
+  }
+}
+#ca-upload.icon {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAAaVBMVEUAAAD////Pz89sbW9sbW/Pz8/Pz89sbW/Pz8/Pz8/Pz89sbW9sbW/Pz8/Pz89sbW/Pz89sbW9sbW/Pz89sbW/Pz8/Pz8/Pz89sbW/Pz89sbW/Pz89sbW9sbW9sbW9sbW9sbW9sbW/Pz8+s7s0JAAAAIXRSTlMAABAQHyAwPEBQYGRwcICHkJKcoK+wwNDc4O/w8Pb3+/7rAAViAAABGklEQVR4Xu3OwVaDMBSE4WkExIhUe2kRYpX4/g8pkXpyFA2h99ZN869m9Z3BRrhLgwlMYALhypq+t8e+yQARcDvYqaESAXfWV53A93MrgWywvreMCQJoHPRyi+zZjR0fPI7M6w3G+nH1fNCOPcG1dVMGvIerEgDVBGKKC8J1faCdJw8mMIEJTKAPG98/gp0mUbAFQPGPF0Gj4EQ5sIALJAVqnCIZkAAvCoAH+EB8sFOYiRzQFPgeMUGNnxELfMQ8YoB7YEGsaQ3YKoTFQw7U8aApgJBoNFzaxIJ3QEgkhanCxIE1AlFXej5vY0BCfGq/DLYKa6Il0ORYl14AS6ytNCHwAesrur9Bwjmp9heQ13WCCZQpgbwSyC2BH6sPrnRPXCJFAAAAAElFTkSuQmCC);
+  
+}
+#ca-upload input {
+  display: none;
+}
+#ca-upload.enabled.icon {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAANlBMVEUAAAD///9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW+FiFraAAAAEXRSTlMAABAgMEBQYHCAkKCwwNDg8InUWv0AAADZSURBVHhe7dLBsoMgEETRDqCoKI7//7NvgSVl8kDIzC5zt111Vo2XcAqWUhBXRwopBVtTUMGjr8wUUrCUgowfMkEF630HKqhgdlJyoIL8nkEKY5QEIwAT5UCySKIUOAJJFAIXnFkSASOuHAmAZHET2eAA3EQuOOPeyAQ3vOdZIBl8ihxwAOoizaEHnPBvS76oAeZ2cEWhcO7pUZ4awd2gJm5D/lIb6FAu7B45G1vACe2Z9RkM6Co8gdGgL18HyaG3gWqgR39uL4MB32RiAWT0k6CCL5EUZKXgH0f02NZk8/NCAAAAAElFTkSuQmCC);
+  
+}
+#ca-upload.enabled input {
+  display: block;
+  cursor: pointer;
+}
+#ca-upload.enabled ::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+/* FOOTER
+initially moved from beta_common.css in
+Change-Id: I48bcdc43e72f2a9b60e6d1bfe877d79ad80b6d5d
+*/
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+#footer {
+  padding: 2em 16px 1.5em 16px;
+  margin: 2em auto 0 auto;
+  border-top: 1px solid #AAA;
+  font-size: 0.9em;
+  clear: both;
+}
+#footer h2 {
+  display: inline;
+  font-weight: bold;
+  font-size: 1em;
+}
+#footer h2 img {
+  height: 1em;
+}
+#footer ul {
+  text-align: center;
+}
+#footer ul li {
+  line-height: 1.2;
+  padding: 0 0 .7em;
+}
+#footer ul ul {
+  display: inline;
+}
+#footer ul ul li,
+#footer ul.footer-places li {
+  display: inline;
+  padding: 0 8px;
+  border-right: 1px solid #AAA;
+}
+#footer ul ul li:after,
+#footer ul.footer-places li:after {
+  content: ' ';
+  font-size: 0;
+}
+#footer ul ul li:last-child,
+#footer ul.footer-places li:last-child {
+  border: none;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.cloaked-element {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.alpha .view-border-box *,
+.alpha .view-border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.mw-mf-image-replacement {
+  font-style: italic;
+  color: #777;
+  text-decoration: underline;
+  border: dotted 1px #CCC;
+  padding: 10px;
+  display: inline-block;
+}
+.inputs-box {
+  border: solid 1px #CCC;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #fff;
+  margin: 0 0 .8em;
+  text-align: center;
+}
+.inputs-box input:not([type=submit]),
+.inputs-box img {
+  border: none;
+  border-top: solid 1px #CCC;
+}
+.inputs-box input:not([type=submit]):first-child,
+.inputs-box img:first-child {
+  border-top: none;
+}
+.inputs-box input:not([type=submit]) {
+  -webkit-appearance: none;
+  border-radius: 0;
+  padding: .8em .5em;
+  margin: 0;
+}
+textarea {
+  padding: 5px 0 5px 5px;
+  width: 100%;
+  resize: none;
+}
+.mw-input [type=submit],
+.mw-submit {
+  margin-top: 8px;
+  min-width: 80%;
+}
+.top-bar,
+.last-modified-bar {
+  font-size: .9em;
+}
+.alpha .last-modified-bar,
+.beta .last-modified-bar {
+  margin-top: 1.5em;
+}
+.client-js .searchSubmit,
+.client-js .no-js-only,
+.printfooter,
+.jsonly {
+  display: none;
+}
+.searchSubmit,
+.no-js-only,
+.client-js .jsonly {
+  display: inherit;
+}
+.position-fixed {
+  position: fixed !important;
+}
+.no-position-fixed .drawer {
+  bottom: 0;
+}
+.no-position-fixed .position-fixed {
+  position: absolute !important;
+}
+.touch-events :focus {
+  outline: 0;
+}
+.hidden {
+  display: none !important;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.mw-ui-button.mw-ui-progressive.icon,
+.profile .icon-talk-blue,
+.icon {
+  background-repeat: no-repeat;
+  -o-background-size: 24px auto;
+  -webkit-background-size: 24px auto;
+  background-size: 24px auto;
+  cursor: pointer;
+  background-position: center center;
+  text-indent: -9999px;
+  overflow: hidden;
+  min-height: 24px;
+  min-width: 24px;
+}
+.mw-ui-button.mw-ui-progressive.icon[disabled],
+.profile .icon-talk-blue[disabled],
+.icon[disabled] {
+  opacity: .5;
+}
+.stable #page-secondary-actions .mw-ui-button.mw-ui-progressive.icon,
+.profile .icon-talk-blue,
+.mw-ui-button.mw-ui-progressive.icon.icon-text,
+.icon-text {
+  text-indent: 0;
+  background-position: left center;
+}
+.icon-12px {
+  -o-background-size: auto 12px;
+  -webkit-background-size: auto 12px;
+  background-size: auto 12px;
+  min-height: 12px;
+  min-width: 12px;
+}
+.icon-15px {
+  -o-background-size: 15px auto;
+  -webkit-background-size: 15px auto;
+  background-size: 15px auto;
+}
+.icon.icon-16px {
+  min-height: 16px;
+  min-width: 16px;
+  -o-background-size: 16px auto;
+  -webkit-background-size: 16px auto;
+  background-size: 16px auto;
+}
+.icon.icon-18px {
+  -o-background-size: 18px 18px;
+  -webkit-background-size: 18px 18px;
+  background-size: 18px 18px;
+}
+.icon.icon-20px {
+  -o-background-size: auto 20px;
+  -webkit-background-size: auto 20px;
+  background-size: auto 20px;
+}
+.icon.mw-ui-button.mw-ui-progressive.icon-32px,
+.icon.icon-32px {
+  -o-background-size: 32px auto;
+  -webkit-background-size: 32px auto;
+  background-size: 32px auto;
+  min-height: 32px;
+  min-width: 32px;
+}
+.icon-edit {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAAXVBMVEUAAAD////Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz8/Pz8/Pz89sbW/Pz89sbW/Pz8/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW+fZUWwAAAAHXRSTlMAABAQICAwMEBAUFBgYHBwgJCgoLDAwNDQ4ODw8PGFG8cAAAHOSURBVHhe7dTLcoMwDAVQxVCXJAoByiPUEf//mcW0Gh5KFrbojrtidUYM9wKnnfOP4AEe4AGCT3JvmuHR3BOAXcDrc/jN87wLeBvmnCUIATnZEUyeC/A7UYHWjeDdQ48PSL68eNOA6GgEH9Nh3m9GsFGASOTB6S7wufrHeLCkGfycwLMKrGgBwm8UoKknD/cCTffn7QSmk+cup51A6ybP+hsGmUCQvd7CTiCST2dAB0pPAcr6VQY0oPRgCqpB005eydvTglxnPlYLWvZ4ezqQ65zxsVrwwvPg7SlBJJ4HH6sDc64ze0qwWnroSAHKeSDRDL6JBGX9eB4FKUH2Sj5WC9p+PQ8lyA1BPnYVZ4NBnOssvS4NvhBp4dl+45nAV+Yv2q3nwakMBICyztnWAwgEzcpDWgchABR1Fp5DCAXTlVdtPAuBINevEB5/pQBQ1rneeAZCQaTVPERdQsGMVn97UZdgMJ89UeccIsDaA7V55SHEgD0vDtCJukSAKQM5kvBiwAtxRF3iwPKtFwm2TIi6RIJvvGgwe+UhxIO55ByCAqylZ0ED9luvt6ABU1kXUIHLWru2LVoDOrAk6tu6KLKMJSVohaMAtTnA4BzgAf4Asb6U9nmPcP4AAAAASUVORK5CYII=);
+  
+}
+.icon-edit-enabled {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAANlBMVEUAAAD///9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW+FiFraAAAAEXRSTlMAABAgMEBQYHCAkKCwwNDg8InUWv0AAAGfSURBVHhe7djBjsIgFIXhOwjFeltK3/9lJ4J6SG5dHGgyyaRn1dUXlb8slJ+T9//AC7zACxRiLu37EqXsDPCW9ue2cBLo8/7a/RQwFK9OTwDj3k6Hwbk6Mb/EeRDUojyaHzKMgG4pRmy/ehoAXcklT3h+buoGffU8vDJlQJtfuuG5busEY/Xc28N4EPkp7EHwUaODjSkLIr8Iu/VIELkE2Bj9psDzSBuLQoLIxX1sLEfhQHirQ9rwvLAgcoHdejx4b3IJ8PDOcCBysfklJzToipc9Piu2OKFA5LL5o/xUhAZ9Qi7W40Dkspj8as48OGXkYj0ORH73w/yC8OCMXA5y5sE2lwgPh86Bbi3h+i8506Brc3kYjwb9VkL7lh8N+jaXxXg0GBGayW8WCoSXq+dNzjyIXGx+UXhQm1yCyZkHA8JAfvBosF6h21RvU3vb86B+4lCTcxf4rkTV3PZ9IAiTcxcYvnm94P3Qi9IN6rHXDybL5SAD4IHnZQAMxtu8jIA4E+Q8BKr1xkCcybrOcwhOBsE3JOT+4G+WC7zAC7zAXxMIT+qGYJfyAAAAAElFTkSuQmCC);
+  
+}
+.icon-talk {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQAgMAAADzfxo+AAAADFBMVEUAAAD///9sbW9sbW/5mbfkAAAAA3RSTlMAAKAsoGc2AAAAaElEQVR42u3RoRmAIBRF4SdGhmEZ0XV0MlzCrlto8RnED8IJFgt44h9uueKhAlFEU0uFOMud/xxbTUnz4zs0hJbQEQZAo4CW0BEGwHj1UAqOhCvhTngS6hSxz3GL2IUMjwddPioeqgQvLXugcdGiUw4AAAAASUVORK5CYII=);
+  
+}
+.icon.watch-this-article {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAANlBMVEUAAAD///9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW+FiFraAAAAEXRSTlMAABAgMEBQYHCAkKCwwNDg8InUWv0AAAHrSURBVHhe7dbRcoUgDARQC2JExJD//9lW7W3UgDSVp87dV4czq7PO0H00zj8H3+Ab7G4DcPf0DyBiW3AggqZgJMKWYE9fgYZgWEFsB1raAs3AaQexFWgS7YFG4EjfwUYg0ivQBAT6CTYBF+JAA9Dt3ZArPgTnvRpwxWegfTXjis/A8CrGFR+BhntxxSeg51pc8QmYuJWoqAKtAz9HXt9x4SkGP7jfgr3zPi50DMp/kN0y6AYfIlImIH5C6WbAICAuyBULCbnZSFEsD248CWbEZfZw+vpunGLKexI8iilO3tkuH3NhQ2k2LIaunsBeGWRR492BLGq8MijFulcDpVj3yqAU614dZLHu1UEp1r06yGLFq4FSzIDsVUEpLhlwZk8DOj6Vvzo5JThs4Fi+fQ5K0G9gX76MeQXI27i5zwYlGFcvsiK+RlSCaQUnVsRwkhI8f3jjU/LmPBwd2G+g3QEbtr4p2ONwehXo+K36QD8JPQ/H1UC5mnmVI50S3Ws4XgVO+xFYSGSB/emkAuN2BCkbDFtXFXhtlrxP16Yq8MqZrjNXUgPakzd9L9BMJ9AqQEeccDhoA3GcAhwlJ8lRAXpe3TW8TK8AZ8lJclaA6wlkTpK41leARAjdbQCJfg8a5u5Ikwdb5L+Db/ANfgLZR1AXpLkgtwAAAABJRU5ErkJggg==);
+  
+}
+.icon.watch-this-article.icon-watched {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAANlBMVEUAAAD///8Ar4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4kAr4mDvY5TAAAAEXRSTlMAABAgMEBQYHCAkKCwwNDg8InUWv0AAAFzSURBVHja7djNasUgEIbhqYnxmIkZv/u/2ULTNj+GzJkoFErelQg+CxlcSB+Ne8AH/OcgXRYCXXQDFGkLDkBoCiZAWoI9AISGIAOAtAM7fBWageMCSivQZSyFRuAL30kjUPBTaAIG/CZNwBlroQHosUkagBO2hWqwwy6pBhn7QiXocEgqwYhjoQ7MBSj3wM6HOCWclhPHwb8L9j7GNGOX5p6DfoicBKZW9wRkVMQnIHGdV4LEVV4J3haZzsG7Il+NDd/xrkC7yNpgs9XTQGKbp4PEFk8BjSKTAhpFJgU0ikwKaBTZ9sCy7tlADyVvBAcoDUYwQinSH99hglIyghlK2QhCzQb2UOtNoIeaN4ERatEEjlAbTWCCWjKBM/blGDP2zSbwyDkidyQtYIdto1t23YhtnQH0WOPNwY6x5g3gq+RK8mUAI5aSpyKfsBQN4FRyJTkZwARAVq4kBUAygIAEuiwI8D7oFk4j3e/6+e57wAc09gmiXnc48t/p9gAAAABJRU5ErkJggg==);
+  
+}
+.icon-search {
+  width: 24px;
+  height: 24px;
+  background-color: #FFF;
+  background-image: url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/magnifying-glass.png?2015-04-15T18:51:40Z');
+  background-image: -webkit-linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20611.975%20580%22%20enable-background%3D%22new%200%200%20612%20792%22%3E%3Cpath%20d%3D%22M69.475%20407.3c45.3%2045.3%20104.5%2070.1%20168.9%2070.1%2056.1%200%20109-19.1%20151.7-54.2l173.4%20156.8s38.9-10.2%2048.5-53.5l-174-157.4c61.2-93.1%2050.4-218-30.6-299-45.3-45.3-104.5-70.1-168.3-70.1-63.8%200-123.7%2024.9-168.9%2069.5-93.8%2093.6-93.1%20244.7-.7%20337.8zm39.5-285c1.9-2.6%204.5-5.1%207-7%2033.2-32.5%2076.5-51%20123-51s89.9%2018.5%20123%2051c67.6%2067.6%2068.2%20177.9-.6%20246.1-33.1%2033.1-76.5%2051-123%2051s-89.9-18.5-123-51c-65-65-68.2-170.2-6.4-239.1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E);
+  
+  background-image: linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20611.975%20580%22%20enable-background%3D%22new%200%200%20612%20792%22%3E%3Cpath%20d%3D%22M69.475%20407.3c45.3%2045.3%20104.5%2070.1%20168.9%2070.1%2056.1%200%20109-19.1%20151.7-54.2l173.4%20156.8s38.9-10.2%2048.5-53.5l-174-157.4c61.2-93.1%2050.4-218-30.6-299-45.3-45.3-104.5-70.1-168.3-70.1-63.8%200-123.7%2024.9-168.9%2069.5-93.8%2093.6-93.1%20244.7-.7%20337.8zm39.5-285c1.9-2.6%204.5-5.1%207-7%2033.2-32.5%2076.5-51%20123-51s89.9%2018.5%20123%2051c67.6%2067.6%2068.2%20177.9-.6%20246.1-33.1%2033.1-76.5%2051-123%2051s-89.9-18.5-123-51c-65-65-68.2-170.2-6.4-239.1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E);
+  
+  background-image: -o-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/magnifying-glass.png?2015-04-15T18:51:40Z');
+}
+.icon-cancel {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAARVBMVEX///8AAABJSUlRUVFOTk5KSkpOTk5NTU1OTk5NTU1MTExNTU1NTU1MTExOTk5NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU0vNKf4AAAAFnRSTlMAARUWFxh2d3mPkJGSk5SVltPU1dbXq3SSgwAAAMRJREFUeNrN1TkOwzAMRFEvUWRl38z7HzUpkgyMD2ngzizF91ux2/Ck3Fj20wA/R6n7W9wH+FBBH/EY4VXQf+a5g1cBr0K+UvTX//KVvm85NCjkI/a/x4JCHisWDW+LS8WjMJ6F9SzoTQFvizO8Keh9Qe8Lehb0tqD3hbyfEwLrURi/qjgGpjjPwnsW3peCgn5JbHFYAhTGo3Cehfcs1i68x8p8xihy87tnMSd7UFTI82SxgMdRZCGvQp4FvDnsXZbf3rwBVX9CxSub1KYAAAAASUVORK5CYII=);
+  
+}
+.icon-cancel-light {
+  background-image: url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/cancel-light.png');
+  background-image: -webkit-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/cancel-light.svg');
+  background-image: linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/cancel-light.svg');
+  background-image: -o-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/cancel-light.png');
+}
+.icon-photo {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFcAAABFCAYAAAA/1nr8AAAEBElEQVR42u3cb2hVdRzH8a+5zT9tGfaHpBJtimQiiGBGRSJCRWJosbWZD8TRk8iijExCIgWZiwRj9KAUN3CPsr9TnxiaIxO8FlgRIde2YoN6oHetxq5z9/R+4KUR8j3nnvs7v8v53d8bXnumO+fD3bi753AkCII4puAV/IBsROexGVIt4v7D1xG3Zj+u7iLidsKPq8shbhf8uH5cP64f14/rx7U17gxswmGcQfZ/JhC3PLKOOIPDaMX0KOO2YCjwldogmrRx3w185dZ+o3F3BD5TbZ087gJcDXymuorG4rjdgc903cKXacgFPtPlhC/LA18iCdah2rqCyzHlSxm3FUk3itPowAt4Ao9iBdagCdvRgwEkVT+WQ8rQgK5KjzuOI1iPmZASLMHb+B0mWwsxoBbZSoybxwe4F1KmGmzERZhoLsSQXtvjnsYiiGG12IHRahx3HG9gCiRBS/BzNY07gschljTgRDWMO4yHIJbV4QuXx81jNSSim/E09uJjfI0MTuEg2tAIiWg6Tro67ouQCBrxIUYQpQxacRMkxB34zbVxP4n4o7sTY4jTN3gAEuIRFBCleRBDjiUxbg53QRR34xzKbSziLVCdiNI6iAE16E9i3DchinvwK0xVwKsQxWzkEFYW90PKMBOdILPjXkF9yNukCzBdAU0Qxa4S/q9BZGO4hDGQ+XE7IIpDSKoRzFe+9xzkYSXz4+o/Uo8h6T6HKHrTOu6PEMVJ2OhB5Rg2p3Xc/erf/PbqVo5jblrHbVFOahts9QdEMZi+cfVP8D+DzRYox3IqjePeqpzQEGy2UTmWj1I3rnIyUzEBm72mHM++tI2bU07mNthuj3I8e1x65dbDdjvdeeUSzVJvhrZbm2u/c5cpJ9QHm63U/phx7X3ubthqGLXaO5c0jvu+ckJLYasu5TjmufrZQh9stEI5hi0pHZf0yy6rkHRfQhTH0zxuO0TRhaT6C/eFXFq6luZxL+OWkCsRP8F0BTRDFLthtUpdQ+uHybZBFLdj2IVxhzEnwtXf7w1d/W2DhDgASsu4ep9GvCOmA+OI03cRb1RehQIqUOXvuFmEgxgtYdTnUQMJcSeGQG6Nm8eTkIjqsR7v4Sgy1/WhCy9jcYn3D5wFuTYu0T94GGLZNPSCHBhX6W88BbFkFr4CuTKu3gTewVRIgpbiF5DT4+p3JhpWh7cwBnJ5XL1xHMBCQ6O2IRtcr9rHLXYNR9GMhhKftrcMeye/zfLj6q/mb9GJl/AM1mA11mITduEI/oQTCTYEvkQSrAx8iSSo889bSKTcfx9y+0x3qDhuo3/GjdHyxWfcFG0PfKba6p8rlkztYU/EGwh8pTaAZ6M+y7EFPcgg691QBj14DjMgk/0LnDfSdrz5yhIAAAAASUVORK5CYII=) !important;
+  
+}
+.icon-clear {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAATlBMVEX////////R0dHPz8/Nzc3KysrOzs7MzMzNzc3Ly8vNzc3Nzc3Ly8vMzMzNzc3MzMzMzMzMzMzMzMzMzMzMzMzMzMzOzs7i4uLx8fH///8zRtwAAAAAFXRSTlMAAgsgJDA0X2aAhImeqbG4vc/S+P7POXQ6AAABCklEQVR42q2W1w6DMBAEQ++YtpT//9E4AcFBjrJS9s3SDM3nO15/iBenuWkak6exd08HSQ2ROgku8bDCT6rwFPeLDkq6wtf5qMVJ2kjBnQwXyZwj75a4TOkeri953djfI8NtMslHeBDx5n77RGi3r1vgUYp1f8V+DWMvmX4cxA6Gi1AJfpqsIfhpEka11NuOn42N3xlzJSZYYwFh9MsSa5KvUItH2Ay5WFN/eA9QDJUHPCvEUA2VR2yFFKqh8kitkEM1VB65FQw0Q+dhrNBAM3QeDS3Qj0S/NP1Z6Y2jS4MtPrq86QPEHlG6CbBthm5kbKtkmzHd7tmBwo8sfijyY5cf7PyvA/9zwucNQHiJmZoZj8IAAAAASUVORK5CYII=);
+  
+}
+.icon-back {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAFVBMVEX///9MTExNTU1OTk5PT09VVVVHR0cMG3pKAAAAAXRSTlMAQObYZgAAAHNJREFUeF7N07ENgDAMRFEaepAYgJwl15kFFvD+U0CRBuFfuMu10XMukbzMkTtysMpzcEmRA8kBSJED6QRgVSACW/WGDkDVSo1A2785BvjnBXkI8AGPIoJ1+YH8JYMISSdiSDYiqhezOgkgjotDq8bLOU0eX4Uwm63r+A0AAAAASUVORK5CYII=);
+  
+}
+.icon-arrow-down {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAQCAYAAADnEwSWAAAAeUlEQVR4Ab3RwQmAMBAF0S3BUiwpBVqEJViKHawLLhM8DgQPEwiB/w6JzPyt94jYq7saS8drr7qqre9A2Y1VEJsNfjABGgisHy3oIf7Mgx4C86CHwDzoITAPegjMgx4C86CHJubBw0JgHvQQmAc9BOZBD03Mg6eA6AGRXLvASs+J3wAAAABJRU5ErkJggg==);
+  
+}
+.icon-arrow-up {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAQCAYAAADnEwSWAAAAaklEQVR42r3QwQmAQAwAQUuwFEu6Ai3CEizFDmIEIaCvjGBg8zmOgUwR0SpnzrZs6f4VaM8iO7qgQiEgQQoqtAoo0LjfRhck6EpAghQEyEGAHATIQYAcBMjBwhpQDyzsecY39B2sM+b6rRPoYrvAv4SdqgAAAABJRU5ErkJggg==);
+  
+}
+.icon-citation {
+  background-image: url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/cite.png?2015-04-15T18:51:40Z');
+  background-image: -webkit-linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2229.143%22%20viewBox%3D%220%200%2012%2014.571428%22%20enable-background%3D%22new%200%200%2024%2024%22%3E%0A%20%20%20%20%3Cg%20id%3D%22g3%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M7.714%206.857L6%205.143%204.286%206.857V1.714H2.57v11.143h6.86s.856%200%20.856-.857V1.714H7.714v5.143z%22%20id%3D%22path5%22%20fill%3D%22none%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%200v14.57h10.286c.857%200%201.714-.856%201.714-1.713V0H0zm10.286%2012c0%20.857-.857.857-.857.857H2.57V1.714h1.716v5.143L6%205.143l1.714%201.714V1.714h2.572V12z%22%20id%3D%22path7%22%20fill%3D%22%23575757%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A);
+  
+  background-image: linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2229.143%22%20viewBox%3D%220%200%2012%2014.571428%22%20enable-background%3D%22new%200%200%2024%2024%22%3E%0A%20%20%20%20%3Cg%20id%3D%22g3%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M7.714%206.857L6%205.143%204.286%206.857V1.714H2.57v11.143h6.86s.856%200%20.856-.857V1.714H7.714v5.143z%22%20id%3D%22path5%22%20fill%3D%22none%22%2F%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%200v14.57h10.286c.857%200%201.714-.856%201.714-1.713V0H0zm10.286%2012c0%20.857-.857.857-.857.857H2.57V1.714h1.716v5.143L6%205.143l1.714%201.714V1.714h2.572V12z%22%20id%3D%22path7%22%20fill%3D%22%23575757%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A);
+  
+  background-image: -o-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/cite.png?2015-04-15T18:51:40Z');
+}
+.icon-spinner {
+  background-image: url(data:image/gif;base64,R0lGODlhQABAAPIEALOzs05OTouLixoaGkxMTAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgAEACwAAAAAQABAAAAD/0i63P4wyknrGnjYzW3OXSgyHzaeXamhaOAGkRoBNMBC7wvJT13fjpxrV4L4aMCGcOjgNY7IJGP5cDKgUiW1YVVAbdnp9lK8YsNiIbe8+KK1avLHfHzDcyQ2wc3SRZYwCk58RlF/cQ9jBHNtdYU+EoCBd0wSZ0+EiZKTC3gVkJhfYDibnFmiP5GlpiyoqRSrSa6jG5uyoieSt5e5iK2OSX67dsTFxsfICgLLzM3NdrOvztPOaNGg1NkC1tdR2tTc3crf1WHdhuTM0NfJ7e7v8BHqUq9A07v1I9n4oCLa/P02kAMIbEK6U7MMfluHSsLCULQs5dvTUB44B7weTaSYsVTBPY2GONLq2Cjgg3kgDV3KhDHkiEy8WL6BWVCmuYw4SdLLadImwZYmRW4EQrJowZ1HvSQV6pLoUqYpww3VqfNX05JDRcZTGnRrVK8UqoKlE3EsvAQAIfkEBQoABAAsBQABACwAMAAAA5dIutzOIYZHq21S3s1Vjl1YfZNoQl81rMP5kBTLulj6yCuNZjfe6h5bwwdcwIbEIuG48P2UTIVTGeQ1k9TodCHo0phbRXcscFmluAaZTMWK1+yizAFfUyt1+/2RH+8pfX+AdYJ4eoWDZYiLjI2Oj5CRkpOUlZaXlgCakpqdAI+eno6hooukoYinqIWqnYytn6+noKuQrpIJACH5BAUKAAQALAEABQA6AB4AAAOLSLrc8qLJKYMNNFMItSfX9X3cM2ahdWqluTKp+m7lvMQ2Xc8xlk+tyKr303FexCKwdUoqJcEm7rncaZyTgfbH9Eyz2nCue02Bw+JxZxSSoN8D6hP+lv/odbsNn9bv8X5FgIF3eYSCW4eKi4yNOQCQkZKSjhOTl5OVDZicAJoMnZifC6GXo6SlkKcKCQAh+QQFCgAEACwFAAEAOgAiAAADiki63M4iikervVRKzDvXkSeOEEieHjihrKW28PPGtDLX8Y23+o72PhIwKBoSO0YWYPkznQLQxnIKOGme0CyDSj06suDAltv1hsNj8vR4RqfVTFzb7YCvaXPtxV7Le+B9bSRkgWAtd4VeiouMjY4kA5GSk5OPDJSYlJYKmZ0DmwSemaCimKChpZEECQAh+QQFCgAEACwPAAUAMAAsAAADjEiwQP4wyieqmJgxzKO1HaQtYfhVpTOSqXSi7dq656zINvFe9trMu9xtZAsKfS3jEVdSLommlzDC5EinImjnin1okqCueEwum8/otHrNbrvf8LicEKjb7/c2fo9n8/8BfoB7goN5hYZziouMLQOPjQSPkwOMlJSKl5hympecnZtwoJOfoJmdlp6NpBAJACH5BAUKAAQALB0AAQAeADoAAAOQSLBA/jBKyNi8uC7Mo25d+IWiRnbjmZnqlbbSC1PsTFe2V+fKnsstgdCBmwmPAh4BicwxmbYnNChtUqtJY5W35U6VyyF4TC6bz+i0es1uuzGBeDlOD4zrdSU+n9vj+358M4F0HAOHAxKEdheIiBOBGI6HcH+Nk4mVjJKYYJiZSp+enaOTY6ShqDyqOaytjxwJACH5BAUKAAQALB0ABQAiADoAAAOTSLrc8KDJSReENdf7tGdc933hSJZmFkapirbTCm/vDNa2xeXxzkuXn3BILBqPyKRyyWwqBNCoVDqbWqewq1aQ3Vq7Xio47Cybz+i0et0MuAPH99s2qA8YcvfMbl/k9S18dXh/gYKEeYZ8DX9wJoJ3iHIpkBKNj4eWiSOVmpsenZ5zH6GMnxqlpoCkmUSpP6+wfUYJACH5BAUKAAQALA8ADwAsADAAAAOUSLrc/pCBGauNM4PLrdZd2HyfaJKlyaGp6rGUu7JySNcdiZ/x7v/AoHBILBqPyKRyyWw6BdAndMqcWgXKqzWpvSK73iOY2hiYB74xlnE+/8DlNnoRqAdcWrZ8TrDbZWQKe3x9fndAgwyGhz6JioaIew2LP46PfpVyD5Q7lpd/nZqbkKFtEJylhJOkSqhJrkiwsaA7CQAh+QQFCgAEACwFAB0AOgAeAAADhEi63P7wgUlrjThrYrvdYOiNQGhmpHeuUvqx8OJScW3feK6fQ7/jveDgFxMKiSzjERlSGpkb5xOakQapUasjwA2ABGABTProdjXhcHJaNnszafDYF3Fz0XEx0f7Gx/d2X3k/fCZ5ejmFIYc6ioaDOIEskDaOJ4yVbjWUMZIwnJ1nNmkhCQAh+QQFCgAEACwBAB0AOgAiAAADjUiz3E0wykmrrS67y7vX4OCNZBRqZdqdmepaLPPOdG3feK7fQb8DwFpvGMgBjwAXkWhEHktLJs6J9ESXTeqzcsXqtM5Jd7iTgLeQcbFsPku6bAv47VUJ7oIXVex74fEzaDl/d3E0hHmGfoSKi3+NLoiQdoyTJZKWJJiZHpucHJ6fFqGiFKSlEqeoEY83CQAh+QQFCgAEACwBAA8AMAAsAAADjkiq0/swyklZuzVrevvY4OZ5YSmNpKlaKLaqrfua8by29jvms8z/wKBwCAoYj0gkcZFsJpcEpzQAnTqr1ic2S4V6v+CweEwum8/o9FjAFoAAcMCv3dbE4zw6236X2/R7GX1wM4BuG4N+KoZvgyuMIYmLgCWSJZCVjiGUK5obmCaWGpwvnhmknX2bdTl3BAkAIfkEBQoABAAsBQAFAB4AOgAAA49Iukzzo8k5IaS42pi72o/ngWIHciV1pirJatsrrVlgZ/Rk7wHm6rwd7EIJBmfEopEnUyyPzaewSZBSncvrwqhlTLvgsHhMLpvP6LR6TRG4w+64QCuXX+t2Gb7+2vNZfnFNgXODe3R/LwCLAAqCTYyMYJGLk5SWkZiSXZSNnJefmaGbWp2alaOopaCroqMECQA7);
+  
+}
+.icon-mainmenu {
+  background-image: url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/menu/hamburger.png?2015-04-15T18:51:40Z');
+  background-image: -webkit-linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2248%22%20height%3D%2248%22%20viewBox%3D%220%200%2048%2048%22%3E%3Cpath%20d%3D%22M46%205.432v7.133c0%20.242-.148.435-.328.435h-43.344c-.175%200-.328-.197-.328-.435v-7.133c0-.234.153-.432.328-.432h43.344c.18%200%20.328.198.328.432zm0%2030v7.133c0%20.242-.148.435-.328.435h-43.344c-.175%200-.328-.197-.328-.435v-7.133c0-.234.153-.432.328-.432h43.344c.18%200%20.328.198.328.432zm0-15v7.133c0%20.242-.148.435-.328.435h-43.344c-.175%200-.328-.197-.328-.435v-7.133c0-.234.153-.432.328-.432h43.344c.18%200%20.328.198.328.432z%22%20fill%3D%22%23565656%22%2F%3E%3C%2Fsvg%3E);
+  
+  background-image: linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2248%22%20height%3D%2248%22%20viewBox%3D%220%200%2048%2048%22%3E%3Cpath%20d%3D%22M46%205.432v7.133c0%20.242-.148.435-.328.435h-43.344c-.175%200-.328-.197-.328-.435v-7.133c0-.234.153-.432.328-.432h43.344c.18%200%20.328.198.328.432zm0%2030v7.133c0%20.242-.148.435-.328.435h-43.344c-.175%200-.328-.197-.328-.435v-7.133c0-.234.153-.432.328-.432h43.344c.18%200%20.328.198.328.432zm0-15v7.133c0%20.242-.148.435-.328.435h-43.344c-.175%200-.328-.197-.328-.435v-7.133c0-.234.153-.432.328-.432h43.344c.18%200%20.328.198.328.432z%22%20fill%3D%22%23565656%22%2F%3E%3C%2Fsvg%3E);
+  
+  background-image: -o-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/images/menu/hamburger.png?2015-04-15T18:51:40Z');
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.page-Main_Page #section_0 {
+  border: none;
+}
+.page-Main_Page #page-actions,
+.page-Main_Page .pre-content {
+  display: none;
+}
+.page-Main_Page.is-authenticated .pre-content {
+  display: block;
+}
+.page-Main_Page .page-banner {
+  margin: 0 16px 16px;
+  border: solid 1px #EEE;
+}
+.page-Main_Page .page-banner li {
+  border: none;
+}
+.page-Main_Page .page-banner .button {
+  font-weight: bold;
+}/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+html {
+  -webkit-text-size-adjust: none;
+  font-size: 100%;
+}
+body {
+  font-family: "Helvetica Neue", "Helvetica", "Nimbus Sans L", "Arial", "Liberation Sans", sans-serif;
+  line-height: 1.4;
+  color: #252525;
+  background: #fff;
+}
+.content {
+  line-height: 1.65;
+  margin: .8em 16px 0;
+  word-wrap: break-word;
+}
+@media all and (max-width: 280px) {
+  body {
+    font-size: .8em;
+  }
+  .content {
+    margin: 0 12px;
+  }
+}
+.nomobile {
+  display: none !important;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.content .thumb {
+  margin: .6em 0;
+  /* bug 20030 */
+}
+.content .thumb .thumbinner {
+  margin: 0 auto;
+  max-width: 100% !important;
+}
+.content .thumb .thumbinner > div {
+  float: none !important;
+  width: auto !important;
+  clear: both !important;
+}
+.content .thumb .noresize {
+  width: 100%;
+  overflow-x: auto;
+}
+.content .thumb .noresize img {
+  max-width: none !important;
+}
+.content .thumbcaption {
+  margin: .5em 0 0;
+  font-size: .8em;
+  line-height: 1.5;
+  padding: 0 !important;
+  color: #555;
+  width: auto !important;
+}
+.content .thumbborder {
+  border: 1px solid #CCC;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.content img {
+  vertical-align: middle;
+}
+.content .floatright {
+  
+  clear: right;
+  
+  float: right;
+  
+  margin: 0 0 .6em .6em;
+}
+.content .floatleft {
+  
+  clear: left;
+  
+  float: left;
+  
+  margin: 0 .6em .6em 0;
+}
+.content a > img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.content div.magnify {
+  display: none;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+ul.gallery {
+  list-style: none;
+  max-width: 100%;
+}
+ul.gallery .gallerybox {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+}
+ul.gallery .gallerybox .thumb img {
+  display: block;
+}
+ul.gallery .gallerybox > div {
+  max-width: 100%;
+}
+ul.gallery .gallerybox > div > .thumb {
+  max-width: 100%;
+}
+ul.gallery .gallerybox .gallerytext {
+  overflow: hidden;
+  padding: 2px 4px;
+  word-wrap: break-word;
+  font-size: .8em;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+#section_0 {
+  line-height: 1.3;
+}
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+  line-height: 1.3;
+  font-family: "Linux Libertine", Georgia, Times, serif;
+  padding: .5em 0;
+}
+.pre-content h1,
+.content h1 {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  font-family: "Linux Libertine", Georgia, Times, serif;
+  font-size: 1.7em;
+  -ms-word-break: normal;
+  word-break: normal;
+  word-wrap: break-word;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+h4 {
+  font-weight: bold;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+blockquote {
+  font-family: "Linux Libertine", Georgia, Times, serif;
+  font-size: 1.1em;
+  quotes: "\201C" "\201D";
+  padding: 1em 25px 1em 30px;
+  position: relative;
+  overflow: hidden;
+}
+blockquote:before {
+  content: open-quote;
+  font-size: 3em;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+blockquote:after {
+  content: close-quote;
+  font-size: 3em;
+  line-height: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.content ol ol,
+.content ol ul,
+.content ul ol,
+.content ul ul {
+  margin-left: 1em;
+}
+.content ol li,
+.content ul li {
+  margin-bottom: 10px;
+}
+.content ol li:last-child,
+.content ul li:last-child {
+  margin-bottom: inherit;
+}
+.content ul {
+  list-style: square inside;
+}
+.content ul>li>ul {
+  list-style-type: disc;
+}
+.content ul>li>ul>li>ul {
+  list-style-type: circle;
+}
+.content ol {
+  list-style: decimal inside;
+}
+dl {
+  margin-left: 1em;
+}
+dl dt {
+  font-weight: bold;
+}
+.hlist > ul li,
+ul.hlist li {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+/* Plainlinks - this can be used to switch
+ * off special external link styling */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+a {
+  text-decoration: none;
+  color: #002bb8;
+}
+a:visited {
+  color: #5a3696;
+}
+a:active {
+  color: #faa700;
+}
+a:hover {
+  text-decoration: underline;
+}
+a.new,
+a.new:visited,
+a.new:hover {
+  color: #CC0000;
+}
+a.external {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVElEQVR42n3PgQkAIAhEUXdqJ3dqJ3e6IoTPUSQcgj4EQ5IlUiLE0Jil3PECXhcHGBhZ8kg4hwxAu3MZeCGeyFnAXp4hqNQPnt7QL0nADpD6wHccLvnAKksq8iiaAAAAAElFTkSuQmCC);
+  
+  background-image: -webkit-linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%3E%3Cdefs%3E%3Cmarker%20orient%3D%22auto%22%20overflow%3D%22visible%22%3E%3Cpath%20d%3D%22M-.958-4.259c-1.134%200-2.056.922-2.056%202.056%200%20.394.143.736.336%201.049l-.07.056c-.373-.513-.954-.867-1.636-.867-1.134%200-2.056.922-2.056%202.056s.922%202.056%202.056%202.056c.596%200%201.121-.265%201.496-.671-.075.213-.126.433-.126.671%200%201.134.922%202.056%202.056%202.056s2.056-.922%202.056-2.056c0-.476-.189-.896-.462-1.245.813.158%201.627.477%202.224%201.399-.443-.443-.727-1.248-.727-2.336l-.378-.028.35-.014c0-1.087.27-1.893.713-2.336-.575.889-1.354%201.216-2.14%201.385.243-.337.42-.728.42-1.175%200-1.134-.922-2.056-2.056-2.056z%22%20fill-rule%3D%22evenodd%22%20stroke%3D%22%23000%22%20stroke-width%3D%22NaN%22%2F%3E%3C%2Fmarker%3E%3Cmarker%20orient%3D%22auto%22%20overflow%3D%22visible%22%3E%3Cpath%20d%3D%22M0-2.828l-2.828%202.828%202.828%202.828%202.828-2.828-2.828-2.828z%22%20fill-rule%3D%22evenodd%22%20stroke%3D%22%23000%22%20stroke-width%3D%22NaN%22%2F%3E%3C%2Fmarker%3E%3Cmarker%20orient%3D%22auto%22%20overflow%3D%22visible%22%3E%3Cpath%20d%3D%22M10%200l4-4-14%204%2014%204-4-4z%22%20fill-rule%3D%22evenodd%22%20stroke%3D%22%23000%22%20stroke-width%3D%22NaN%22%2F%3E%3C%2Fmarker%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22%23fff%22%20stroke%3D%22%2306c%22%20d%3D%22M.5%203.518h5.982v5.982h-5.982z%22%2F%3E%3Cpath%20d%3D%22M4.755-.16h5.234v5.39l-1.571%201.544-1.31-1.31-2.725%202.725-2.688-2.688%202.808-2.808-1.31-1.31z%22%20fill%3D%22%2306f%22%2F%3E%3Cpath%20d%3D%22M8.984.845l.022%204.884-1.817-1.817-2.881%202.881-1.227-1.227%202.881-2.881-1.85-1.851z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E);
+  
+  background-image: linear-gradient(transparent,transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%3E%3Cdefs%3E%3Cmarker%20orient%3D%22auto%22%20overflow%3D%22visible%22%3E%3Cpath%20d%3D%22M-.958-4.259c-1.134%200-2.056.922-2.056%202.056%200%20.394.143.736.336%201.049l-.07.056c-.373-.513-.954-.867-1.636-.867-1.134%200-2.056.922-2.056%202.056s.922%202.056%202.056%202.056c.596%200%201.121-.265%201.496-.671-.075.213-.126.433-.126.671%200%201.134.922%202.056%202.056%202.056s2.056-.922%202.056-2.056c0-.476-.189-.896-.462-1.245.813.158%201.627.477%202.224%201.399-.443-.443-.727-1.248-.727-2.336l-.378-.028.35-.014c0-1.087.27-1.893.713-2.336-.575.889-1.354%201.216-2.14%201.385.243-.337.42-.728.42-1.175%200-1.134-.922-2.056-2.056-2.056z%22%20fill-rule%3D%22evenodd%22%20stroke%3D%22%23000%22%20stroke-width%3D%22NaN%22%2F%3E%3C%2Fmarker%3E%3Cmarker%20orient%3D%22auto%22%20overflow%3D%22visible%22%3E%3Cpath%20d%3D%22M0-2.828l-2.828%202.828%202.828%202.828%202.828-2.828-2.828-2.828z%22%20fill-rule%3D%22evenodd%22%20stroke%3D%22%23000%22%20stroke-width%3D%22NaN%22%2F%3E%3C%2Fmarker%3E%3Cmarker%20orient%3D%22auto%22%20overflow%3D%22visible%22%3E%3Cpath%20d%3D%22M10%200l4-4-14%204%2014%204-4-4z%22%20fill-rule%3D%22evenodd%22%20stroke%3D%22%23000%22%20stroke-width%3D%22NaN%22%2F%3E%3C%2Fmarker%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22%23fff%22%20stroke%3D%22%2306c%22%20d%3D%22M.5%203.518h5.982v5.982h-5.982z%22%2F%3E%3Cpath%20d%3D%22M4.755-.16h5.234v5.39l-1.571%201.544-1.31-1.31-2.725%202.725-2.688-2.688%202.808-2.808-1.31-1.31z%22%20fill%3D%22%2306f%22%2F%3E%3Cpath%20d%3D%22M8.984.845l.022%204.884-1.817-1.817-2.881%202.881-1.227-1.227%202.881-2.881-1.85-1.851z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E);
+  
+  background-image: -o-linear-gradient(transparent,transparent), url('//bits.wikimedia.org/static-1.26wmf2/extensions/MobileFrontend/less/content/images/external-link-ltr-icon.png?2015-04-15T18:51:40Z');
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right: 13px;
+}
+.content .return-link,
+.content #mw-mf-last-modified {
+  display: block;
+  font-size: .9em;
+  margin-top: 1.5em;
+}
+.plainlinks a {
+  background: none !important;
+  padding: 0 !important;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.content p {
+  margin: .5em 0 1em 0;
+}
+strong,
+b {
+  font-weight: bold;
+}
+em,
+i {
+  font-style: italic;
+}
+code,
+pre {
+  font-family: monospace;
+  border: solid 1px #CCC;
+  white-space: pre-wrap;
+}
+code {
+  padding: 0.2em 0.5em;
+}
+pre {
+  padding: 1em;
+}
+sup {
+  vertical-align: super;
+}
+sub {
+  vertical-align: sub;
+}
+sub,
+sup {
+  font-size: 0.75em;
+  line-height: 1;
+}
+
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.content table {
+  margin: 1em 0;
+  /* following 4 rules are needed for scrolling */
+  overflow: auto;
+  /* for browsers that don't support overflow-y */
+  overflow-y: hidden;
+  overflow-x: auto;
+  display: block;
+  width: 100% !important;
+}
+.content table caption {
+  display: block;
+  text-align: left;
+}
+.content table.wikitable {
+  border: 1px solid #EEE;
+}
+.content table.wikitable > tr > th,
+.content table.wikitable > tr > th,
+.content table.wikitable > * > tr > th,
+.content table.wikitable > * > tr > td {
+  border: 1px solid #EEE;
+  padding: .2em;
+}
+
+/*
+A file for css that corrects known rendering issues on known Wikimedia wikis.
+
+the following definitions exist to deal with certain inline styles
+present in wikitext.
+This file should not need to exist
+It will become redundant when the following RFC is resolved:
+https://www.mediawiki.org/wiki/Requests_for_comment/Allow_styling_in_templates
+
+FIXME: Review all of these hacks to see if they still apply.
+*/
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+/* force portals to use a one column layout on mobile */
+/* bug 34878: Set an optimal width for a column.
+ * Makes sure that on small screens column-count is only honored if column-width hint is not violated.
+ * https://developer.mozilla.org/en-US/docs/CSS/column-width
+ */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.client-js .alpha .infobox {
+  display: none;
+}
+.content .sistersitebox,
+.content .tmbox,
+.content .ambox,
+.content #coordinates,
+.content .navbox,
+.content .vertical-navbox,
+.content .topicon,
+.content .metadata {
+  display: none !important;
+}
+.content table {
+  float: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.content table.infobox {
+  font-size: 90%;
+  position: relative;
+  border: none;
+  margin-bottom: 2em;
+  text-align: left;
+  background-color: #F9F9F9;
+}
+.content table.infobox th,
+.content table.infobox td {
+  vertical-align: top;
+  border: none;
+  border-bottom: 1px solid #DDD;
+  padding: .2em;
+}
+.content table.infobox tr:last-child th,
+.content table.infobox tr:last-child td {
+  border: none;
+}
+#filetoc,
+.editsection,
+.mw-editsection {
+  display: none;
+}
+.skin-minerva .portal-column-left-wide,
+.skin-minerva .portal-column-left,
+.skin-minerva .portal-column-right,
+.skin-minerva .portal-column-right-narrow {
+  float: none;
+  width: 100%;
+}
+.collapsible td {
+  width: auto !important;
+}
+.references-column-count {
+  -moz-column-width: 35em;
+  -webkit-column-width: 35em;
+  column-width: 35em;
+}
+.references li:target {
+  background-color: #ddeeff;
+}
+.hatnote,
+.dablink,
+.rellink {
+  padding: 0 0 .6em 0;
+  color: #777;
+  font-size: .8em;
+  font-style: italic;
+}
+.quotebox {
+  margin: 0 0 0.8em !important;
+  width: auto !important;
+}
+@media all and (max-width: 768px) {
+  .gallery .gallerybox {
+    width: 100% !important;
+  }
+  .gallery .gallerybox div {
+    width: 100% !important;
+  }
+  .content table.multicol > tbody > tr > td,
+  .content table.multicol > tr > td {
+    display: block !important;
+    width: auto !important;
+  }
+}/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+.drawer {
+  text-align: center;
+  padding: 0 16px 1em;
+}
+.drawer.text {
+  line-height: 1;
+  font-size: .9em;
+  text-align: left;
+  padding-top: .5em;
+}
+.drawer p {
+  line-height: 1.4;
+  margin-top: .5em;
+}
+.drawer p,
+.drawer a:not(:last-child),
+.drawer .mw-ui-button {
+  margin-bottom: 1em;
+}
+.drawer .cancel {
+  display: block;
+  margin: auto;
+}
+.drawer .cancel.icon {
+  height: 32px;
+  background-position: 50% 8px;
+}
+.overlay-enabled .drawer {
+  display: none !important;
+}/*
+A file for css that optimises the Minerva skin on larger devices.
+*/
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+@media all and (min-width: 768px) {
+  #content_wrapper .content_block {
+    width: auto;
+    clear: none;
+  }
+  .pre-content {
+    position: relative;
+    padding: 20px 3.35em 0 3.35em;
+  }
+  .pre-content #section_0 {
+    border-bottom: 1px solid #E2E3E4;
+    padding: 12px 220px 7px 0;
+  }
+  #page-actions {
+    border: none;
+    padding: 36px 3.35em 0 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  #page-actions li.icon {
+    margin: 0 0 0 16px;
+  }
+  .drawer,
+  .pre-content,
+  .content,
+  .content-overlay {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .content {
+    padding: 1.6em 3.35em 0 3.35em;
+  }
+  .content .thumb.tleft {
+    
+    float: left;
+    
+    clear: left;
+    
+    margin-right: 1.4em;
+  }
+  .content .thumb.tright {
+    
+    float: right;
+    
+    clear: right;
+    
+    margin-left: 1.4em;
+  }
+  .content blockquote {
+    padding-right: 35px;
+    padding-left: 40px;
+  }
+  .content table {
+    display: table;
+    width: auto !important;
+  }
+  .content table caption {
+    display: table-caption;
+  }
+  .content table tbody {
+    display: table-row-group;
+  }
+  .content #mw-mf-last-modified {
+    padding: 5px 0;
+  }
+  #footer {
+    padding: 2em 3.35em 1.5em 3.35em;
+  }
+  #mw-mf-last-modified {
+    padding: 5px 3.35em;
+  }
+  .alpha .pre-content,
+  .beta .pre-content {
+    padding-left: 3.35em;
+    padding-right: 3.35em;
+  }
+  .alpha .pre-content #section_0,
+  .beta .pre-content #section_0 {
+    border-bottom: none;
+    padding: 0 220px 7px 0;
+    font-size: 2.6525em;
+  }
+  .alpha #page-actions,
+  .beta #page-actions {
+    right: 3.35em;
+    top: 36px;
+    padding: 0;
+  }
+}
+
+/*
+A file for css that corrects known rendering issues on known Wikimedia wikis ON TABLETS
+Many of them correct hacks in place in common/hacks.less
+
+It will become redundant when the following RFC is resolved:
+https://www.mediawiki.org/wiki/Requests_for_comment/Allow_styling_in_templates
+
+FIXME: Review all of these hacks to see if they still apply.
+*/
+/* use -webkit prefix for older android browsers eg. nexus 1 */
+/* Tablet specific styling */
+.column-break-inside-avoid {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+}
+@media all and (min-width: 768px) {
+  #content_wrapper table.infobox {
+    margin: .5em 0 1em 35px !important;
+    max-width: 320px;
+    width: auto !important;
+    float: right !important;
+    clear: right !important;
+  }
+  #content_wrapper caption {
+    font-weight: bold;
+  }
+}

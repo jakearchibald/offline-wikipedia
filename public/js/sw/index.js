@@ -1,6 +1,6 @@
 require('serviceworker-cache-polyfill');
 
-var version = '18';
+var version = '19';
 var prefix = 'wikioffline';
 var staticCacheName = `${prefix}-static-v${version}`;
 
@@ -11,8 +11,8 @@ self.addEventListener('install', event => {
         '/',
         '/shell.html',
         '/js/page.js',
-        '/css/all.css',
-        '//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=ext.gadget.switcher%7Cext.gather.menu.icon%7Cmediawiki.sectionAnchor%7Cmediawiki.ui.button%7Cmobile.pagelist.styles%7Cskins.minerva.chrome.styles%7Cskins.minerva.content.styles%7Cskins.minerva.drawers.styles%7Cskins.minerva.tablet.styles&only=styles&skin=minerva&target=mobile&*'
+        '/css/all.css', // don't need this when it's inlined, but helps when rendered with blocking CSS in settings
+        '/css/wiki.css'
       ]);
     })
   );
