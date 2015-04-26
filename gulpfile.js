@@ -163,16 +163,17 @@ gulp.task('server:package', function () {
 gulp.task('server:misc', function () {
   return gulp.src([
     '.gitignore',
-    'Procfile'
-  ])
+    'Procfile',
+    'wikipedia/**/*.{html,json}'
+  ], {base: './'})
   .pipe(gulp.dest('dist'));
 });
 
 gulp.task('server:js', function () {
   return gulp.src([
     'index.js',
-    'wikipedia/**',
-    'isojs/**'
+    'wikipedia/**/*.js',
+    'isojs/**/*.js'
   ], {base: './'})
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.babel({stage: 1}))
@@ -228,10 +229,8 @@ gulp.task('server:serve', function() {
   });
   gulp.watch([
     'dist/index.js',
-    'dist/shared-templates/**/*.js',
-    'dist/wikipedia/**',
-    'dist/isojs/**/*.js',
-    'dist/public/*.html',
+    'dist/shared-templates/flags.js',
+    'dist/public/index-end.html',
     'dist/public/css/all.css'
   ], plugins.developServer.restart);
 });

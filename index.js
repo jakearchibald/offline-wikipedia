@@ -6,13 +6,16 @@ var express = require('express');
 var compression = require('compression');
 var readFile = RSVP.denodeify(fs.readFile);
 var gzipStatic = require('connect-gzip-static');
+var cookieParser = require('cookie-parser');
+var url = require('url');
 
+var Flags = require('./isojs/flags');
 var wikipedia = require('./wikipedia');
 var wikiDisplayDate = require('./isojs/wiki-display-date');
 var articleContent = require('./shared-templates/article-content');
 var articleHeader = require('./shared-templates/article-header');
 var indexTop = require('./shared-templates/index-top');
-var settingsTemplate = require('./shared-templates/settings');
+var flagsTemplate = require('./shared-templates/flags');
 
 var app = express();
 
@@ -36,6 +39,15 @@ app.use('/imgs', gzipStatic('public/imgs', staticOptions));
 app.use('/sw.js', gzipStatic('public/sw.js'));
 app.use('/manifest.json', gzipStatic('public/manifest.json'));
 
+app.use(cookieParser(), (req, res, next) => {
+  req.flags = new Flags(
+    req.cookies.flags || '',
+    url.parse(req.url).query || ''
+  );
+
+  next();
+});
+
 app.get('/', compression(), async (req, res) => {
   res.status(200);
   res.type('html');
@@ -47,18 +59,20 @@ app.get('/', compression(), async (req, res) => {
   res.end();
 });
 
-app.get('/settings', compression(), async (req, res) => {
+app.get('/flags', compression(), async (req, res) => {
   res.status(200);
   res.type('html');
-  res.write(indexTop({inlineCss: await inlineCss}));
-  res.write(settingsTemplate());
+  res.write(indexTop({
+    title: "Flags",
+    inlineCss: await inlineCss
+  }));
+  res.write(flagsTemplate({
+    flags: req.flags.getAll()
+  }));
   res.end();
 });
 
 app.get('/shell.html', compression(), async (req, res) => {
-  // push header
-  // push home body
-  // push footer
   res.status(200);
   res.type('html');
   res.write(indexTop({inlineCss: await inlineCss}));
@@ -119,14 +133,25 @@ app.get('/search.json', compression(), async (req, res) => {
 app.get('/wiki/:name', compression(), async (req, res) => {
   try {
     var name = req.params.name;
-    var meta = wikipedia.getMetaData(name).then(data => {
+
+    if (req.flags.get('avoid-wikipedia')) {
+      var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
+      var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+        encoding: 'utf8'
+      });
+    }
+    else {
+      var meta = wikipedia.getMetaData(name);
+      var articleStream = wikipedia.getArticleStream(name);
+    }
+
+    meta = meta.then(data => {
       data.updated = wikiDisplayDate(new Date(data.updated));
       data.server = true;
       data.safeTitle = JSON.stringify(data.title);
       data.safeUrlId = JSON.stringify(data.urlId);
       return data;
     });
-    var articleStream = wikipedia.getArticleStream(name);
 
     res.status(200);
     res.type('html');

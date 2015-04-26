@@ -40,6 +40,9 @@ class GlobalController {
     else if (/^\/wiki\/[^\/]+/.test(location.pathname)) {
       new (require('./article-controller'));
     }
+    else if (location.pathname == '/flags') {
+      new (require('./flags-controller'));
+    }
   }
 
   _onSwControllerChange() {

@@ -1,0 +1,53 @@
+@import 'utils';
+
+.flags-form {
+  & label {
+    @include display-flex;
+  }
+
+  & input[type=checkbox] {
+    margin: 5px 0 0;
+    padding: 0;
+    vertical-align: top;
+  }
+
+  & .input-container {
+    padding-right: 10px;
+  }
+
+  & .main {
+    font-weight: bold;
+  }
+
+  & .sub {
+    margin-bottom: 20px;
+    color: #808080;
+  }
+}
+
+.material-button {
+  text-transform: uppercase;
+  color: #FF4081;
+  min-height: 36px;
+  padding: 0 8px;
+  margin: 0 4px;
+
+  &:hover {
+    background: rgba(#999, 0.2);
+  }
+  &:focus {
+    outline: none;
+    background: rgba(#999, 0.4);
+  }
+}
+
+.submit-container {
+  text-align: right;
+}
+
+.flags-query {
+  font-family: monospace;
+  background: #EEE;
+  border: 1px solid #DDD;
+  padding: 5px 10px;
+}

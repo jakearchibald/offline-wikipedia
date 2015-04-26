@@ -33,6 +33,24 @@ a {
   }
 }
 
+input.search {
+  outline: 0;
+  width: 100%;
+  background-color: #FFF !important;
+  -webkit-appearance: none;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
 pre,
 code,
 kbd,

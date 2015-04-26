@@ -6,11 +6,13 @@
     "serve": "gulp serve",
     "productionserve": "NODE_ENV=production gulp productionserve --production",
     "serve-no-sw": "gulp serve --disable-sw",
-    "deploy": "gulp deploy --production"
+    "deploy": "gulp deploy --production",
+    "update": "gulp server:package && cd dist && npm install && cd -"
   },
   "private": true,
   "devDependencies": {
     "babelify": "^6.0.2",
+    "browser-cookies": "^1.0.8",
     "browserify": "^9.0.8",
     "debounce": "^1.0.0",
     "del": "^1.1.1",
