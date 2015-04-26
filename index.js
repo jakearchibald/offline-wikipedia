@@ -16,12 +16,12 @@ var articleContent = require('./shared-templates/article-content');
 var articleHeader = require('./shared-templates/article-header');
 var indexTop = require('./shared-templates/index-top');
 var flagsTemplate = require('./shared-templates/flags');
+var indexArticleHeaderIntro = require('./shared-templates/index-article-header-intro');
 
 var app = express();
 
 // I really should be using a templating language that supports promises & streams
 var indexHomeIntro = readFile(__dirname + '/public/index-home-intro.html', {encoding: 'utf8'});
-var indexArticleHeaderIntro = readFile(__dirname + '/public/index-article-header-intro.html', {encoding: 'utf8'});
 var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: 'utf8'});
 var indexBottom = readFile(__dirname + '/public/index-end.html', {encoding: 'utf8'});
 var inlineCss = readFile(__dirname + '/public/css/all.css', {encoding: 'utf8'});
@@ -53,7 +53,9 @@ app.get('/', compression(), async (req, res) => {
   res.type('html');
   res.write(indexTop({inlineCss: await inlineCss}));
   res.write(await indexHomeIntro);
-  res.write(await indexArticleHeaderIntro);
+  res.write(indexArticleHeaderIntro({
+    flags: req.flags.getAll()
+  }));
   res.write(await indexMiddle);
   res.write(await indexBottom);
   res.end();
@@ -72,21 +74,34 @@ app.get('/flags', compression(), async (req, res) => {
   res.end();
 });
 
-app.get('/shell.html', compression(), async (req, res) => {
+async function handlePageShellRequest(req, res) {
   res.status(200);
   res.type('html');
   res.write(indexTop({inlineCss: await inlineCss}));
-  res.write(await indexArticleHeaderIntro);
+  res.write(indexArticleHeaderIntro({
+    flags: req.flags.getAll()
+  }));
   res.write(await indexMiddle);
   res.write(await indexBottom);
   res.end();
-});
+}
+
+app.get('/shell.html', compression(), handlePageShellRequest);
 
 app.get('/wiki/:name.json', compression(), async (req, res) => {
   var name = req.params.name;
 
-  var metaContent = wikipedia.getMetaData(name);
-  var articleContent = wikipedia.getArticle(name);
+  if (req.flags.get('avoid-wikipedia')) {
+    var metaContent = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
+    var articleContent = readFile(__dirname + '/wikipedia/hogan.html', {
+      encoding: 'utf8'
+    });
+  }
+  else {
+    var metaContent = wikipedia.getMetaData(name);
+    var articleContent = wikipedia.getArticle(name);
+  }
+
 
   try {
     var metaContent = await metaContent;
@@ -132,6 +147,11 @@ app.get('/search.json', compression(), async (req, res) => {
 
 app.get('/wiki/:name', compression(), async (req, res) => {
   try {
+    if (req.flags.get('client-render')) {
+      handlePageShellRequest(req, res);
+      return;
+    }
+    
     var name = req.params.name;
 
     if (req.flags.get('avoid-wikipedia')) {
@@ -160,7 +180,9 @@ app.get('/wiki/:name', compression(), async (req, res) => {
       title: name.replace(/_/g, ' '),
       inlineCss: await inlineCss
     }));
-    res.write(await indexArticleHeaderIntro);
+    res.write(indexArticleHeaderIntro({
+      flags: req.flags.getAll()
+    }));
     res.flush();
     res.write(articleHeader(await meta));
     res.write(await indexMiddle);

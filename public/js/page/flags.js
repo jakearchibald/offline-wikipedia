@@ -2,6 +2,13 @@ var querystring = require('querystring');
 var cookies = require('browser-cookies');
 
 class Flags extends (require('../../../isojs/flags')) {
+  static parse() {
+    return new Flags(
+      cookies.get('flags') || '',
+      location.search
+    );
+  }
+
   set(key, val) {
     this._vals[key] = val;
   }
@@ -21,8 +28,8 @@ class Flags extends (require('../../../isojs/flags')) {
     return '?' + 'use-url-flags&' + this.stringify();
   }
 
-  setCookie(name) {
-    cookies.set(name, this.stringify(), {expires: 365});
+  setCookie() {
+    cookies.set('flags', this.stringify(), {expires: 365});
   }
 }
 

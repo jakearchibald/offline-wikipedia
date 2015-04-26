@@ -30,7 +30,7 @@ class FlagsController {
 
   _onFlagsSubmit(event) {
     event.preventDefault();
-    this._getFlags().setCookie("flags");
+    this._getFlags().setCookie();
     this._toastsView.show("Flags updated", {duration: 2000});
   }
 }

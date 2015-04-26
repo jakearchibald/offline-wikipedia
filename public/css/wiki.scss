@@ -1,3 +1,5 @@
+@import 'utils';
+
 .mw-ui-icon-collections-icon:before {
   background-image: url('//bits.wikimedia.org/en.wikipedia.org/load.php?modules=ext.gather.menu.icon&image=collections-icon&format=rasterized&lang=en');
   background-image: -webkit-linear-gradient(transparent, transparent), url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20800%22%20enable-background%3D%22new%200%200%201280%20800%22%20width%3D%221000%22%20height%3D%22800%22%3E%0A%20%20%20%20%3Cg%20id%3D%22g3%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M113.87%20494.2V301.6h301.6V0h192.7v301.6h301.6v192.7h-301.7V800h-192.6V494.2h-301.6z%22%20id%3D%22path5%22%20fill%3D%22%23fff%22%2F%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A);
@@ -2143,5 +2145,42 @@ FIXME: Review all of these hacks to see if they still apply.
   }
   #content_wrapper caption {
     font-weight: bold;
+  }
+}
+
+
+.content {
+  & > h2 {
+    margin-bottom: .5em;
+    padding-right: 45px;
+    cursor: pointer;
+    position: relative;
+    border-bottom: solid 1px #E2E3E4;
+    clear: both;
+    @include display-flex;
+    @include align-items(flex-start);
+
+    &::before {
+      content: '';
+      margin-right: 12px;
+      float: left;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAQCAYAAADnEwSWAAAAeUlEQVR4Ab3RwQmAMBAF0S3BUiwpBVqEJViKHawLLhM8DgQPEwiB/w6JzPyt94jYq7saS8drr7qqre9A2Y1VEJsNfjABGgisHy3oIf7Mgx4C86CHwDzoITAPegjMgx4C86CHJubBw0JgHvQQmAc9BOZBD03Mg6eA6AGRXLvASs+J3wAAAABJRU5ErkJggg==);
+      background-size: 15px auto;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      background-position: center center;
+      overflow: hidden;
+      min-height: 24px;
+      min-width: 24px;
+      width: 24px;
+    }
+
+    &.active::before {
+      @include transform(scaleY(-1));
+    }
+  }
+
+  & h2 ~ :not(h2) {
+    display: none;
   }
 }

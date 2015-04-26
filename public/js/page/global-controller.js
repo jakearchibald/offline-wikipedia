@@ -2,6 +2,7 @@ require('regenerator/runtime');
 
 var debounce = require('debounce');
 var wikipedia = require('./wikipedia');
+var flags = require('./flags').parse();
 
 class GlobalController {
   constructor() {
@@ -20,17 +21,10 @@ class GlobalController {
     });
 
     // state
+    this._setupServiceWorker();
     this._lastSearchId = 0;
 
     // setup
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then(reg => {
-        reg.addEventListener('updatefound', _ => this._onSwUpdateFound(reg));
-        navigator.serviceWorker.addEventListener('controllerchange', _ => this._onSwControllerChange());
-        if (reg.waiting) this._onSwUpdateReady();
-      });
-    }
-
     var debouncedSearch = debounce(e => this._onSearchInput(e), 150);
     
     // router
@@ -43,6 +37,26 @@ class GlobalController {
     else if (location.pathname == '/flags') {
       new (require('./flags-controller'));
     }
+  }
+
+  async _setupServiceWorker() {
+    if (!('serviceWorker' in navigator)) return;
+
+    if (flags.get('prevent-sw')) {
+      var reg = await navigator.serviceWorker.getRegistration();
+      if (!reg) {
+        console.log('ServiceWorker prevented due to flags');
+        return;
+      }
+      console.log('ServiceWorker found & unregistered - refresh to load without');
+      reg.unregister();
+      return;
+    }
+
+    var reg = await navigator.serviceWorker.register('/sw.js')
+    reg.addEventListener('updatefound', _ => this._onSwUpdateFound(reg));
+    navigator.serviceWorker.addEventListener('controllerchange', _ => this._onSwControllerChange());
+    if (reg.waiting) this._onSwUpdateReady();
   }
 
   _onSwControllerChange() {
