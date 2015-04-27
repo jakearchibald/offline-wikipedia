@@ -49,36 +49,41 @@ app.use(cookieParser(), (req, res, next) => {
   next();
 });
 
+function sendDustTemplateOutput(req, res, name, data) {
+  if (req.flags.get('disable-chunking')) {
+    dust.render(name, data, (err, str) => res.send(str));
+  }
+  else {
+    dust.stream(name, data).pipe(res);
+  }
+}
+
 app.get('/', compression(), (req, res) => {
   res.status(200);
   res.type('html');
-  var stream = dust.stream('index', {
+  sendDustTemplateOutput(req, res, 'index', {
     inlineCss: inlineCss,
     flags: req.flags.getAll()
   });
-  stream.pipe(res);
 });
 
 app.get('/flags', compression(), (req, res) => {
   res.status(200);
   res.type('html');
-
-  var stream = dust.stream('flags', {
+  sendDustTemplateOutput(req, res, 'flags', {
     title: "Flags",
     inlineCss: inlineCss,
     flags: req.flags.getAll()
   });
-  stream.pipe(res);
 });
 
 async function handlePageShellRequest(req, res) {
   res.status(200);
   res.type('html');
-  var stream = dust.stream('article-shell', {
+  sendDustTemplateOutput(req, res, 'article-shell', {
     inlineCss: inlineCss,
     flags: req.flags.getAll()
   });
-  stream.pipe(res);
 }
 
 app.get('/shell.html', compression(), handlePageShellRequest);
@@ -142,16 +147,13 @@ app.get('/search.json', compression(), async (req, res) => {
 // A simple stream that calls a callback once read
 // Bit of a hack, allows me to call flush() at particular
 // bits of template action
-class OnReader extends Readable {
-  constructor(func) {
-    super();
-    this._func = func;
-  }
-
-  _read() {
-    this._func();
+function onReadStream(func) {
+  var readable = new Readable();
+  readable._read = function() {
+    func();
     this.push(null);
-  }
+  };
+  return readable;
 }
 
 app.get('/wiki/:name', compression(), (req, res) => {
@@ -165,12 +167,9 @@ app.get('/wiki/:name', compression(), (req, res) => {
 
     if (req.flags.get('avoid-wikipedia')) {
       var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
-      /*var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+      var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
         encoding: 'utf8'
-      });*/
-      var articleStream = new Promise(r => setTimeout(r, 5000)).then(_ => readFile(__dirname + '/wikipedia/hogan.html', {
-        encoding: 'utf8'
-      }));
+      });
     }
     else {
       var meta = wikipedia.getMetaData(name);
@@ -188,16 +187,14 @@ app.get('/wiki/:name', compression(), (req, res) => {
     res.status(200);
     res.type('html');
 
-    var stream = dust.stream('article', {
+    sendDustTemplateOutput(req, res, 'article', {
       title: name.replace(/_/g, ' '),
       inlineCss: inlineCss,
       flags: req.flags.getAll(),
-      beforeContent: new OnReader(_ => res.flush()),
+      beforeContent: onReadStream(_ => res.flush()),
       content: articleStream,
       headerContent: meta.then(meta => articleHeader(meta))
     });
-
-    stream.pipe(res);
   }
   catch (err) {
     console.log(err, err.stack);

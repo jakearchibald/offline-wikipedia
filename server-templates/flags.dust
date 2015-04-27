@@ -19,7 +19,11 @@
           </div>
           <div class="desc">
             <div class="main">Prevent serverside rendering of articles.</div>
-            <div class="sub">Article fetching &amp; rendering will be handled by JS.</div>
+            <div class="sub">
+              Article fetching &amp; rendering will be handled by JS. Note that 
+              the client will always render articles when the ServiceWorker is 
+              present.
+            </div>
           </div>
         </label>
         <label>
@@ -45,8 +49,24 @@
             <input type="checkbox" name="no-css-async-hack" value="1"{?flags.no-css-async-hack} checked{/flags.no-css-async-hack}>
           </div>
           <div class="desc">
-            <div class="main">Don't load CSS with XHR.</div>
-            <div class="sub">This is done as a hack around Chrome/Safari's blocking behaviour.</div>
+            <div class="main">Don't load extra CSS with XHR.</div>
+            <div class="sub">
+              XHR is used to hack around Chrome/Safari's blocking behaviour. With 
+              this set, a standard link tag is used just before article content.
+            </div>
+          </div>
+        </label>
+        <label>
+          <div class="input-container">
+            <input type="checkbox" name="disable-chunking" value="1"{?flags.disable-chunking} checked{/flags.disable-chunking}>
+          </div>
+          <div class="desc">
+            <div class="main">Disable chunking</div>
+            <div class="sub">
+              All pages are served with chunking, this is particularly useful on
+              article pages as it allows the top-of-page content to be rendered 
+              while the request to wikipedia is still in progress.
+            </div>
           </div>
         </label>
         <div class="submit-container">
