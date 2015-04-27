@@ -134,7 +134,8 @@ gulp.task('updaterefs', function () {
   return gulp.src([
     'dist/index.js',
     'dist/public/**',
-    'dist/shared-templates/**'
+    'dist/shared-templates/**',
+    'dist/server-templates/**'
   ], {base: 'dist'})
     .pipe(plugins.revReplace({
       manifest: manifest,
