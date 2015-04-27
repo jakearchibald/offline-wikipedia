@@ -13,6 +13,7 @@
 
   & .input-container {
     padding-right: 10px;
+    @include min-width-min-content;
   }
 
   & .main {
