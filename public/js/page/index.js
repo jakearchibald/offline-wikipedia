@@ -14,8 +14,12 @@ if (/(iPhone|iPad);/.test(navigator.userAgent)) {
   polyfillsNeeded.push('/js/fastclick.js');
 }
 
-loadScripts(polyfillsNeeded, function() {
-  var c = new (require('./global-controller'));
-}, function() {
+loadScripts(polyfillsNeeded, _ => {
+  // Usually defer, but the blocking flag means
+  // this happens early
+  require('./utils').domReady.then(_ => {
+    var c = new (require('./global-controller'));
+  });
+}, _ => {
   console.error("Failed to load polyfills");
 });

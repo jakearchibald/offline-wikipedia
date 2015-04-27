@@ -10,7 +10,7 @@
     <link rel="icon" href="/imgs/wikipedia.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <style>{inlineCss|s}</style>
-    <script src="/js/page.js" defer></script>
+    <script src="/js/page.js"{^flags.blocking-js} defer{/flags.blocking-js}></script>
   </head>
   <body>
     <div class="toolbar">

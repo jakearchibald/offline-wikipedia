@@ -46,18 +46,6 @@
         </label>
         <label>
           <div class="input-container">
-            <input type="checkbox" name="no-css-async-hack" value="1"{?flags.no-css-async-hack} checked{/flags.no-css-async-hack}>
-          </div>
-          <div class="desc">
-            <div class="main">Don't load extra CSS with XHR.</div>
-            <div class="sub">
-              XHR is used to hack around Chrome/Safari's blocking behaviour. With 
-              this set, a standard link tag is used just before article content.
-            </div>
-          </div>
-        </label>
-        <label>
-          <div class="input-container">
             <input type="checkbox" name="disable-chunking" value="1"{?flags.disable-chunking} checked{/flags.disable-chunking}>
           </div>
           <div class="desc">
@@ -92,6 +80,32 @@
             <div class="sub">
               Every article you visit will be cached for offline viewing. 
               Obviously this can land you with a massive cache.
+            </div>
+          </div>
+        </label>
+        <label>
+          <div class="input-container">
+            <input type="checkbox" name="no-css-async-hack" value="1"{?flags.no-css-async-hack} checked{/flags.no-css-async-hack}>
+          </div>
+          <div class="desc">
+            <div class="main">Don't load extra CSS with XHR.</div>
+            <div class="sub">
+              XHR is used to hack around Chrome/Safari's blocking behaviour. With 
+              this set, a standard link tag is used just before article content. 
+              You may need to remove your ServiceWorker to pick up this change.
+            </div>
+          </div>
+        </label>
+        <label>
+          <div class="input-container">
+            <input type="checkbox" name="blocking-js" value="1"{?flags.blocking-js} checked{/flags.blocking-js}>
+          </div>
+          <div class="desc">
+            <div class="main">Render-blocking JS</div>
+            <div class="sub">
+              Get that framework feel by making the JS render-blocking. 
+              By default it loads deferred. 
+              You may need to remove your ServiceWorker to pick up this change.
             </div>
           </div>
         </label>
