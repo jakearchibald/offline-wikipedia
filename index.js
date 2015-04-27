@@ -173,7 +173,12 @@ app.get('/wiki/:name', compression(), (req, res) => {
     }
     else {
       var meta = wikipedia.getMetaData(name);
-      var articleStream = wikipedia.getArticleStream(name);
+      if (req.flags.get('no-wiki-piping')) {
+        var articleStream = wikipedia.getArticle(name);
+      }
+      else {
+        var articleStream = wikipedia.getArticleStream(name);
+      }
     }
 
     meta = meta.then(data => {
