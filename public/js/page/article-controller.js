@@ -1,6 +1,7 @@
 var debounce = require('debounce');
 var wikipedia = require('./wikipedia');
 var wikiDisplayDate = require('../../../isojs/wiki-display-date');
+var flags = require('./flags').parse();
 
 var cacheCapable = 'caches' in window;
 
@@ -23,6 +24,10 @@ class ArticleController {
     }
     else {
       this._loadArticle(this._urlArticleName);
+    }
+
+    if (flags.get('auto-cache-article') && cacheCapable) {
+      this._onCacheChange({value: true});
     }
   }
 
