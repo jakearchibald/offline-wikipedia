@@ -9,7 +9,12 @@
     <link rel="apple-touch-icon-precomposed" href="imgs/wikipedia.png">
     <link rel="icon" href="/imgs/wikipedia.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <style>{inlineCss|s}</style>
+    {?flags.regular-css-loading}
+      <link rel="stylesheet" href="/css/all.css">
+      <link rel="stylesheet" href="/css/wiki.css">
+    {:else}
+      <style>{inlineCss|s}</style>
+    {/flags.regular-css-loading}
     <script src="/js/page.js"{^flags.blocking-js} defer{/flags.blocking-js}></script>
   </head>
   <body>

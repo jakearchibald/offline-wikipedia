@@ -1,25 +1,27 @@
 {>"base"/}
 {<bodyContent}
   <div class="cached-articles-container"></div>
-  {?flags.no-css-async-hack}
-    <link rel="stylesheet" href="/css/wiki.css">
-    <div class="article-container">
-  {:else}
-    <div class="article-container" style="display:none">
-      <script>{`
-        (function() {
-          var req = new XMLHttpRequest();
-          req.onload = function() {
-            var style = document.createElement('style');
-            style.textContent = req.responseText;
-            document.head.appendChild(style);
-            document.querySelector('.article-container').style.display = '';
-          }
-          req.open('GET', '/css/wiki.css');
-          req.send();
-        }());
-      `}</script>
-  {/flags.no-css-async-hack}
+  {^flags.regular-css-loading}
+    {?flags.no-css-async-hack}
+      <link rel="stylesheet" href="/css/wiki.css">
+      <div class="article-container">
+    {:else}
+      <div class="article-container" style="display:none">
+        <script>{`
+          (function() {
+            var req = new XMLHttpRequest();
+            req.onload = function() {
+              var style = document.createElement('style');
+              style.textContent = req.responseText;
+              document.head.appendChild(style);
+              document.querySelector('.article-container').style.display = '';
+            }
+            req.open('GET', '/css/wiki.css');
+            req.send();
+          }());
+        `}</script>
+    {/flags.no-css-async-hack}
+  {/flags.regular-css-loading}
       <div class="article-header subheading">{+articleHeaderContent/}</div>
       <div class="article-content card">{+articleContent/}</div>
     </div>

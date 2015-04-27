@@ -98,6 +98,20 @@
         </label>
         <label>
           <div class="input-container">
+            <input type="checkbox" name="regular-css-loading" value="1"{?flags.regular-css-loading} checked{/flags.regular-css-loading}>
+          </div>
+          <div class="desc">
+            <div class="main">Regular CSS loading</div>
+            <div class="sub">
+              Load both CSS files using link tags in the head. By deafult, a 
+              small amount of CSS loads inline, and the second loads depending 
+              on the above option. 
+              You may need to remove your ServiceWorker to pick up this change.
+            </div>
+          </div>
+        </label>
+        <label>
+          <div class="input-container">
             <input type="checkbox" name="blocking-js" value="1"{?flags.blocking-js} checked{/flags.blocking-js}>
           </div>
           <div class="desc">
