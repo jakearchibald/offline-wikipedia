@@ -8,22 +8,23 @@ var readFile = RSVP.denodeify(fs.readFile);
 var gzipStatic = require('connect-gzip-static');
 var cookieParser = require('cookie-parser');
 var url = require('url');
+var Readable = require('stream').Readable;
+global.dust = require('dustjs-linkedin');
+
+// dust templates
+require('./server-templates/base');
+require('./server-templates/index');
+require('./server-templates/flags');
+require('./server-templates/article-shell');
+require('./server-templates/article');
 
 var Flags = require('./isojs/flags');
 var wikipedia = require('./wikipedia');
 var wikiDisplayDate = require('./isojs/wiki-display-date');
-var articleContent = require('./shared-templates/article-content');
 var articleHeader = require('./shared-templates/article-header');
-var indexTop = require('./shared-templates/index-top');
-var flagsTemplate = require('./shared-templates/flags');
-var indexArticleHeaderIntro = require('./shared-templates/index-article-header-intro');
 
 var app = express();
 
-// I really should be using a templating language that supports promises & streams
-var indexHomeIntro = readFile(__dirname + '/public/index-home-intro.html', {encoding: 'utf8'});
-var indexMiddle = readFile(__dirname + '/public/index-middle.html', {encoding: 'utf8'});
-var indexBottom = readFile(__dirname + '/public/index-end.html', {encoding: 'utf8'});
 var inlineCss = readFile(__dirname + '/public/css/all.css', {encoding: 'utf8'});
 
 var env = process.env.NODE_ENV;
@@ -48,42 +49,36 @@ app.use(cookieParser(), (req, res, next) => {
   next();
 });
 
-app.get('/', compression(), async (req, res) => {
+app.get('/', compression(), (req, res) => {
   res.status(200);
   res.type('html');
-  res.write(indexTop({inlineCss: await inlineCss}));
-  res.write(await indexHomeIntro);
-  res.write(indexArticleHeaderIntro({
+  var stream = dust.stream('index', {
+    inlineCss: inlineCss,
     flags: req.flags.getAll()
-  }));
-  res.write(await indexMiddle);
-  res.write(await indexBottom);
-  res.end();
+  });
+  stream.pipe(res);
 });
 
-app.get('/flags', compression(), async (req, res) => {
+app.get('/flags', compression(), (req, res) => {
   res.status(200);
   res.type('html');
-  res.write(indexTop({
+
+  var stream = dust.stream('flags', {
     title: "Flags",
-    inlineCss: await inlineCss
-  }));
-  res.write(flagsTemplate({
+    inlineCss: inlineCss,
     flags: req.flags.getAll()
-  }));
-  res.end();
+  });
+  stream.pipe(res);
 });
 
 async function handlePageShellRequest(req, res) {
   res.status(200);
   res.type('html');
-  res.write(indexTop({inlineCss: await inlineCss}));
-  res.write(indexArticleHeaderIntro({
+  var stream = dust.stream('article-shell', {
+    inlineCss: inlineCss,
     flags: req.flags.getAll()
-  }));
-  res.write(await indexMiddle);
-  res.write(await indexBottom);
-  res.end();
+  });
+  stream.pipe(res);
 }
 
 app.get('/shell.html', compression(), handlePageShellRequest);
@@ -101,7 +96,6 @@ app.get('/wiki/:name.json', compression(), async (req, res) => {
     var metaContent = wikipedia.getMetaData(name);
     var articleContent = wikipedia.getArticle(name);
   }
-
 
   try {
     var metaContent = await metaContent;
@@ -145,7 +139,22 @@ app.get('/search.json', compression(), async (req, res) => {
   }
 });
 
-app.get('/wiki/:name', compression(), async (req, res) => {
+// A simple stream that calls a callback once read
+// Bit of a hack, allows me to call flush() at particular
+// bits of template action
+class OnReader extends Readable {
+  constructor(func) {
+    super();
+    this._func = func;
+  }
+
+  _read() {
+    this._func();
+    this.push(null);
+  }
+}
+
+app.get('/wiki/:name', compression(), (req, res) => {
   try {
     if (req.flags.get('client-render')) {
       handlePageShellRequest(req, res);
@@ -156,9 +165,12 @@ app.get('/wiki/:name', compression(), async (req, res) => {
 
     if (req.flags.get('avoid-wikipedia')) {
       var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
-      var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+      /*var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
         encoding: 'utf8'
-      });
+      });*/
+      var articleStream = new Promise(r => setTimeout(r, 5000)).then(_ => readFile(__dirname + '/wikipedia/hogan.html', {
+        encoding: 'utf8'
+      }));
     }
     else {
       var meta = wikipedia.getMetaData(name);
@@ -175,24 +187,17 @@ app.get('/wiki/:name', compression(), async (req, res) => {
 
     res.status(200);
     res.type('html');
-    
-    res.write(indexTop({
+
+    var stream = dust.stream('article', {
       title: name.replace(/_/g, ' '),
-      inlineCss: await inlineCss
-    }));
-    res.write(indexArticleHeaderIntro({
-      flags: req.flags.getAll()
-    }));
-    res.flush();
-    res.write(articleHeader(await meta));
-    res.write(await indexMiddle);
-    res.flush();
-    res.write('<div id="content_wrapper" class="content card-content server-rendered">');
-    articleStream.pipe(res, {end: false});
-    await new Promise(r => articleStream.on('end', r));
-    res.write('</div>');
-    res.write(await indexBottom);
-    res.end();
+      inlineCss: inlineCss,
+      flags: req.flags.getAll(),
+      beforeContent: new OnReader(_ => res.flush()),
+      content: articleStream,
+      headerContent: meta.then(meta => articleHeader(meta))
+    });
+
+    stream.pipe(res);
   }
   catch (err) {
     console.log(err, err.stack);

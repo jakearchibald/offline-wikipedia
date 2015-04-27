@@ -181,7 +181,7 @@ gulp.task('server:js', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('server:templates', function () {
+gulp.task('server:sharedtemplates', function () {
   return gulp.src('shared-templates/*.hbs')
     .pipe(plugins.handlebars())
     .pipe(through.obj(function(file, enc, callback) {
@@ -196,11 +196,22 @@ gulp.task('server:templates', function () {
     .pipe(gulp.dest('dist/shared-templates'));
 });
 
+gulp.task('server:templates', function () {
+  return gulp.src('server-templates/*.dust')
+    .pipe(plugins.dust({
+      name: function(file) {
+        return file.relative.replace(/\.dust$/, '');
+      }
+    }))
+    .pipe(gulp.dest('dist/server-templates'));
+});
+
 gulp.task('watch', function () {
   gulp.watch(['public/*.html'], ['html']);
   gulp.watch(['public/**/*.scss'], ['css']);
   gulp.watch(['index.js', 'wikipedia/**'], ['server:js']);
-  gulp.watch(['shared-templates/*.hbs'], ['server:templates']);
+  gulp.watch(['shared-templates/*.hbs'], ['server:sharedtemplates']);
+  gulp.watch(['server-templates/*.dust'], ['server:templates']);
 
   Object.keys(bundlers).forEach(function(key) {
     var watchifyBundler = watchify(bundlers[key]);
@@ -211,7 +222,7 @@ gulp.task('watch', function () {
   });
 });
 
-var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:package', 'server:misc', 'server:js', 'server:templates']];
+var buildSequence = ['clean', ['css', 'misc', 'html', 'js', 'server:package', 'server:misc', 'server:js', 'server:sharedtemplates', 'server:templates']];
 var productionBuildSequence = buildSequence.concat(['rev', 'updaterefs', 'compress']);
 
 gulp.task('build', function() {
@@ -231,7 +242,8 @@ gulp.task('server:serve', function() {
     'dist/index.js',
     'dist/shared-templates/flags.js',
     'dist/public/index-end.html',
-    'dist/public/css/all.css'
+    'dist/public/css/all.css',
+    'dist/server-templates/base.js'
   ], plugins.developServer.restart);
 });
 

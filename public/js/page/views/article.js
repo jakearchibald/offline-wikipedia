@@ -1,4 +1,4 @@
-var contentTemplate = require('../../../../shared-templates/article-content.hbs');
+var contentTemplate = require('./templates/article-content.hbs');
 var headerTemplate = require('../../../../shared-templates/article-header.hbs');
 var Spinner = require('./spinner');
 var utils = require('../utils');

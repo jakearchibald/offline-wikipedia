@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{#if title}}{{title}} - {{/if}}Offline Wikipedia</title>
+    <title>{?title}{title} - {/title}Offline Wikipedia</title>
     <meta charset="utf-8"> 
     <meta name="theme-color" content="#9C27B0">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0">
@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon-precomposed" href="imgs/wikipedia.png">
     <link rel="icon" href="/imgs/wikipedia.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <style>{{{ inlineCss }}}</style>
+    <style>{inlineCss|s}</style>
     <script src="/js/page.js" defer></script>
   </head>
   <body>
@@ -22,3 +22,6 @@
       </div>
       <div class="search-results"></div>
     </div>
+    {+bodyContent/}
+  </body>
+</html>
