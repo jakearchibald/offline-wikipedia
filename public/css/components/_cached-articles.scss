@@ -5,6 +5,11 @@
     margin: 15px 32px;
   }
 
+  & ul {
+    margin: 0;
+    padding: 0;
+  }
+
   & .delete-btn {
     margin-left: auto;
     width: 24px;
@@ -28,6 +33,7 @@
   & .item-list-item {
     @include display-flex;
     @include align-items(center);
+    margin: 0;
 
     & a {
       @include flex(1);
