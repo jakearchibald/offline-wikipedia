@@ -28,6 +28,11 @@ class Flags extends (require('../../../isojs/flags')) {
     return '?' + 'use-url-flags&' + this.stringify();
   }
 
+  getWebPageTestScript() {
+    return `setCookie	https://wiki-offline.herokuapp.com/	flags=${this.stringify()}
+navigate	https://wiki-offline.herokuapp.com/wiki/Hulk_Hogan`;
+  }
+
   setCookie() {
     cookies.set('flags', this.stringify(), {expires: 365});
   }

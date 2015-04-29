@@ -75,6 +75,7 @@ function createBundler(src) {
 
 var bundlers = {
   'js/page.js': createBundler('./public/js/page/index.js'),
+  'js/page-framework.js': createBundler('./public/js/page-framework/index.js'),
   'js/fetch.js': createBundler('./public/js/fetch/index.js'),
   'js/promise-polyfill.js': createBundler('./public/js/promise-polyfill/index.js'),
   'js/fastclick.js': createBundler('./public/js/fastclick/index.js'),
@@ -93,7 +94,6 @@ function bundle(bundler, outputPath) {
     .pipe(buffer())
     .pipe(plugins.sourcemaps.init({ loadMaps: true })) // loads map from browserify file
     .pipe(plugins.sourcemaps.write('./')) // writes .map file
-    .pipe(plugins.size({ gzip: true, title: outputFile }))
     .pipe(gulp.dest('dist/public/' + outputDir));
 }
 

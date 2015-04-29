@@ -46,9 +46,13 @@
   text-align: right;
 }
 
-.flags-query {
+.flags-query,
+.flags-webpagetest-script {
+  overflow: auto;
+  white-space: pre;
   font-family: monospace;
   background: #EEE;
   border: 1px solid #DDD;
   padding: 5px 10px;
+  tab-size: 2;
 }

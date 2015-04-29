@@ -11,6 +11,7 @@ self.addEventListener('install', event => {
         '/',
         '/shell.html',
         '/js/page.js',
+        '/js/page-framework.js', // yeahhhh, we're caching waayyyyy more than we need, but keeps the request tests fair
         '/css/all.css', // don't need this when it's inlined, but helps when rendered with blocking CSS in settings
         '/css/wiki.css'
       ]);

@@ -7,12 +7,13 @@ class FlagsController {
     this._toastsView = require('./views/toasts');
     this._flagsForm = document.querySelector('.flags-form');
     this._flagsQuery = document.querySelector('.flags-query');
+    this._flagsScript = document.querySelector('.flags-webpagetest-script');
 
     // view events
     this._flagsForm.addEventListener('submit', e => this._onFlagsSubmit(e));
-    this._flagsForm.addEventListener('change', e => this._updateFlagsQuery());
+    this._flagsForm.addEventListener('change', e => this._updateFlagsOutput());
 
-    this._updateFlagsQuery();
+    this._updateFlagsOutput();
   }
 
   _getFlags() {
@@ -24,8 +25,10 @@ class FlagsController {
     return flags;
   }
 
-  _updateFlagsQuery(event) {
-    this._flagsQuery.textContent = this._getFlags().getQuerystring();
+  _updateFlagsOutput(event) {
+    var flags = this._getFlags();
+    this._flagsQuery.textContent = flags.getQuerystring();
+    this._flagsScript.textContent = flags.getWebPageTestScript();
   }
 
   _onFlagsSubmit(event) {

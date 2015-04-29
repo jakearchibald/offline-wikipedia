@@ -15,7 +15,11 @@
     {:else}
       <style>{inlineCss|s}</style>
     {/flags.regular-css-loading}
-    <script src="/js/page.js"{^flags.blocking-js} defer{/flags.blocking-js}></script>
+    {?flags.framework-js}
+      <script src="/js/page-framework.js"{^flags.blocking-js} defer{/flags.blocking-js}></script>
+    {:else}
+      <script src="/js/page.js"{^flags.blocking-js} defer{/flags.blocking-js}></script>
+    {/flags.framework-js}
   </head>
   <body>
     <div class="toolbar">
