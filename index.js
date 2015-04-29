@@ -93,9 +93,12 @@ app.get('/wiki/:name.json', compression(), async (req, res) => {
 
   if (req.flags.get('avoid-wikipedia')) {
     var metaContent = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
-    var articleContent = readFile(__dirname + '/wikipedia/hogan.html', {
-      encoding: 'utf8'
-    });
+    var articleContent = new Promise(r => setTimeout(r, 900)).then(_ => {
+      return readFile(__dirname + '/wikipedia/hogan.html', {
+        encoding: 'utf8'
+      });
+    })
+
   }
   else {
     var metaContent = wikipedia.getMetaData(name);
@@ -167,8 +170,10 @@ app.get('/wiki/:name', compression(), (req, res) => {
 
     if (req.flags.get('avoid-wikipedia')) {
       var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
-      var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
-        encoding: 'utf8'
+      var articleStream = new Promise(r => setTimeout(r, 900)).then(_ => {
+        return fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+          encoding: 'utf8'
+        });
       });
     }
     else {
