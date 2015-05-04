@@ -88,8 +88,8 @@ async function handlePageShellRequest(req, res) {
 
 app.get('/shell.html', compression(), handlePageShellRequest);
 
-app.get('/wiki/:name.json', compression(), async (req, res) => {
-  var name = req.params.name;
+app.get(/\/wiki\/(.+)\.json/, compression(), async (req, res) => {
+  var name = req.params[0];
 
   if (req.flags.get('avoid-wikipedia')) {
     var metaContent = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
@@ -97,7 +97,7 @@ app.get('/wiki/:name.json', compression(), async (req, res) => {
       return readFile(__dirname + '/wikipedia/hogan.html', {
         encoding: 'utf8'
       });
-    })
+    });
 
   }
   else {
@@ -159,14 +159,14 @@ function onReadStream(func) {
   return readable;
 }
 
-app.get('/wiki/:name', compression(), (req, res) => {
+app.get(/\/wiki\/(.*)/, compression(), (req, res) => {
   try {
     if (req.flags.get('client-render')) {
       handlePageShellRequest(req, res);
       return;
     }
-    
-    var name = req.params.name;
+
+    var name = req.params[0];
 
     if (req.flags.get('avoid-wikipedia')) {
       var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);

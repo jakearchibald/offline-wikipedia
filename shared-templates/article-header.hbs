@@ -5,7 +5,7 @@
 {{#if server}}
   <script>
     document.title = {{{safeTitle}}} + ' - Offline Wikipedia';
-    history.replaceState({}, document.title, {{{safeUrlId}}} + location.search);
+    history.replaceState({}, document.title, '/wiki/' + {{{safeUrlId}}} + location.search);
   </script>
 {{/if}}
 

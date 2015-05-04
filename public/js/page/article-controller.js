@@ -16,7 +16,7 @@ class ArticleController {
 
     // state
     this._article = null;
-    this._urlArticleName = /^\/wiki\/([^\/]+)/.exec(location.pathname)[1];
+    this._urlArticleName = /^\/wiki\/(.+)/.exec(location.pathname)[1];
 
     // setup
     if (this._articleView.serverRendered) {
@@ -50,7 +50,7 @@ class ArticleController {
   async _displayArticle(article) {
     var [data, content] = await Promise.all([article.meta, article.html]);
     var url = new URL(location);
-    url.pathname = url.pathname.replace(/\/[^\/]+$/, '/' + data.urlId);
+    url.pathname = url.pathname.replace(/\/wiki\/.+$/, '/wiki/' + data.urlId);
     data = await processData(article, data);
     document.title = data.title + ' - Offline Wikipedia';
     history.replaceState({}, document.title, url);

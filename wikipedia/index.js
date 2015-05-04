@@ -47,7 +47,7 @@ module.exports = {
         return {
           title,
           description: descriptions[i],
-          id: /[^\/]+$/.exec(urls[i])[0]
+          id: /en.wikipedia.org\/wiki\/(.+)$/.exec(urls[i])[1]
         }
       });
     });
