@@ -25,7 +25,7 @@ var articleHeader = require('./shared-templates/article-header');
 
 var app = express();
 
-var inlineCss = readFile(__dirname + '/public/css/all.css', {encoding: 'utf8'});
+var inlineCss = readFile(__dirname + '/public/css/head.css', {encoding: 'utf8'});
 
 var env = process.env.NODE_ENV;
 var staticOptions = {

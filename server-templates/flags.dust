@@ -103,7 +103,7 @@
           <div class="desc">
             <div class="main">Regular CSS loading</div>
             <div class="sub">
-              Load both CSS files using link tags in the head. By deafult, a 
+              Load all CSS using a link tag in the head. By deafult, a 
               small amount of CSS loads inline, and the second loads depending 
               on the above option. 
               You may need to remove your ServiceWorker to pick up this change.

@@ -10,8 +10,7 @@
     <link rel="icon" href="/imgs/wikipedia.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
     {?flags.regular-css-loading}
-      <link rel="stylesheet" href="/css/all.css">
-      <link rel="stylesheet" href="/css/wiki.css">
+      <link rel="stylesheet" href="/css/head-wiki.css">
     {:else}
       <style>{inlineCss|s}</style>
     {/flags.regular-css-loading}
