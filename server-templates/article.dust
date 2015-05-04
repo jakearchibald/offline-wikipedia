@@ -1,7 +1,6 @@
 {>"article-shell"/}
 {<articleHeaderContent}{headerContent|s}{/articleHeaderContent}
 {<articleContent}
-  {beforeContent}
   <div id="content_wrapper" class="content card-content server-rendered">
     {content|s}
   </div>

@@ -8,7 +8,7 @@ var readFile = RSVP.denodeify(fs.readFile);
 var gzipStatic = require('connect-gzip-static');
 var cookieParser = require('cookie-parser');
 var url = require('url');
-var Readable = require('stream').Readable;
+var zlib = require('zlib');
 global.dust = require('dustjs-linkedin');
 
 // dust templates
@@ -58,7 +58,9 @@ function sendDustTemplateOutput(req, res, name, data) {
   }
 }
 
-app.get('/', compression(), (req, res) => {
+app.get('/', compression({
+  flush: zlib.Z_PARTIAL_FLUSH
+}), (req, res) => {
   res.status(200);
   res.type('html');
   sendDustTemplateOutput(req, res, 'index', {
@@ -67,7 +69,9 @@ app.get('/', compression(), (req, res) => {
   });
 });
 
-app.get('/flags', compression(), (req, res) => {
+app.get('/flags', compression({
+  flush: zlib.Z_PARTIAL_FLUSH
+}), (req, res) => {
   res.status(200);
   res.type('html');
   sendDustTemplateOutput(req, res, 'flags', {
@@ -86,7 +90,9 @@ async function handlePageShellRequest(req, res) {
   });
 }
 
-app.get('/shell.html', compression(), handlePageShellRequest);
+app.get('/shell.html', compression({
+  flush: zlib.Z_PARTIAL_FLUSH
+}), handlePageShellRequest);
 
 app.get(/\/wiki\/(.+)\.json/, compression(), async (req, res) => {
   var name = req.params[0];
@@ -146,19 +152,9 @@ app.get('/search.json', compression(), async (req, res) => {
   }
 });
 
-// A simple stream that calls a callback once read
-// Bit of a hack, allows me to call flush() at particular
-// bits of template action
-function onReadStream(func) {
-  var readable = new Readable();
-  readable._read = function() {
-    func();
-    this.push(null);
-  };
-  return readable;
-}
-
-app.get(/\/wiki\/(.*)/, compression(), (req, res) => {
+app.get(/\/wiki\/(.*)/, compression({
+  flush: zlib.Z_PARTIAL_FLUSH
+}), (req, res) => {
   try {
     if (req.flags.get('client-render')) {
       handlePageShellRequest(req, res);
@@ -200,7 +196,6 @@ app.get(/\/wiki\/(.*)/, compression(), (req, res) => {
       title: name.replace(/_/g, ' '),
       inlineCss: inlineCss,
       flags: req.flags.getAll(),
-      beforeContent: onReadStream(_ => res.flush()),
       content: articleStream,
       headerContent: meta.then(meta => articleHeader(meta))
     });
