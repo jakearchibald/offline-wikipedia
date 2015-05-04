@@ -98,7 +98,6 @@ app.get(/\/wiki\/(.+)\.json/, compression(), async (req, res) => {
         encoding: 'utf8'
       });
     });
-
   }
   else {
     var metaContent = wikipedia.getMetaData(name);

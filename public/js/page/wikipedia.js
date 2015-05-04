@@ -111,11 +111,15 @@ class Article {
 
 var wikipedia = {
   search(term) {
-    return fetch('/search.json?s=' + term).then(r => r.json());
+    return fetch('/search.json?s=' + term, {
+      credentials: 'include' // needed for flag cookies
+    }).then(r => r.json());
   },
 
   _getArticleRequest(name) {
-    return new Request('/wiki/' + name + '.json');
+    return new Request('/wiki/' + name + '.json', {
+      credentials: 'include' // needed for flag cookies
+    });
   },
 
   article(name, {

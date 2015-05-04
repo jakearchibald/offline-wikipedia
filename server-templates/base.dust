@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>{?title}{title} - {/title}Offline Wikipedia</title>
-    <meta charset="utf-8"> 
+    <meta charset="utf-8">
     <meta name="theme-color" content="#9C27B0">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0">
     <link rel="manifest" href="manifest.json">
