@@ -70,7 +70,9 @@ self.addEventListener('fetch', event => {
       var jsonURL = new URL(requestURL);
       jsonURL.pathname += '.json';
       jsonURL.search = '';
-      jsonTmpCache[jsonURL.href] = fetch(jsonURL);
+      jsonTmpCache[jsonURL.href] = fetch(jsonURL, {
+        credentials: 'include' // needed for flag cookies
+      });
 
       event.respondWith(caches.match('/shell.html'));
       return; 
