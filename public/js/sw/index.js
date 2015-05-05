@@ -41,7 +41,7 @@ self.addEventListener('activate', event => {
 
 // This will vanish when the ServiceWorker closes,
 // but that's cool, I want that.
-var jsonTmpCache = {};
+var dataTmpCache = {};
 
 self.addEventListener('fetch', event => {
   var requestURL = new URL(event.request.url);
@@ -57,10 +57,10 @@ self.addEventListener('fetch', event => {
       return;
     }
     if (requestURL.pathname.indexOf('/wiki/') === 0) {
-      if (/\.json$/.test(requestURL.pathname)) {
-        if (jsonTmpCache[requestURL.href]) {
-          var response = jsonTmpCache[requestURL.href];
-          delete jsonTmpCache[requestURL.href];
+      if (/\.(json|inc)$/.test(requestURL.pathname)) {
+        if (dataTmpCache[requestURL.href]) {
+          var response = dataTmpCache[requestURL.href];
+          delete dataTmpCache[requestURL.href];
           event.respondWith(response);
         }
         return;
@@ -70,12 +70,18 @@ self.addEventListener('fetch', event => {
       var jsonURL = new URL(requestURL);
       jsonURL.pathname += '.json';
       jsonURL.search = '';
-      jsonTmpCache[jsonURL.href] = fetch(jsonURL, {
+      var incURL = new URL(requestURL);
+      jsonURL.pathname += '.inc';
+      jsonURL.search = '';
+      dataTmpCache[jsonURL.href] = fetch(jsonURL, {
+        credentials: 'include' // needed for flag cookies
+      });
+      dataTmpCache[incURL.href] = fetch(incURL, {
         credentials: 'include' // needed for flag cookies
       });
 
       event.respondWith(caches.match('/shell.html'));
-      return; 
+      return;
     }
   }
 

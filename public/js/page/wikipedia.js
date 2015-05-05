@@ -3,25 +3,56 @@ var utils = require('./utils');
 
 var cachePrefix = "wikioffline-article-";
 
-class Article {
-  constructor(articleRequest, articleResponse) {
-    this._articleRequest = articleRequest;
-    this._articleResponse = articleResponse;
+function getMetaRequest(name) {
+  return new Request('/wiki/' + name + '.json', {
+    credentials: 'include' // needed for flag cookies
+  });
+}
 
-    var data = articleResponse.clone().json();
+function getArticleRequest(name) {
+  return new Request('/wiki/' + name + '.inc', {
+    credentials: 'include' // needed for flag cookies
+  });
+}
+
+class Article {
+  constructor(name, {
+    fromCache = false
+  }={}) {
+    var fetcher = fromCache ? caches.match.bind(caches) : fetch;
+    this._metaPromise = fetcher(getMetaRequest(name));
+    this._articlePromise = fetcher(getArticleRequest(name));
+
+    this.ready = this._metaPromise.then(r => {
+      if (!r) throw Error('No response');
+    });
+
+    var data = this.ready.then(_ => this._metaPromise).then(r => r.clone().json());
+
+    this._html = undefined;
     
-    this.html = data.then(d => d.article);
-    this.meta = data.then(data => {
-      data.meta.updated = new Date(data.meta.updated);
-      return data.meta;
+    this.meta = data.then(meta => {
+      meta.updated = new Date(meta.updated);
+      return meta;
     });
 
     this._cacheName = this.meta.then(data => cachePrefix + data.urlId);
   }
 
-  async _createCacheResponse() {
-    var response = await this._articleResponse.json();
-    var text = response.article;
+  async getHtml() {
+    if (this._html === undefined) {
+      this._html = await this._articlePromise.then(r => r.clone().text());
+    }
+
+    return this._html;
+  }
+
+  getHtmlResponse() {
+    return this._articlePromise.then(r => r.clone());
+  }
+
+  async _createCacheArticleResponse() {
+    var text = await this.getHtml();
 
     // yes I'm parsing HTML with regex muahahaha
     // I'm flattening srcset to make it deterministic
@@ -56,11 +87,9 @@ class Article {
 
       return match;
     });
-
-    response.article = text;
     
-    return new Response(JSON.stringify(response), {
-      headers: this._articleResponse.headers
+    return new Response(text, {
+      headers: (await this._articlePromise).headers
     });
   }
 
@@ -69,17 +98,19 @@ class Article {
     var cache = await caches.open(await this._cacheName);
     var imgRe = /<img[^>]*src=(['"])(.*?)\1[^>]*>/ig;
     var regexResult;
-    var articleResponse = await this._createCacheResponse();
-    var htmlText = (await articleResponse.clone().json()).article;
+    var articleResponse = await this._createCacheArticleResponse();
+    var htmlText = await this.getHtml();
     var imgSrcs = new Set();
+    var urlId = (await this.meta).urlId;
 
     while (regexResult = imgRe.exec(htmlText)) {
       imgSrcs.add(regexResult[2]);
     }
 
     var cacheOpeations = [
-      // get a fresh article request, as it may have originally been redirected
-      cache.put(wikipedia._getArticleRequest((await this.meta).urlId), articleResponse)
+      // get a fresh request, as it may have originally been redirected
+      cache.put(getMetaRequest(urlId), (await this._metaPromise).clone()),
+      cache.put(getArticleRequest(urlId), articleResponse)
     ];
 
     imgSrcs.forEach(url => {
@@ -116,24 +147,14 @@ var wikipedia = {
     }).then(r => r.json());
   },
 
-  _getArticleRequest(name) {
-    return new Request('/wiki/' + name + '.json', {
-      credentials: 'include' // needed for flag cookies
-    });
-  },
-
-  article(name, {
+  async article(name, {
     fromCache = false
   }={}) {
     if (fromCache && !('caches' in window)) return Promise.reject(Error("Caching not supported"));
 
-    var articleRequest = this._getArticleRequest(name);
-
-    return (fromCache ? caches.match(articleRequest) : fetch(articleRequest))
-      .then(articleResponse => {
-        if (!articleResponse) throw Error('No response');
-        return new Article(articleRequest, articleResponse);
-      });
+    var article = new Article(name, {fromCache});
+    await article.ready;
+    return article;
   },
 
   async getCachedArticleData() {
@@ -145,7 +166,7 @@ var wikipedia = {
 
     return Promise.all(
       articleNames.map(async name => {
-        var response = await caches.match(this._getArticleRequest(name));
+        var response = await caches.match(getMetaRequest(name));
 
         // seeing a bug where the response here is gone - not sure why
         // but I'll guard against it
@@ -154,7 +175,7 @@ var wikipedia = {
           return false;
         };
 
-        return (await response.json()).meta;
+        return response.json();
       })
     ).then(vals => vals.filter(val => val));
   },

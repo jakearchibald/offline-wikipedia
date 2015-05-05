@@ -40,8 +40,45 @@ class Article extends (require('events').EventEmitter) {
     }
   }
 
-  updateContent(article) {
-    this._content.innerHTML = contentTemplate(article);
+  updateContent(articleHtml) {
+    this._content.innerHTML = contentTemplate({
+      content: articleHtml
+    });
+  }
+
+  // this is a super hacky experiment
+  async streamContent(article) {
+    var response = await article.getHtmlResponse();
+    if (!response.body) {
+      // not supported
+      this.updateContent(await article.getHtml());
+      return;
+    }
+
+    // Here comes the haaaaack!
+    var fullContent = '';
+    var buffer = '';
+    var reader = response.body.getReader();
+    var decoder = new TextDecoder();
+    var result;
+    var awaitingInitialFlush = true;
+
+    while (true) {
+      var result = await reader.read();
+      buffer += decoder.decode(result.value || new Uint8Array, {
+        stream: !result.done
+      });
+
+      // so inefficient, but we don't have a better way to stream html
+      if (result.done || (awaitingInitialFlush && buffer.length > 9000)) {
+        fullContent += buffer;
+        this._content.innerHTML = '<div id="content_wrapper" class="content card-content">' + fullContent + '</div>';
+        awaitingInitialFlush = false;
+        buffer = '';
+      }
+
+      if (result.done) break;
+    }
   }
 
   updateMeta(data) {

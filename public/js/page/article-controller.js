@@ -48,15 +48,14 @@ class ArticleController {
   }
 
   async _displayArticle(article) {
-    var [data, content] = await Promise.all([article.meta, article.html]);
     var url = new URL(location);
-    url.pathname = url.pathname.replace(/\/wiki\/.+$/, '/wiki/' + data.urlId);
-    data = await processData(article, data);
-    document.title = data.title + ' - Offline Wikipedia';
-    history.replaceState({}, document.title, url);
     this._article = article;
-    this._articleView.updateMeta(data);
-    this._articleView.updateContent({content});
+    this._articleView.streamContent(article);
+    var data = await article.meta.then(data => processData(article, data));
+    document.title = data.title + ' - Offline Wikipedia';
+    url.pathname = url.pathname.replace(/\/wiki\/.+$/, '/wiki/' + data.urlId);
+    history.replaceState({}, document.title, url);
+    this._articleView.updateMeta(await data);
   }
 
   async _loadArticle(name) {

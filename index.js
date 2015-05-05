@@ -100,38 +100,57 @@ app.get(/\/wiki\/(.+)\.json/, compression(), async (req, res) => {
   var name = req.params[0];
 
   if (req.flags.get('avoid-wikipedia')) {
-    var metaContent = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
-    var articleContent = new Promise(r => setTimeout(r, 900)).then(_ => {
-      return readFile(__dirname + '/wikipedia/hogan.html', {
-        encoding: 'utf8'
-      });
+    var metaContent = new Promise(r => setTimeout(r, 900)).then(_ => {
+      return readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
     });
   }
   else {
     var metaContent = wikipedia.getMetaData(name);
-    var articleContent = wikipedia.getArticle(name);
   }
 
   try {
     var metaContent = await metaContent;
 
     if (metaContent.err == "Not found") {
-      res.json(404, {
+      res.status(404).json({
         err: metaContent.err
       });
       return;
     }
 
-    res.json({
-      meta: metaContent,
-      article: await articleContent
-    });
+    res.json(metaContent);
   }
   catch (err) {
     console.log(err, err.stack);
-    res.json(500, {
+    res.status(500).json({
       err: err.message
     });
+  }
+});
+
+app.get(/\/wiki\/(.+)\.inc/, compression({
+  flush: zlib.Z_PARTIAL_FLUSH
+}), async (req, res) => {
+  var name = req.params[0];
+
+  if (req.flags.get('avoid-wikipedia')) {
+    await new Promise(r => setTimeout(r, 900));
+    var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+      encoding: 'utf8'
+    });
+  }
+  else {
+    var articleStream = wikipedia.getArticleStream(name);
+  }
+
+  try {
+    res.status(200);
+    res.type('html');
+    articleStream.pipe(res);
+  }
+  catch (err) {
+    console.log(err, err.stack);
+    res.send(500, "Failed");
   }
 });
 
