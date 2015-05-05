@@ -71,8 +71,8 @@ self.addEventListener('fetch', event => {
       jsonURL.pathname += '.json';
       jsonURL.search = '';
       var incURL = new URL(requestURL);
-      jsonURL.pathname += '.inc';
-      jsonURL.search = '';
+      incURL.pathname += '.inc';
+      incURL.search = '';
       dataTmpCache[jsonURL.href] = fetch(jsonURL, {
         credentials: 'include' // needed for flag cookies
       });
