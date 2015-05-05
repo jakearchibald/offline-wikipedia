@@ -37,7 +37,9 @@ app.set('port', (process.env.PORT || 8000));
 app.use('/js', gzipStatic('public/js', staticOptions));
 app.use('/css', gzipStatic('public/css', staticOptions));
 app.use('/imgs', gzipStatic('public/imgs', staticOptions));
-app.use('/sw.js', gzipStatic('public/sw.js'));
+app.use('/sw.js', gzipStatic('public/sw.js'), {
+  maxAge: 0
+});
 app.use('/manifest.json', gzipStatic('public/manifest.json'));
 
 app.use(cookieParser(), (req, res, next) => {
