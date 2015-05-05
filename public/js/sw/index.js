@@ -39,6 +39,10 @@ self.addEventListener('activate', event => {
   );
 });
 
+// This will vanish when the ServiceWorker closes,
+// but that's cool, I want that.
+var jsonTmpCache = {};
+
 self.addEventListener('fetch', event => {
   var requestURL = new URL(event.request.url);
 
@@ -48,12 +52,28 @@ self.addEventListener('fetch', event => {
       event.respondWith(caches.match('/'));
       return;
     }
-    if (requestURL.pathname == '/' || requestURL.pathname.indexOf('/wiki/') === 0) {
-      // just the network for these requests - pulling these out of the
-      // cache is handled entirely by the page
-      if (/\.json$/.test(requestURL.pathname)) return;
+    if (requestURL.pathname == '/') {
       event.respondWith(caches.match('/shell.html'));
       return;
+    }
+    if (requestURL.pathname.indexOf('/wiki/') === 0) {
+      if (/\.json$/.test(requestURL.pathname)) {
+        if (jsonTmpCache[requestURL.href]) {
+          var response = jsonTmpCache[requestURL.href];
+          delete jsonTmpCache[requestURL.href];
+          event.respondWith(response);
+        }
+        return;
+      }
+      
+      // Get ahead of the pack by starting the json request now
+      var jsonURL = new URL(requestURL);
+      jsonURL.pathname += '.json';
+      jsonURL.search = '';
+      jsonTmpCache[jsonURL.href] = fetch(jsonURL);
+
+      event.respondWith(caches.match('/shell.html'));
+      return; 
     }
   }
 
