@@ -1,5 +1,6 @@
 {
   "name": "Offline Wikipedia",
+  "short_name": "OfflineWiki",
   "scope": "./",
   "icons": [{
     "src": "imgs/wikipedia.png",
