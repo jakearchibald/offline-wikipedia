@@ -67,6 +67,12 @@ button, textarea {
   }
 }
 
+li,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
 button {
   border: none;
   background-color: rgba(0, 0, 0, 0);

@@ -22,7 +22,7 @@
   </head>
   <body>
     <div class="toolbar">
-      <a href="/">Offline Wikipedia</a>
+      <a href="/">Wikipedia Demo</a>
       <button class="search-btn"><svg viewBox="0 0 24 24"><title>Search</title><path d="M15.5 14h-.8l-.3-.3c1-1 1.6-2.6 1.6-4.2C16 6 13 3 9.5 3S3 6 3 9.5 6 16 9.5 16c1.6 0 3-.6 4.2-1.6l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0C7 14 5 12 5 9.5S7 5 9.5 5 14 7 14 9.5 12 14 9.5 14z"/></svg></button>
       <div class="search-bar">
         <button class="back-btn"><svg viewBox="0 0 24 24"><title>Back</title><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20v-2z"/></svg></button>
