@@ -4,11 +4,13 @@
   "scope": "./",
   "icons": [{
     "src": "imgs/wikipedia.png",
-    "sizes": "144x144"
+    "sizes": "144x144",
+    "type": "image/png"
   },
   {
     "src": "imgs/wikipedia-192.png",
-    "sizes": "192x192"
+    "sizes": "192x192",
+    "type": "image/png"
   }],
   "display": "standalone",
   "start_url": "./"
