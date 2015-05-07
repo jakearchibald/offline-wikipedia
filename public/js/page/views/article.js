@@ -41,6 +41,7 @@ class Article extends (require('events').EventEmitter) {
   }
 
   updateContent(articleHtml) {
+    this.stopLoading();
     this._content.innerHTML = contentTemplate({
       content: articleHtml
     });
@@ -63,6 +64,8 @@ class Article extends (require('events').EventEmitter) {
     var result;
     var awaitingInitialFlush = true;
 
+    await new Promise(r => setTimeout(r, 15000));
+
     while (true) {
       var result = await reader.read();
       buffer += decoder.decode(result.value || new Uint8Array, {
@@ -71,6 +74,7 @@ class Article extends (require('events').EventEmitter) {
 
       // so inefficient, but we don't have a better way to stream html
       if (result.done || (awaitingInitialFlush && buffer.length > 9000)) {
+        this.stopLoading();
         fullContent += buffer;
         this._content.innerHTML = '<div id="content_wrapper" class="content card-content">' + fullContent + '</div>';
         awaitingInitialFlush = false;
@@ -82,7 +86,6 @@ class Article extends (require('events').EventEmitter) {
   }
 
   updateMeta(data) {
-    this.stopLoading();
     this._header.innerHTML = headerTemplate(data);
   }
 
