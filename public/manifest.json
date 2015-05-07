@@ -5,6 +5,10 @@
   "icons": [{
     "src": "imgs/wikipedia.png",
     "sizes": "144x144"
+  },
+  {
+    "src": "imgs/wikipedia-192.png",
+    "sizes": "192x192"
   }],
   "display": "standalone",
   "start_url": "./"

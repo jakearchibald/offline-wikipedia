@@ -72,7 +72,7 @@ class Article extends (require('events').EventEmitter) {
       // so inefficient, but we don't have a better way to stream html
       if (result.done || (awaitingInitialFlush && buffer.length > 9000)) {
         fullContent += buffer;
-        this._content.innerHTML = '<div id="content_wrapper" class="content card-content">STREAMED!!!' + fullContent + '</div>';
+        this._content.innerHTML = '<div id="content_wrapper" class="content card-content">' + fullContent + '</div>';
         awaitingInitialFlush = false;
         buffer = '';
       }
