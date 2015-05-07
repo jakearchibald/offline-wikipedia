@@ -64,8 +64,6 @@ class Article extends (require('events').EventEmitter) {
     var result;
     var awaitingInitialFlush = true;
 
-    await new Promise(r => setTimeout(r, 15000));
-
     while (true) {
       var result = await reader.read();
       buffer += decoder.decode(result.value || new Uint8Array, {
