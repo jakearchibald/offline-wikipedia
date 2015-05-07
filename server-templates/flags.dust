@@ -85,6 +85,18 @@
         </label>
         <label>
           <div class="input-container">
+            <input type="checkbox" name="prevent-streaming" value="1"{?flags.prevent-streaming} checked{/flags.prevent-streaming}>
+          </div>
+          <div class="desc">
+            <div class="main">Prevent client-side streaming</div>
+            <div class="sub">
+              When rendering articles on the client, the streaming API is used in Canary
+              to get a quicker first render. This setting disables that optimisation.
+            </div>
+          </div>
+        </label>
+        <label>
+          <div class="input-container">
             <input type="checkbox" name="no-css-async-hack" value="1"{?flags.no-css-async-hack} checked{/flags.no-css-async-hack}>
           </div>
           <div class="desc">

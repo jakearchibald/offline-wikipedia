@@ -3,7 +3,7 @@ var wikipedia = require('./wikipedia');
 var wikiDisplayDate = require('../../../isojs/wiki-display-date');
 var flags = require('./flags').parse();
 
-var cacheCapable = 'caches' in window;
+var cacheCapable = ('caches' in window && navigator.serviceWorker.controller);
 
 class ArticleController {
   constructor() {
@@ -50,7 +50,13 @@ class ArticleController {
   async _displayArticle(article) {
     var url = new URL(location);
     this._article = article;
-    this._articleView.streamContent(article);
+
+    if (flags.get('prevent-streaming')) {
+      article.getHtml().then(html => this._articleView.updateContent(html));
+    }
+    else {
+      this._articleView.streamContent(article);
+    }
     var data = await article.meta.then(data => processData(article, data));
     document.title = data.title + ' - Offline Wikipedia';
     url.pathname = url.pathname.replace(/\/wiki\/.+$/, '/wiki/' + data.urlId);
