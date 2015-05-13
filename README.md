@@ -1,6 +1,6 @@
 # Offline Wikipedia Demo
 
-[Offline Wikipedia](https://jakearchibald.github.io/offline-wikipedia/) is a demo of how a content site such as Wikipedia could offer offline content.
+[Offline Wikipedia](https://wiki-offline.jakearchibald.com) is a demo of how a content site such as Wikipedia could offer offline content.
 
 # Running locally
 
