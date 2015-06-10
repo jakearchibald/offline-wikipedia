@@ -110,10 +110,22 @@
         </label>
         <label>
           <div class="input-container">
+            <input type="checkbox" name="article-css-import" value="1"{?flags.article-css-import} checked{/flags.article-css-import}>
+          </div>
+          <div class="desc">
+            <div class="main">Use @import to load article CSS.</div>
+            <div class="sub">
+              Rather than a link tag. This requires the "Don't load extra CSS with XHR"
+              flag, and has no effect if "Regular CSS loading" is used. Complicated eh?
+            </div>
+          </div>
+        </label>
+        <label>
+          <div class="input-container">
             <input type="checkbox" name="regular-css-loading" value="1"{?flags.regular-css-loading} checked{/flags.regular-css-loading}>
           </div>
           <div class="desc">
-            <div class="main">Regular CSS loading</div>
+            <div class="main">Regular CSS loading.</div>
             <div class="sub">
               Load all CSS using a link tag in the head. By deafult, a 
               small amount of CSS loads inline, and the second loads depending 

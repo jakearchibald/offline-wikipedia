@@ -5,7 +5,11 @@
     <div class="article-container">
   {:else}
     {?flags.no-css-async-hack}
-      <link rel="stylesheet" href="/css/wiki.css">
+      {?flags.article-css-import}
+        <style>@import url('/css/wiki.css');</style>
+      {:else}
+        <link rel="stylesheet" href="/css/wiki.css">
+      {/flags.article-css-import}
       <div class="article-container">
     {:else}
       <div class="article-container" style="display:none">
