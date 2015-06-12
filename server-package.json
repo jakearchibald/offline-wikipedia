@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "express": "^4.12.3",
-    "regenerator": "^0.8.22",
+    "regenerator": "^0.8.29",
     "request": "^2.55.0",
     "rsvp": "^3.0.18",
     "dustjs-linkedin": "^2.7.0",
