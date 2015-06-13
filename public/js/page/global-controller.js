@@ -1,7 +1,7 @@
 require('regenerator/runtime');
 
 var debounce = require('debounce');
-var wikipedia = require('./wikipedia');
+var wikipedia = require('../shared/wikipedia');
 var flags = require('./flags').parse();
 
 class GlobalController {

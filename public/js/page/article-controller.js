@@ -1,5 +1,5 @@
 var debounce = require('debounce');
-var wikipedia = require('./wikipedia');
+var wikipedia = require('../shared/wikipedia');
 var wikiDisplayDate = require('../../../isojs/wiki-display-date');
 var flags = require('./flags').parse();
 

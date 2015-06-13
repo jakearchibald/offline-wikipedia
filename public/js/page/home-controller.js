@@ -1,4 +1,4 @@
-var wikipedia = require('./wikipedia');
+var wikipedia = require('../shared/wikipedia');
 
 var cacheCapable = 'caches' in window;
 

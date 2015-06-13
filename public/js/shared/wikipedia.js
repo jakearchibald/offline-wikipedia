@@ -1,5 +1,4 @@
 var srcset = require('srcset');
-var utils = require('./utils');
 
 var cachePrefix = "wikioffline-article-";
 
@@ -53,6 +52,9 @@ class Article {
 
   async _createCacheArticleResponse() {
     var text = await this.getHtml();
+    // workers don't have access to DPR, so let's just go with '2'
+    // until I can think up something better (like storing it in IDB)
+    var devicePixelRatio = self.devicePixelRatio || 2;
 
     // yes I'm parsing HTML with regex muahahaha
     // I'm flattening srcset to make it deterministic
@@ -128,7 +130,7 @@ class Article {
         this.uncache();
       }
       throw err;
-    });
+    }).then(_ => undefined);
   }
 
   async uncache() {
@@ -150,7 +152,7 @@ var wikipedia = {
   async article(name, {
     fromCache = false
   }={}) {
-    if (fromCache && !('caches' in window)) return Promise.reject(Error("Caching not supported"));
+    if (fromCache && !('caches' in self)) return Promise.reject(Error("Caching not supported"));
 
     var article = new Article(name, {fromCache});
     await article.ready;
@@ -158,7 +160,7 @@ var wikipedia = {
   },
 
   async getCachedArticleData() {
-    if (!('caches' in window)) return [];
+    if (!('caches' in self)) return [];
 
     var articleNames = (await caches.keys())
       .filter(cacheName => cacheName.indexOf(cachePrefix) === 0)
