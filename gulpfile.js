@@ -243,7 +243,7 @@ gulp.task('server:serve', function() {
     'dist/index.js',
     'dist/shared-templates/flags.js',
     'dist/public/index-end.html',
-    'dist/public/css/all.css',
+    'dist/public/css/head.css',
     'dist/server-templates/base.js'
   ], plugins.developServer.restart);
 });
