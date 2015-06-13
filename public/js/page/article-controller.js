@@ -1,9 +1,15 @@
 var debounce = require('debounce');
 var wikipedia = require('../shared/wikipedia');
+var storage = require('../shared/storage');
 var wikiDisplayDate = require('../../../isojs/wiki-display-date');
 var flags = require('./flags').parse();
 
 var cacheCapable = ('caches' in window && navigator.serviceWorker.controller);
+var backgroundSyncCapable = (
+  'serviceWorker' in navigator &&
+  navigator.serviceWorker.controller &&
+  'sync' in ServiceWorkerRegistration.prototype
+);
 
 class ArticleController {
   constructor() {
@@ -13,6 +19,7 @@ class ArticleController {
 
     // view events
     this._articleView.on('cacheChange', e => this._onCacheChange(e));
+    this._articleView.on('backgroundLoadRequest', _ => this._onBackgroundLoadRequest());
 
     // state
     this._article = null;
@@ -27,8 +34,35 @@ class ArticleController {
     }
 
     if (flags.get('auto-cache-article') && cacheCapable) {
+      // bit hacky, shouldn't be calling an event handler like this
       this._onCacheChange({value: true});
     }
+  }
+
+  async _onBackgroundLoadRequest() {
+    // TODO: handle denied permission requests
+
+    await new Promise((resolve, reject) => {
+      Notification.requestPermission(permission => {
+        if (permission == 'granted') {
+          resolve();
+        }
+        else {
+          reject(Error("Notification permission denied"));
+        }
+      });
+    });
+
+    var articleQueue = (await storage.get('to-bg-cache')) || [];
+    articleQueue.push(this._urlArticleName);
+    await storage.set('to-bg-cache', articleQueue);
+    var reg = await navigator.serviceWorker.ready;
+
+    await reg.sync.register({
+      tag: 'bg-cache'
+    });
+
+    this._articleView.confirmBackgroundLoad();
   }
 
   async _onCacheChange({value}) {
@@ -64,10 +98,24 @@ class ArticleController {
     this._articleView.updateMeta(await data);
   }
 
+  _offerBackgroundLoad({
+    loadFailed = false
+  }={}) {
+    if (!this._articleView.startedContentRender) {
+      this._articleView.offerBackgroundLoad({loadFailed});
+    }
+  }
+
   async _loadArticle(name) {
     this._articleView.startLoading();
     var articleCachedPromise = wikipedia.article(name, {fromCache: true});
     var articleLivePromise   = wikipedia.article(name);
+
+    var offerBackgroundLoadTimeout = setTimeout(_ => {
+      if (backgroundSyncCapable) {
+        this._offerBackgroundLoad();
+      }
+    }, 3000);
 
     var showedCachedContent = false;
     var cachedArticle, liveArticle;
@@ -77,6 +125,7 @@ class ArticleController {
       await this._displayArticle(cachedArticle);
       showedCachedContent = true;
       console.log('displayed from cache');
+      clearTimeout(offerBackgroundLoadTimeout);
     }
     catch (err) {}
 
@@ -92,12 +141,16 @@ class ArticleController {
         await liveArticle.cache();
       }
       await this._displayArticle(await articleLivePromise);
+      clearTimeout(offerBackgroundLoadTimeout);
       console.log('displayed from live');
     }
     catch (err) {
       if (!showedCachedContent) {
         this._showError(Error("Failed to load article"));
         this._articleView.stopLoading();
+        if (backgroundSyncCapable) {
+          this._offerBackgroundLoad({loadFailed: true});
+        }
       }
     }
   }

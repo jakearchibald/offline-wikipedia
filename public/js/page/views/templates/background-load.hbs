@@ -1,0 +1,22 @@
+<div id="content_wrapper" class="content card-content">
+  {{#if confirmed}}
+    <p>Cool, you'll get a notification when it's ready!</p>
+  {{else}}
+    <p>
+      <strong>
+        Uh oh,
+        {{#if loadFailed}}
+          couldn't fetch that article!
+        {{else}}
+          a slow-loading article!
+        {{/if}}
+      </strong>
+      But it's ok, we can load it in the background
+      {{#if loadFailed}}when connectivity is better{{/if}}
+      and let you know when it's ready.
+    </p>
+    <div class="button-row">
+      <button>Load in background</button>
+    </div>
+  {{/if}}
+</div>

@@ -1,4 +1,7 @@
+require('regenerator/runtime');
 require('serviceworker-cache-polyfill');
+var wikipedia = require('../shared/wikipedia');
+var storage = require('../shared/storage');
 
 var version = '19';
 var prefix = 'wikioffline';
@@ -91,6 +94,31 @@ self.addEventListener('fetch', event => {
       return response || fetch(event.request);
     })
   );
+});
+
+self.addEventListener('sync', async event => {
+  // TODO: add in event.waitUntil when it's supported
+  // Also, my use of storage here has race conditions. Meh.
+  console.log("Good lord, a sync event");
+  var toCache = await storage.get('to-bg-cache') || [];
+
+  await Promise.all(toCache.map(async articleName => {
+    var article = await wikipedia.article(articleName);
+    await article.cache();
+    registration.showNotification((await article.meta).title + " ready!", {
+      icon: "/imgs/wikipedia-192.png",
+      body: "View the article",
+      data: (await article.meta).urlId
+    });
+  }));
+
+  storage.set('to-bg-cache', []);
+});
+
+self.addEventListener('notificationclick', function(event) {
+  // assuming only one type of notification right now
+  event.notification.close();
+  clients.openWindow(`${location.origin}/wiki/${event.notification.data}`);
 });
 
 self.addEventListener('message', event => {

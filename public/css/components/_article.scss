@@ -40,3 +40,24 @@
     @include transform(translateX(-50%));
   }
 }
+
+.background-load-offer {
+  display: none;
+  margin-top: 104px;
+
+  .button-row {
+    text-align: right;
+  }
+
+  button {
+    margin: 0 0 0 auto;
+    color: #9C27B0;
+    text-transform: uppercase;
+    @include min-width-min-content;
+
+    &:focus {
+      outline: none;
+      color: #000;
+    }
+  }
+}

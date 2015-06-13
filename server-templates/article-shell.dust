@@ -30,6 +30,7 @@
   {/flags.regular-css-loading}
       <div class="article-header subheading">{+articleHeaderContent/}</div>
       <div class="article-content card">{+articleContent/}</div>
+      <div class="background-load-offer card"></div>
     </div>
   </div>
 {/bodyContent}
