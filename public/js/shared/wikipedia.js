@@ -1,4 +1,5 @@
 var srcset = require('srcset');
+var storage = require('./storage');
 
 var cachePrefix = "wikioffline-article-";
 
@@ -52,21 +53,21 @@ class Article {
 
   async _createCacheArticleResponse() {
     var text = await this.getHtml();
-    // workers don't have access to DPR, so let's just go with '2'
-    // until I can think up something better (like storing it in IDB)
-    var devicePixelRatio = self.devicePixelRatio || 2;
+    // workers don't have access to DPR
+    var devicePixelRatio = self.devicePixelRatio || (await storage.get('devicePixelRatio')) || 2;
 
     // yes I'm parsing HTML with regex muahahaha
     // I'm flattening srcset to make it deterministic
     text = text.replace(/<img[^>]*>/ig, match => {
-      var newSrc;
+      // start with the image src as density 1
+      var newSrc = (/src=(['"])(.*?)\1/i.exec(match) || [])[2];
 
       match = match.replace(/srcset=(['"])(.*?)\1/ig, (srcsetAll, _, srcsetInner) => {
         try {
           var parsedSrcset = srcset.parse(srcsetInner).sort((a, b) => {
             return a.density < b.density ? -1 : 1;
           });
-          var lastDensity = 0;
+          var lastDensity = 1;
 
           for (var srcSetItem of parsedSrcset) {
             if (devicePixelRatio > lastDensity) {
@@ -101,7 +102,7 @@ class Article {
     var imgRe = /<img[^>]*src=(['"])(.*?)\1[^>]*>/ig;
     var regexResult;
     var articleResponse = await this._createCacheArticleResponse();
-    var htmlText = await this.getHtml();
+    var htmlText = await articleResponse.clone().text();
     var imgSrcs = new Set();
     var urlId = (await this.meta).urlId;
 

@@ -55,7 +55,12 @@ class ArticleController {
 
     var articleQueue = (await storage.get('to-bg-cache')) || [];
     articleQueue.push(this._urlArticleName);
-    await storage.set('to-bg-cache', articleQueue);
+    
+    await Promise.all([
+      storage.set('to-bg-cache', articleQueue),
+      storage.set('devicePixelRatio', self.devicePixelRatio)
+    ]);
+
     var reg = await navigator.serviceWorker.ready;
 
     await reg.sync.register({
