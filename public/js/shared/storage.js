@@ -4,7 +4,7 @@ var idb;
 // avoid opening idb until first call
 function getIdb() {
   if (!idb) {
-    idb = new Idb('svgo-keyval', 1, function(db) {
+    idb = new Idb('wiki-offline-keyval', 1, function(db) {
       db.createObjectStore('keyval');
     });
   }
