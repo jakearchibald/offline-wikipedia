@@ -148,6 +148,7 @@ class ArticleController {
       if (!showedCachedContent) {
         this._showError(Error("Failed to load article"));
         this._articleView.stopLoading();
+        clearTimeout(offerBackgroundLoadTimeout);
         if (backgroundSyncCapable) {
           this._offerBackgroundLoad({loadFailed: true});
         }
