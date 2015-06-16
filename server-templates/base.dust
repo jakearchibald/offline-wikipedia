@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon-precomposed" href="imgs/wikipedia.png">
     <link rel="icon" href="/imgs/wikipedia.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <script>location.port&&"80"!=location.port||"https:"==location.protocol||(location.protocol="https:")</script>
     {?flags.regular-css-loading}
       <link rel="stylesheet" href="/css/head-wiki.css">
     {:else}
