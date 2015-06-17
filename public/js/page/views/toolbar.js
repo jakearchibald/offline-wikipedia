@@ -10,21 +10,25 @@ class Toolbar extends (require('events').EventEmitter) {
     this.container.querySelector('.search-btn').addEventListener('click', e => this.onSearchBtnClick(e));
     this.container.querySelector('.back-btn').addEventListener('click', e => this.onBackBtnClick(e));
     this.searchInput.addEventListener('input', e => this.onSearchInput(e));
+
+    // was this activated before JS loaded?
+    if (this.searchBar.classList.contains('active')) {
+      // wait for a microtask (so event handlers are ready)
+      Promise.resolve().then(_ => this.onSearchInput());
+    }
   }
 
   onSearchBtnClick(event) {
-    this.searchInput.value = '';
+    // most of this is handled inline in base.dust
     this.lastSearchTerm = '';
-    this.searchBar.classList.add('active');
-    this.searchInput.focus();
   }
 
   onBackBtnClick(event) {
-    this.searchBar.classList.remove('active');
+    // most of this is handled inline in base.dust
     this.emit('searchInput', {value: ''});
   }
 
-  onSearchInput(event) {
+  onSearchInput() {
     var value = this.searchInput.value.trim();
 
     if (value != this.lastSearchTerm) {
