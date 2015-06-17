@@ -96,23 +96,27 @@ self.addEventListener('fetch', event => {
   );
 });
 
-self.addEventListener('sync', async event => {
-  // TODO: add in event.waitUntil when it's supported
-  // Also, my use of storage here has race conditions. Meh.
+self.addEventListener('sync', event => {
+  // My use of storage here has race conditions. Meh.
   console.log("Good lord, a sync event");
-  var toCache = await storage.get('to-bg-cache') || [];
 
-  await Promise.all(toCache.map(async articleName => {
-    var article = await wikipedia.article(articleName);
-    await article.cache();
-    registration.showNotification((await article.meta).title + " ready!", {
-      icon: "/imgs/wikipedia-192.png",
-      body: "View the article",
-      data: (await article.meta).urlId
-    });
-  }));
+  event.waitUntil(
+    storage.get('to-bg-cache').then(toCache => {
+      toCache = toCache || [];
 
-  storage.set('to-bg-cache', []);
+      return Promise.all(toCache.map(async articleName => {
+        var article = await wikipedia.article(articleName);
+        await article.cache();
+        registration.showNotification((await article.meta).title + " ready!", {
+          icon: "/imgs/wikipedia-192.png",
+          body: "View the article",
+          data: (await article.meta).urlId
+        });
+      }));
+    }).then(_ => {
+      storage.set('to-bg-cache', []);
+    })
+  );
 });
 
 self.addEventListener('notificationclick', function(event) {
