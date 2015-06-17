@@ -8,7 +8,9 @@ var cacheCapable = ('caches' in window && navigator.serviceWorker.controller);
 var backgroundSyncCapable = (
   'serviceWorker' in navigator &&
   navigator.serviceWorker.controller &&
-  'sync' in ServiceWorkerRegistration.prototype
+  'sync' in ServiceWorkerRegistration.prototype &&
+  self.Set &&
+  Array.from
 );
 
 class ArticleController {
@@ -53,11 +55,11 @@ class ArticleController {
       });
     });
 
-    var articleQueue = (await storage.get('to-bg-cache')) || [];
-    articleQueue.push(this._urlArticleName);
+    var articleQueue = new Set((await storage.get('to-bg-cache')) || []);
+    articleQueue.add(this._urlArticleName);
     
     await Promise.all([
-      storage.set('to-bg-cache', articleQueue),
+      storage.set('to-bg-cache', Array.from(articleQueue)),
       storage.set('devicePixelRatio', self.devicePixelRatio)
     ]);
 
