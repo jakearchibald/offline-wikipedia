@@ -31,9 +31,9 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.map(key => {
-          if (key.indexOf(prefix + '-') === 0
-            && key.indexOf(`${prefix}-article-`) !== 0
-            && expectedCaches.indexOf(key) === -1) {
+          if (key.startsWith(prefix + '-')
+            && !key.startsWith(`${prefix}-article-`)
+            && !expectedCaches.includes(key)) {
             return caches.delete(key);
           }
         })
@@ -59,7 +59,7 @@ self.addEventListener('fetch', event => {
       event.respondWith(caches.match('/shell.html'));
       return;
     }
-    if (requestURL.pathname.indexOf('/wiki/') === 0) {
+    if (requestURL.pathname.startsWith('/wiki/')) {
       if (/\.(json|inc)$/.test(requestURL.pathname)) {
         if (dataTmpCache[requestURL.href]) {
           var response = dataTmpCache[requestURL.href];
@@ -68,7 +68,7 @@ self.addEventListener('fetch', event => {
         }
         return;
       }
-      
+
       // Get ahead of the pack by starting the json request now
       var jsonURL = new URL(requestURL);
       jsonURL.pathname += '.json';

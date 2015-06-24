@@ -30,7 +30,7 @@ class Article {
     var data = this.ready.then(_ => this._metaPromise).then(r => r.clone().json());
 
     this._html = undefined;
-    
+
     this.meta = data.then(meta => {
       meta.updated = new Date(meta.updated);
       return meta;
@@ -90,7 +90,7 @@ class Article {
 
       return match;
     });
-    
+
     return new Response(text, {
       headers: (await this._articlePromise).headers
     });
@@ -164,7 +164,7 @@ var wikipedia = {
     if (!('caches' in self)) return [];
 
     var articleNames = (await caches.keys())
-      .filter(cacheName => cacheName.indexOf(cachePrefix) === 0)
+      .filter(cacheName => cacheName.startsWith(cachePrefix))
       .map(cacheName => cacheName.slice(cachePrefix.length));
 
     return Promise.all(
