@@ -10,7 +10,7 @@ self.addEventListener('install', function(event) {
     // remove caches beginning "wikioffline-"
     var cacheNames = await caches.keys();
     for (var cacheName of cacheNames) {
-      if (!/^wikioffline-/.test(cacheName)) continue;
+      if (!cacheName.startsWith('wikioffline-')) continue;
       await caches.delete(cacheName);
     }
   }());
