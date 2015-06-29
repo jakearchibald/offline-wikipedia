@@ -38,7 +38,6 @@
     "handlebars": "^3.0.1",
     "hbsfy": "^2.2.1",
     "merge-stream": "^0.1.7",
-    "regenerator": "0.8.31",
     "rsvp": "^3.0.18",
     "run-sequence": "^1.0.2",
     "serviceworker-cache-polyfill": "^3.0.0",

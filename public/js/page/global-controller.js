@@ -1,4 +1,4 @@
-require('regenerator/runtime');
+require('babelify/node_modules/babel-core/node_modules/regenerator/runtime');
 
 var debounce = require('debounce');
 var wikipedia = require('../shared/wikipedia');

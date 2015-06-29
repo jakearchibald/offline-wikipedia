@@ -1,4 +1,4 @@
-require('regenerator/runtime');
+require('babelify/node_modules/babel-core/node_modules/regenerator/runtime');
 require('serviceworker-cache-polyfill');
 var wikipedia = require('../shared/wikipedia');
 var storage = require('../shared/storage');
