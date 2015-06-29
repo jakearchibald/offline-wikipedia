@@ -11,7 +11,8 @@
       <p>
         This is a little experiment showing off different kinds of 
         content delivery &amp; offline-first. To mess around with 
-        how this page is served, check out <a href="/flags">the flags</a>.
+        how this page is served, check out <a href="/flags">the flags</a>. 
+        <a href="https://github.com/jakearchibald/offline-wikipedia">Source is on GitHub</a>.
       </p>
       <p>
         Give the search icon a tap to begin your journey. 

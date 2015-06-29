@@ -3,7 +3,7 @@ require('serviceworker-cache-polyfill');
 var wikipedia = require('../shared/wikipedia');
 var storage = require('../shared/storage');
 
-var version = '20';
+var version = '21';
 var prefix = 'wikioffline';
 var staticCacheName = `${prefix}-static-v${version}`;
 
