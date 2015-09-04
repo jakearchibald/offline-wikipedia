@@ -3,10 +3,10 @@ require('serviceworker-cache-polyfill');
 var wikipedia = require('../shared/wikipedia');
 var storage = require('../shared/storage');
 
-var version = '22';
+var version = '23';
 var prefix = 'wikioffline';
 var staticCacheName = `${prefix}-static-v${version}`;
-
+ 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(staticCacheName).then(cache => {
@@ -53,10 +53,6 @@ self.addEventListener('fetch', event => {
   if (requestURL.origin == location.origin) {
     if (requestURL.pathname == '/') {
       event.respondWith(caches.match('/'));
-      return;
-    }
-    if (requestURL.pathname == '/') {
-      event.respondWith(caches.match('/shell.html'));
       return;
     }
     if (requestURL.pathname.startsWith('/wiki/')) {
