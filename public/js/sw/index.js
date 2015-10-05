@@ -33,7 +33,7 @@ self.addEventListener('activate', event => {
         keys.map(key => {
           if (key.startsWith(prefix + '-')
             && !key.startsWith(`${prefix}-article-`)
-            && !expectedCaches.includes(key)) {
+            && expectedCaches.indexOf(key) == -1) {
             return caches.delete(key);
           }
         })
