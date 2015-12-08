@@ -9,6 +9,7 @@ var backgroundSyncCapable = (
   'serviceWorker' in navigator &&
   navigator.serviceWorker.controller &&
   'sync' in ServiceWorkerRegistration.prototype &&
+  'getTags' in SyncManager.prototype &&
   self.Set &&
   Array.from
 );
@@ -65,9 +66,7 @@ class ArticleController {
 
     var reg = await navigator.serviceWorker.ready;
 
-    await reg.sync.register({
-      tag: 'bg-cache'
-    });
+    await reg.sync.register('bg-cache');
 
     this._articleView.confirmBackgroundLoad();
   }
