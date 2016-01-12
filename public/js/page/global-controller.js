@@ -1,4 +1,4 @@
-require('babelify/node_modules/babel-core/node_modules/regenerator/runtime');
+require('regenerator/runtime');
 
 var debounce = require('debounce');
 var wikipedia = require('../shared/wikipedia');
@@ -55,12 +55,13 @@ class GlobalController {
 
     var reg = await navigator.serviceWorker.register('/sw.js')
     reg.addEventListener('updatefound', _ => this._onSwUpdateFound(reg));
-    navigator.serviceWorker.addEventListener('controllerchange', _ => this._onSwControllerChange());
+    var refreshing;
+    navigator.serviceWorker.addEventListener('controllerchange', _ => {
+      if (refreshing) return;
+      window.location.reload();
+      refreshing = true;
+    });
     if (reg.waiting) this._onSwUpdateReady();
-  }
-
-  _onSwControllerChange() {
-    location.reload();
   }
 
   async _onSwUpdateReady() {

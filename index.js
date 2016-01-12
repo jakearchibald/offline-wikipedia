@@ -17,6 +17,7 @@ require('./server-templates/index');
 require('./server-templates/flags');
 require('./server-templates/article-shell');
 require('./server-templates/article');
+require('./server-templates/article-stream');
 
 var Flags = require('./isojs/flags');
 var wikipedia = require('./wikipedia');
@@ -125,6 +126,56 @@ app.get(/\/wiki\/(.+)\.json/, compression(), async (req, res) => {
     res.status(500).json({
       err: err.message
     });
+  }
+});
+
+// TODO: this is a horrible copy & paste job from the main server-render route. Should be refactored.
+app.get(/\/wiki\/(.+)\.middle\.inc/, compression({
+  flush: zlib.Z_PARTIAL_FLUSH
+}), async (req, res) => {
+  try {
+    var name = req.params[0];
+
+    if (req.flags.get('avoid-wikipedia')) {
+      var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
+      var articleStream = new Promise(r => setTimeout(r, 900)).then(_ => {
+        return fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+          encoding: 'utf8'
+        });
+      });
+    }
+    else {
+      var meta = wikipedia.getMetaData(name);
+      if (req.flags.get('no-wiki-piping')) {
+        var articleStream = wikipedia.getArticle(name);
+      }
+      else {
+        var articleStream = wikipedia.getArticleStream(name);
+      }
+    }
+
+    meta = meta.then(data => {
+      data.updated = wikiDisplayDate(new Date(data.updated));
+      data.server = true;
+      data.safeTitle = JSON.stringify(data.title);
+      data.safeUrlId = JSON.stringify(data.urlId);
+      return data;
+    });
+
+    res.status(200);
+    res.type('html');
+
+    sendDustTemplateOutput(req, res, 'article-stream', {
+      title: name.replace(/_/g, ' '),
+      flags: req.flags.getAll(),
+      content: articleStream,
+      headerContent: meta.then(meta => articleHeader(meta))
+    });
+  }
+  catch (err) {
+    console.log(err, err.stack);
+    res.write("ERRORD")
+    res.end();
   }
 });
 

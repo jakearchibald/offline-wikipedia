@@ -1,0 +1,7 @@
+<div class="article-header subheading">{headerContent|s}</div>
+<div class="article-content card">
+  <div id="content_wrapper" class="content card-content server-rendered">
+    <p>Streamed from SW</p>
+    {content|s}
+  </div>
+</div>
