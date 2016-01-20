@@ -85,18 +85,20 @@ self.addEventListener('fetch', event => {
       }
 
       // Get ahead of the pack by starting the json request now
-      var jsonURL = new URL(requestURL);
-      jsonURL.pathname += '.json';
-      jsonURL.search = '';
-      var incURL = new URL(requestURL);
-      incURL.pathname += '.inc';
-      incURL.search = '';
-      dataTmpCache[jsonURL.href] = fetch(jsonURL, {
-        credentials: 'include' // needed for flag cookies
-      });
-      dataTmpCache[incURL.href] = fetch(incURL, {
-        credentials: 'include' // needed for flag cookies
-      });
+      if (!requestURL.search.includes('no-prefetch')) {
+        var jsonURL = new URL(requestURL);
+        jsonURL.pathname += '.json';
+        jsonURL.search = '';
+        var incURL = new URL(requestURL);
+        incURL.pathname += '.inc';
+        incURL.search = '';
+        dataTmpCache[jsonURL.href] = fetch(jsonURL, {
+          credentials: 'include' // needed for flag cookies
+        });
+        dataTmpCache[incURL.href] = fetch(incURL, {
+          credentials: 'include' // needed for flag cookies
+        });
+      }
 
       event.respondWith(caches.match('/shell.html'));
       return;
@@ -122,9 +124,9 @@ function streamArticle(url) {
     start(controller) {
       const contentURL = new URL(url);
       contentURL.pathname += '.middle.inc';
-      const startFetch = caches.match('/shell-start.html')
+      const startFetch = caches.match('/shell-start.html');
       const contentFetch = fetch(contentURL).catch(() => new Response("Failed, soz"));
-      const endFetch = caches.match('/shell-end.html')
+      const endFetch = caches.match('/shell-end.html');
 
       function pushStream(stream) {
         const reader = stream.getReader();
