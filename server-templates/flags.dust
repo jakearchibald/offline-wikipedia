@@ -32,7 +32,7 @@
           </div>
           <div class="desc">
             <div class="main">Avoid going to wikipedia for article data.</div>
-            <div class="sub">Although all articles will be about Hulk Hogan. But who <em>doesn't</em> want that?</div>
+            <div class="sub">Although all articles will be about Google. But who <em>doesn't</em> want that?</div>
           </div>
         </label>
         <label>
@@ -51,7 +51,7 @@
           <div class="desc">
             <div class="main">Disable chunking</div>
             <div class="sub">
-              All pages are served with chunking, this is particularly useful on
+              All pages are served with chunking, this is particularly useful on 
               article pages as it allows the top-of-page content to be rendered 
               while the request to wikipedia is still in progress. 
               This only impacts server-side rendering.
@@ -65,7 +65,7 @@
           <div class="desc">
             <div class="main">Disable wikipedia piping</div>
             <div class="sub">
-              By default, content is piped from wikipedia to the response. If
+              By default, content is piped from wikipedia to the response. If 
               you tick this, content will be fully buffered on the server 
               before sending. This only impacts server-side rendering.
             </div>
@@ -90,7 +90,7 @@
           <div class="desc">
             <div class="main">Prevent client-side streaming</div>
             <div class="sub">
-              When rendering articles on the client, the streaming API is used in Canary
+              When rendering articles on the client, the streaming API is used in Canary 
               to get a quicker first render. This setting disables that optimisation.
             </div>
           </div>
@@ -115,7 +115,7 @@
           <div class="desc">
             <div class="main">Use @import to load article CSS.</div>
             <div class="sub">
-              Rather than a link tag. This requires the "Don't load extra CSS with XHR"
+              Rather than a link tag. This requires the "Don't load extra CSS with XHR" 
               flag, and has no effect if "Regular CSS loading" is used. Complicated eh?
             </div>
           </div>
