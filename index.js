@@ -102,7 +102,7 @@ app.get(/\/wiki\/(.+)\.json/, compression(), async (req, res) => {
 
   if (req.flags.get('avoid-wikipedia')) {
     var metaContent = new Promise(r => setTimeout(r, 900)).then(_ => {
-      return readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
+      return readFile(__dirname + '/wikipedia/google.json').then(JSON.parse);
     });
   }
   else {
@@ -137,9 +137,9 @@ app.get(/\/wiki\/(.+)\.middle\.inc/, compression({
     var name = req.params[0];
 
     if (req.flags.get('avoid-wikipedia')) {
-      var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
+      var meta = readFile(__dirname + '/wikipedia/google.json').then(JSON.parse);
       var articleStream = new Promise(r => setTimeout(r, 900)).then(_ => {
-        return fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+        return fs.createReadStream(__dirname + '/wikipedia/google.html', {
           encoding: 'utf8'
         });
       });
@@ -186,7 +186,7 @@ app.get(/\/wiki\/(.+)\.inc/, compression({
 
   if (req.flags.get('avoid-wikipedia')) {
     await new Promise(r => setTimeout(r, 900));
-    var articleStream = fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+    var articleStream = fs.createReadStream(__dirname + '/wikipedia/google.html', {
       encoding: 'utf8'
     });
   }
@@ -236,9 +236,9 @@ app.get(/\/wiki\/(.*)/, compression({
     var name = req.params[0];
 
     if (req.flags.get('avoid-wikipedia')) {
-      var meta = readFile(__dirname + '/wikipedia/hogan.json').then(JSON.parse);
+      var meta = readFile(__dirname + '/wikipedia/google.json').then(JSON.parse);
       var articleStream = new Promise(r => setTimeout(r, 900)).then(_ => {
-        return fs.createReadStream(__dirname + '/wikipedia/hogan.html', {
+        return fs.createReadStream(__dirname + '/wikipedia/google.html', {
           encoding: 'utf8'
         });
       });
