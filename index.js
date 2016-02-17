@@ -42,6 +42,7 @@ app.use('/sw.js', gzipStatic('public/sw.js', {
   maxAge: 0
 }));
 app.use('/manifest.json', gzipStatic('public/manifest.json'));
+app.use('/google589825ec7319e599.html', gzipStatic('public/google589825ec7319e599.html'));
 
 app.use(cookieParser(), (req, res, next) => {
   req.flags = new Flags(
