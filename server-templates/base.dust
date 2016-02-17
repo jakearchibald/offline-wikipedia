@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="theme-color" content="#9C27B0">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    {?canonical}<link rel="canonical" href="{canonical}" />{/canonical}
+    <meta name="robots" content="noindex">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon-precomposed" href="imgs/wikipedia.png">
     <link rel="icon" href="/imgs/wikipedia.ico">

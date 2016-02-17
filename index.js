@@ -270,7 +270,8 @@ app.get(/\/wiki\/(.*)/, compression({
       inlineCss: inlineCss,
       flags: req.flags.getAll(),
       content: articleStream,
-      headerContent: meta.then(meta => articleHeader(meta))
+      headerContent: meta.then(meta => articleHeader(meta)),
+      canonical: 'https://en.wikipedia.org/wiki/' + name
     });
   }
   catch (err) {
