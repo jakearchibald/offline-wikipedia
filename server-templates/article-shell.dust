@@ -12,15 +12,17 @@
       {/flags.article-css-import}
       <div class="article-container">
     {:else}
-      <div class="article-container" style="display:none">
+      <div class="article-container">
         <script>{`
           (function() {
+            var article = document.querySelector('.article-container');
             var req = new XMLHttpRequest();
+            article.style.display = 'none';
             req.onload = function() {
               var style = document.createElement('style');
               style.textContent = req.responseText;
               document.head.appendChild(style);
-              document.querySelector('.article-container').style.display = '';
+              article.style.display = '';
             }
             req.open('GET', '/css/wiki.css');
             req.send();
