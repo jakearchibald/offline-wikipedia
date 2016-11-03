@@ -14,6 +14,8 @@ var backgroundSyncCapable = (
   Array.from
 );
 
+const WIKI_RE = /^\/wiki\/(.+)/;
+
 class ArticleController {
   constructor() {
     // ui
@@ -26,7 +28,7 @@ class ArticleController {
 
     // state
     this._article = null;
-    this._urlArticleName = /^\/wiki\/(.+)/.exec(location.pathname)[1];
+    this._urlArticleName = WIKI_RE.exec(location.pathname)[1];
 
     // setup
     if (this._articleView.serverRendered) {
@@ -40,6 +42,41 @@ class ArticleController {
       // bit hacky, shouldn't be calling an event handler like this
       this._onCacheChange({value: true});
     }
+
+    if (flags.get('push-state-updates')) {
+      document.addEventListener('click', event => {
+        const link = event.target.closest('a');
+        if (!link) return;
+
+        const url = new URL(link.href);
+        if (url.origin == location.origin && url.pathname.includes('/wiki/')) {
+          event.preventDefault();
+          this._pushStateUpdate(url.pathname);
+        }
+      })
+    }
+
+    if (flags.get('sw-stream-url')) {
+      document.addEventListener('click', event => {
+        const link = event.target.closest('a');
+        if (!link) return;
+
+        const url = new URL(link.href);
+        if (url.origin == location.origin && url.pathname.includes('/wiki/')) {
+          event.preventDefault();
+          url.searchParams.set('sw-stream', '');
+          location.href = url;
+        }
+      })
+    }
+  }
+
+  _pushStateUpdate(pathname) {
+    this._articleView.updateContent('');
+    this._articleView.updateMeta();
+    this._urlArticleName = WIKI_RE.exec(pathname)[1];
+    history.pushState({}, '', pathname);
+    this._loadArticle(this._urlArticleName);
   }
 
   async _onBackgroundLoadRequest() {

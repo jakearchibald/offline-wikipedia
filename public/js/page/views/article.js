@@ -114,6 +114,10 @@ class Article extends (require('events').EventEmitter) {
   }
 
   updateMeta(data) {
+    if (!data) {
+      this._header.innerHTML = '';
+      return;
+    }
     this._header.innerHTML = headerTemplate(data);
   }
 
