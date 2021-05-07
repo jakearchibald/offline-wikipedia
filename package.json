@@ -35,7 +35,7 @@
     "gulp-shell": "^0.4.1",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-util": "^3.0.4",
-    "handlebars": "^3.0.1",
+    "handlebars": "^4.7.7",
     "hbsfy": "^2.2.1",
     "merge-stream": "^0.1.7",
     "regenerator": "^0.8.42",
